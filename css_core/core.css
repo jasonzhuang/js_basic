@@ -1,0 +1,47 @@
+/**
+ * priority:
+ * ID selector > class selector > tag selector  
+ * 
+ */
+body {font: 16px "Comic Sans MS", cursive;}
+strong {color: red;}
+
+#first {font-style: italic;}
+/**
+ * add an image before p<id="first">
+ */
+#first:before {
+    content : url("Yellow-pin.png");
+}
+
+#numbered {
+    border: 3px solid #69b;
+    width : 300px;
+    height: 500px;
+}
+
+.special {
+    width : 150px;
+    height: 60px;
+    border : 2px solid #FF0000;
+    padding-left : 5px;
+    background-color : #008000;
+}
+
+#position {
+    width : 20em;
+    height : 20em;
+    background-color :#008000;
+    position : relative;
+    top:80px;
+    left: 20px;
+}
+
+#two {
+    width: 10em;
+    height: 10em;
+    background-color : #6699BB;
+    position : relative;
+    top : 50px;
+    left :40px;
+}

@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<title>Activity</title>
+<link rel="stylesheet" href="reset.css" type="text/css"/>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.blockUI.js"></script>
+<style type="text/css">
+    /**default, button has border*/
+    button, input{
+        border:none;
+    }
+
+    .g-binggo {
+        position:relative;
+        width:564px;
+        height:435px;
+        background:url('images/binggo.png');
+    }
+    
+    .g-binggo .m-title {
+        width:100%;
+        padding:100px 0 0 480px;
+    }
+    
+    
+    .g-binggo .m-snapshot {
+        float:left;
+        width:225px;
+        padding:40px 0 0 55px;
+    }
+    
+    .g-binggo .m-content {
+        position:relative;
+        float:left;
+        width:166px;
+        padding:30px 0 0 50px;
+        line-height:20px;
+    }
+    
+    .m-content .m-share {
+        position:absolute;
+        top:220px;
+        left:100px;
+        margin-left:-20px;
+    }
+    
+    .m-title .closeWindow {
+        width: 28px;
+        height: 28px;
+        background:url('images/btns.png') no-repeat 0 0;
+    }
+        
+    .m-content .action {
+        display:block;
+        margin-top:10px;
+        padding-top:20px;
+    }
+    
+    .m-content .templateInfo {
+        color:#b62163;
+        font-weight: bold;
+        font-size:14px;
+        font-family:simsun,arial;
+    }
+    
+    .m-content .btn {
+        background:url('images/btns.png') 0 -181px;
+        width:103px;
+        height:49px;
+        text-align:center;
+        color:#99657c;
+        font-weight: bold;
+        font-size:14px;
+        font-family:simsun,arial;
+    }
+    
+    .m-content .m-share p {
+        font-size:12px;
+        color:#14a4ac;
+    }
+    
+    .m-content .m-share li {
+        display:inline-block;*display:inline;*zoom:1;
+    }
+    
+    .m-share button {
+        background:url('images/btns.png');
+        height:16px;
+        width:19px;
+    }
+    
+    .m-share button.u-netease {
+        background-position:0 -57px;
+    }
+    
+    .m-share button.u-sina {
+        background-position:0 -79px;
+    }
+    
+    .m-share button.u-douban {
+        background-position: 0 -148px;
+    }
+    
+    .m-share button.u-qq {
+        background-position: 0 -101px;
+    }
+    
+    .m-share button.u-renren {
+        background-position: 0 -125px;
+    }
+    
+    /**interactive css**/
+    .g-interactive {
+        width:544px;
+        height:275px;
+        background:url('images/interactive.png');
+    }
+    
+    .g-interactive .m-title {
+        padding:100px 0 0 480px;
+    }
+    
+    .g-interactive .m-content {
+        position:relative;
+        padding:30px 0 0 60px;
+    }
+    
+    .m-content .btn {
+        background:url('images/btns.png') 0 -181px;
+        width:103px;
+        height:49px;
+        text-align:center;
+    }
+    
+    .g-interactive .u-input {
+        width:313px;
+        height:62px;
+        padding:0 15px 0 0;
+        background:url('images/textinput.png') no-repeat;
+        line-height:62px;
+    }
+    
+    /**coupon css**/
+    .g-coupon {
+        width:544px;
+        height:275px;
+        background:url('images/coupon.png');
+    }
+    
+    .g-coupon .m-title {
+        padding:100px 0 0 480px;
+    }
+    
+    .g-coupon .m-content {
+        position:relative;
+        padding:60px 0 0 160px;
+    }
+    
+    /**rule css**/
+    .g-rule {
+        width:564px;
+        height:435px;
+        background:url('images/rule.png');
+    }
+    
+    .g-rule .m-title {
+        padding:100px 0 0 480px;
+    }
+</style>
+</head>
+
+<body>
+  <div>
+    <input type="button" onclick="showRuleWin()" value="Click"/>
+  </div>
+  <script src="js/activity_20120824.js"></script>
+</body>
+</html>

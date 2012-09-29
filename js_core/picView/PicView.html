@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html;charset=gbk"/>
+    <title>Picture view</title>
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <link rel="stylesheet" href="../css/picview.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+</head>
+<body>
+    <div class="main">
+        <div class="product_view">
+            <div class="zoomple">
+                <img src="../images/camera.jpg" alt="Camera"
+                    style="margin-top: 30px;width:400px"/>
+               <!--  <span class="zoomplePopup"></span> -->
+            </div>
+            <div class="preview">
+                <img id="previewImg" src="../images/camera.jpg" alt="preview image">
+            </div>
+        </div>
+    
+        <div class="product_detail">
+            <div class="pro_title">
+                <h1>Welcom to buy the product</h1
+            </div>
+            <!--here directly use ul, not use div, for ul is naturally vertical-->
+            <ul class="pro_info_type">
+                <li id="_main_price" class="main_price hide fix cl" style="display: list-item;">
+                    <span>易购价</span>
+                    <span id="mainPrice" class="sell_price arial">
+                        $
+                        <em>8488.00</em>
+                    </span>
+                </li>
+                <li class="citychoose">
+                    <span class="attr">送至：</span>
+                    <span>浙江省杭州市网商路</span>
+                </li>
+            </ul>
+            <div class="buy_btn">
+                <a id="buyNow" class="quick_buy_btn" href="#">一键购</a>
+                <a id="addCart" class="add_cart" href="javascript:void(0);">加入购物车</a>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="picView.js"></script>
+</body>
+</html>

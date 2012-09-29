@@ -1,0 +1,9 @@
+/**
+ * The height and width properties assign a height and width to the <bold>content</bold> area of a style
+ *
+ * CSS rules require setting the width for floated elements for all tags except images
+ * 
+ * The clear property instructs an element to not wrap around a floated item
+ * 
+ * float has the added benefit of letting you set a width and force elements that follow the style to wrap around it
+ */
