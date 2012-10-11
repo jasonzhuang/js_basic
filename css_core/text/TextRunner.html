@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Text Properties</title>
+        <style>
+            div {
+                margin:5px;
+                border:solid #6F3BA4;    
+            }
+            
+            .para1 {
+                text-align: center;
+            }
+            
+            /**
+             * text decorations are not propagated to floating and absolutely positioned descendants
+             */
+            .para1 em {
+                text-decoration: blink ;
+            }
+            
+            /**
+             * declares how white space inside the element is handled
+             * Note the difference between para2 and para3, which is different when has newline
+             */
+            .para2 {
+                width:200px;
+            }
+            
+            .para2 p {
+                white-space:nowrap;
+            }
+            
+            .para3 {
+                width:200px;
+            }
+            .para3 p {
+                white-space:pre;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="para1">
+            <p>The first para bara bara.....<em>This is obsolete</em></p>
+        </div>
+        <div class="para2">
+            <p>The second      para bara       bara   .....hello
+                <br/>Should begin in another line
+            </p>
+            <p>This is newline in para2 bara bara....</p>
+        </div>
+        <div class="para3">
+            <p>The second      para bara       bara   .....hello
+                <br/>Should begin in another line
+            </p>
+            <p>This is newline in para2 bara bara....</p>
+        </div>
+    </body>
+</html>
