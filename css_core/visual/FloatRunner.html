@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Float flow Runner</title>
+		<style>
+		/**
+		 * 	If a shortened line box is too small to contain any content, then the line box is shifted downward
+		 * 
+		 *  If a child element is floating, the containing box will not count its height,
+		 *  in this example, try comment img float property
+		 */
+			.para1{
+				 width: 10em; 
+				 border: solid aqua;
+			}
+			
+			.para1 span {
+				float: left;
+				width: 5em;
+				height: 100px; 
+				border: solid blue;
+			}
+			
+			.para2, img {
+				margin: 2em;
+			}
+			
+			.para2 {
+				border: solid #00FF00;
+			}
+			
+			.para2 img {
+				float:left;
+				border:solid #00FFFF;
+			}
+			
+			.para3 {
+				/*clear:left;*/
+				border:solid #FF0000;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="para1">
+			<!-- <p>Supercalifragilisticexpialidocious</p> -->
+			<span>SPAN Context</span>
+			<p>Supercalifragilisticexpialidocious</p>
+		</div>
+		
+		<p class="para2">
+			<img src="../images/leaves.jpg" alt="This image will illustrate floats"/>
+			Some sample text that has no other purpose to show how floating
+			elements are moved to side of the parent element while honoring
+			margins borders and padding. Note how adjacent vertical margins
+			are collapsed between non-floating block-level elements
+		</p>
+		
+		<div class="para3">
+			Some sample text that has no other purpose to show how floating
+			elements are moved to side of the parent element while honoring
+			margins borders and padding. Note how adjacent vertical margins
+			are collapsed between non-floating block-level elements
+		</div>
+	</body>
+</html>

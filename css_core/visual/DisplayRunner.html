@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Display Runner</title>
+		<style>
+			/**
+			 * 	anonymous boxes, refer http://www.w3.org/TR/CSS2/visuren.html
+			 */
+			make_inline { display: inline }
+			span { display:block }
+			.make_inline_block {display:inline-block;background: #00CC33}
+		</style>
+	</head>
+	<body>
+		<div class="make_inline">
+			This is anonymous block box text before the SPAN.
+			<SPAN>This is the content of SPAN.</SPAN>
+			This is anonymous block box text after the SPAN.
+		</div>
+		
+		<div class="make_inline_block">
+			This is paragragh one
+			<em>This is paragragh two</em>
+		</div>
+		
+
+	</body>
+</html>

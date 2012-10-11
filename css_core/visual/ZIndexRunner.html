@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Z-index Runner</title>
+		<style>
+		.pile { 
+	        position: absolute; 
+	        left: 2in; 
+	        top: 2in; 
+	        width: 3in; 
+	        height: 3in; 
+      	}
+      	
+      	#text1 {
+      		color:#FF0000;
+      	}
+      	
+      	#text3 {
+      		color:#00FFFF;
+      	}
+		</style>
+	</head>
+	<body>
+		<P>
+	      <IMG id="image" class="pile" 
+	           src="../images/leaves.jpg" alt="A butterfly image"
+	           style="z-index: 1">
+	    </P>
+	   
+	    <DIV id="text1" class="pile" 
+	         style="z-index: 3">
+	      This text will overlay the butterfly image.
+	    </DIV>
+	
+	    <DIV id="text2">
+	      This text will be beneath everything.
+	    </DIV>
+	
+	    <DIV id="text3" class="pile" 
+	         style="z-index: 2">
+	      This text will underlay text1, but overlay the butterfly image
+	    </DIV>
+	</body>
+</html>
