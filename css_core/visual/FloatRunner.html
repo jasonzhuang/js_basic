@@ -38,6 +38,9 @@
 				/*clear:left;*/
 				border:solid #FF0000;
 			}
+			
+			.f-cb:after{clear:both;content:'.';display:block;height:0;visibility:visible;}
+            .f-cb{zoom:1;}
 		</style>
 	</head>
 	<body>
@@ -47,7 +50,7 @@
 			<p>Supercalifragilisticexpialidocious</p>
 		</div>
 		
-		<p class="para2">
+		<p class="para2 f-cb">
 			<img src="../images/leaves.jpg" alt="This image will illustrate floats"/>
 			Some sample text that has no other purpose to show how floating
 			elements are moved to side of the parent element while honoring
