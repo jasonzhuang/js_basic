@@ -24,7 +24,7 @@ var TemplatePool = (function(){
                 {tid:'16112',tname:'pocker ass',tinfo:'矮油，重口味我喜欢', tpic:"http://st4.yxp.126.net/img2012/page/1601/te116112/116527.jpg"},
                 {tid:'16113',tname:'非礼勿视 ',tinfo:'目不转睛了吧？', tpic:"http://st4.yxp.126.net/img2012/page/1601/te116113/116524.jpg"},
                 {tid:'16054',tname:'旋转木马 ',tinfo:'色彩斑斓的童话故事', tpic:"http://st1.yxp.126.net/img2012/page/1601/te116054/116632.jpg"},
-                {tid:'16108',tname:'zip dowm ',tinfo:'啦啦啦啦啦啦啦啦啦', tpic:"hhttp://st2.yxp.126.net/img2012/page/1601/te116108/116616.jpg"},
+                {tid:'16108',tname:'zip dowm ',tinfo:'啦啦啦啦啦啦啦啦啦', tpic:"http://st2.yxp.126.net/img2012/page/1601/te116108/116616.jpg"},
                 {tid:'16078',tname:'呼神护咒 ',tinfo:'玛丽玛丽玛丽贝贝红', tpic:"http://st3.yxp.126.net/img2012/page/1601/te116078/116561.jpg"},
                 {tid:'16053',tname:'巧克力生活 ',tinfo:'看着真好吃！', tpic:"http://st3.yxp.126.net/img2012/page/1601/te116053/116636.jpg"},
                 {tid:'16052',tname:'好奇的长颈鹿 ',tinfo:'为什么我的脖子这么长？', tpic:"http://st1.yxp.126.net/img2012/page/1601/te116052/116640.jpg"},
@@ -52,28 +52,48 @@ var TemplatePool = (function(){
                 }
             });
             return result;
+        },
+        getPool:function() {
+        	return pool;
         }
-    }
+    };
 })();
 
 var CONFIG = (function(){
     var URL = "http://yxp.163.com/act/20120824.html";
-    var content = "获取命中章鱼贴";
+    var detailURLBase = "http://yxp.163.com/store/detail/?pt=1601&";
     return {
         getURL:function(){
             return URL;
         },
-        getContent:function(){
-            return content;
+        getDetailURLBase:function(){
+        	return detailURLBase;
         }
-    }
+    };
 })();
+
+function log(tag){
+	$.post("http://yxp.163.com/log/" + tag + "&t=" + new Date().getTime());
+}
+
+var voucherList=[{index:1,code:"sjt85",info:"章鱼贴8.5折"},
+    				{index:2,code:"sjt7",info:"章鱼贴7折"},
+    				{index:3,code:"sjt6",info:"章鱼贴6折"},
+    				{index:4,code:"sjt5",info:"章鱼贴5折"},
+    				{index:5,code:"sjtm1",info:"章鱼贴单套装免费+包邮"},
+    				{index:6,code:"sjtm2",info:"章鱼贴三套装免费+包邮"},
+    				{index:7,code:"sjty",info:"章鱼贴包邮"}];
 
 var userName="";
 var templateName="";
-var discount="";
+var discountDesc="";
 var templateDesc="";
-var tid="16054";
+var tid = "";
+var randomCode="";
+var luckyCount = 0;
+
+//当面中奖的类型对象
+var prizeType={};
 
 function resetBlockUI() {
     $.blockUI.defaults.css.border = 'none';
@@ -89,10 +109,11 @@ function showPopUp(content, width, height) {
                 css:{
                         width:_width,
                         height:_height,
-                        background:"transparent",
-                        top:"20%",
-                        left:"25%"
-                },
+                        top:"25%",
+                        left:"33%",
+                        overflow:'auto',
+                        backgroundColor:'transparent'
+                }
                });
 }
 
@@ -103,24 +124,38 @@ function removePopListener(content) {
          );
 }
 
+function showSorryWin(){
+	resetBlockUI();
+	var content = $('<div class="g-sorry">\
+                      <div class="m-title">\
+                          <button id="closeBtn" class="closeWindow" hidefocus></button>\
+                      </div>\
+					</div>\
+					'
+					);
+    removePopListener(content);
+    showPopUp(content, '553px', '289px');
+}
+
 function showBinggoWin(){
     resetBlockUI();
     var content = $('<div class="g-binggo">\
-                      <div class="m-title">\
-                          <button id="closeBtn" class="closeWindow" style="padding-left:480px;" hidefocus></button>\
+                      <div class="m-title" style="width:80px">\
+                          <button id="closeBtn" class="closeWindow" hidefocus></button>\
                       </div>\
                       <div class="m-snapshot">\
-                          <img id="templatePic" src="" alt="章鱼贴产品图" style="border:none;width:220px;height:220px"/>\
+                          <img id="templatePic" src="" alt="章鱼贴产品图" style="width:220px;height:220px;margin-left:10px"/>\
                       </div>\
-                      <div class="m-content">\
+                      <div class="m-content0824">\
                           <div class="templateInfo">\
-                              <p style="font-weight:normal">恭喜<span id="userName"></span>获得命中优惠</p>\
+                              <p style="font-weight:normal"><span class="userName"></span>的命中章鱼贴竟然是</p>\
                               <p id="templateName">模板名</p>\
                               <p id="templateDesc" style="font-weight:normal">模板内容</p>\
-                              <p>章鱼贴<span id="discount"></span>折</p>\
+                              <br/>\
+                              <p style="width:200px;white-space:pre-wrap">快去领取你的<span id="discount"></span>优惠吧</p>\
                             <span class="action"><button class="btn" value="领取优惠>>">领取优惠>></button></span>\
                           </div>\
-                          <div class="m-share" style="padding-left:10px">\
+                          <div class="m-share" style="width:120px">\
                               <p>分享我命中章鱼贴到</p>\
                               <ul>\
                                   <li><button class="u-netease"></button></li>\
@@ -134,9 +169,12 @@ function showBinggoWin(){
                   </div>\
                     ');
     removePopListener(content);
+    shareBind(content);
     setTemplateInfo(content);
     (function(){
         content.find('.btn').click(function(){
+          log("getCoupon");
+          sendCouponInfo();
           showCouponWin();  
         })
     })();
@@ -147,9 +185,9 @@ function setTemplateInfo(content) {
     templateName = TemplatePool.getTemplateInfo(tid)["tname"];
     templateDesc = TemplatePool.getTemplateInfo(tid)["tinfo"];
     templatePic = TemplatePool.getTemplateInfo(tid)["tpic"];
-    content.find('#userName').text(userName);
+    content.find('.userName').text(userName);
     content.find('#templateName').text(templateName);
-    content.find('#discount').text(discount);
+    content.find('#discount').text(discountDesc);
     content.find('#templateDesc').text(templateDesc);
     content.find('#templatePic').attr("src", templatePic);
 }
@@ -172,8 +210,8 @@ function showCouponWin(){
                       <div class="m-title">\
                           <button id="closeBtn" class="closeWindow" hidefocus></button>\
                       </div>\
-                      <div class="m-content" style="padding-left:30px">\
-                          <a style="text-decoration:underline;color:#14a4ac">进入邮箱查看使用方法>></a>\
+                      <div class="m-content0824" style="padding-left:30px;width:450px;border:none">\
+                          <a style="text-decoration:underline;color:#14a4ac" onclick="checkMail()">进入邮箱了解更详细的使用方法>></a>\
                           <button class="btn">马上购买>></button>\
                       </div>\
                   </div>\
@@ -187,8 +225,24 @@ function showCouponWin(){
     showPopUp(content);
 }
 
+function checkMail() {
+	log("checkMail");
+	var email = $.getFullUserName();
+	var result = email.split('@');
+	var domainSuffix = result[1];
+	navigateToMail(domainSuffix);
+}
+
+function navigateToMail(domainSuffix){
+    var url = "//mail." + domainSuffix;
+	window.open(url,"");
+}
+
 function buyProduct(){
-    window.open("http://yxp.163.com/store/goods/9/119/1101/", "_blank");
+	log("buyNow");
+	var finalTid = "te1" + tid;
+	var destination = CONFIG.getDetailURLBase() + "tid=" + finalTid + "&param=0";
+    window.open(destination, "_blank");
 }
 
 function showInteractiveWin() {
@@ -197,8 +251,8 @@ function showInteractiveWin() {
                       <div class="m-title">\
                           <button id="closeBtn" class="closeWindow" hidefocus></button>\
                       </div>\
-                      <div class="m-content">\
-                          <input type="text" class="u-input"/>\
+                      <div class="m-content0824">\
+                          <input type="text" maxlength="7" class="u-input" style="margin-left:-50px"/>\
                           <button class="btn">确定>></button>\
                       </div>\
                   </div>\
@@ -211,11 +265,15 @@ function showInteractiveWin() {
 
 function popUpBinggoListener(content) {
     content.find('.btn').click(function(){
+    	log("confirmLucky");
         var name = content.find('.u-input').val();
         setUserName(name);
-        console.log("userName is: " +userName);
         showBinggoWin();
     });
+}
+
+function hasChance(){
+   	return luckyCount < 4 && luckyCount > 0;
 }
 
 function setUserName(name) {
@@ -227,42 +285,164 @@ function showRules(){
 }
 
 function getAction(){
-    $.post("http://yxp.163.com/activity.do?action=act20120824Play",function(data){
-        alert(data);
-    }._$bind(this));
+	log("tryLucky");
+	var isLogined = $.isLogin();
+	if(!isLogined){
+		var url = "https://reg.163.com/logins.jsp?url="+encodeURIComponent(window.location.href);
+		window.open(url, "_self");
+		return;
+	}
+		
+	$.post("http://yxp.163.com/activity.do?action=act20120824Play",function(data){
+//		var codeIndexStart = data.lastIndexOf("code=");
+//		var codeIndexEnd = data.lastIndexOf(", prizeType=");
+//		var end = data.length;
+		
+		prizeType = null;
+		var discount = "";
+		randomCode = "";
+		
+		if(/code=(\w*)/g.test(data)) {
+			randomCode = RegExp.$1;
+		}
+
+		if(/luckyCount=(\d{1})/g.test(data)){
+			luckyCount = RegExp.$1;
+		}
+		
+		if(/prizeType=(sjt\w*)/g.test(data)) {
+			discount = RegExp.$1;
+		}
+		
+		if(randomCode == -1 || data == 0) {
+			alert("网络错误，抽奖失败");
+			return;
+		}
+		
+//		prizeType = null;
+//		var discount = "";
+//		randomCode = "";
+		
+//		if(end<10){
+//			alert("网络错误，抽奖失败");
+//			return;
+//		}
+		
+//		randomCode = data.slice(codeIndexStart + 5,codeIndexEnd);
+//		discount = data.slice(codeIndexEnd+12,end-1);
+		
+		for (var i=0;i<voucherList.length;i++){
+			if(voucherList[i].code == discount){
+				prizeType = voucherList[i];
+				discountDesc = prizeType["info"];
+				break;
+			}
+		}
+		
+		getRandomTid();
+		
+		if(hasChance()){
+			showWindow();
+		} else {
+			showSorryWin();
+		}
+	});
 }
 
+//userName, templateName, randomCode,prizeType["code"]
+function sendCouponInfo() {
+	$.post("http://yxp.163.com/activity.do?action=act20120824AddVoucher",
+		{templateId:tid, userName:encodeURIComponent(userName), templateName:encodeURIComponent(templateName), randomCode:randomCode, codeName:prizeType["code"], codeInfo:encodeURIComponent(prizeType["info"])},
+		function(data) {
+			if(data == 0) {
+				alert("绑定优惠券失败!");
+			}
+		});
+}
+
+function showWindow() {
+	var isLogined = $.isLogin();
+	if(isLogined) {
+		showInteractiveWin();
+	} else {
+		var url = "https://reg.163.com/logins.jsp?url="+encodeURIComponent(window.location.href);
+		window.open(url, "_self");
+	}
+}
+
+function getRandomTid(){
+	var pool = TemplatePool.getPool();
+	var length = pool.length;
+	var random = Math.round(Math.random() * length);
+	var template = pool[random];
+	tid =  template["tid"];
+}
+
+$(document).ready(function(){
+	var _userName=$.getUserName(),
+		_$login=$("#login"),
+		_url="https://reg.163.com/logins.jsp?url="+encodeURIComponent(window.location.href);
+	_$login.attr("href",_url);
+	if($.isLogin()&&!(/^_[\d]+$/.test(_userName))){
+		$("#uname").html(_userName);
+		_$login.html("重新登录");
+	}
+});
+
+//share event bind
+
+function shareBind(content){
 //share to neteaase weibo
-$('.m-share .u-netease').bind("click", function(){
-    var pic = TemplatePool.getTemplateInfo(tid)["tpic"];
-    var url = "http://t.163.com/article/user/checkLogin.do?"+"link="+escape(CONFIG.getURL())+"&info="+encodeURI(CONFIG.getContent()) + "&pic=" + pic;
+content.find('.m-share .u-netease').bind("click", function(){
+ 	var pic = "http://st1.yxp.126.net/img/action/120824/weibopic.jpg";
+ 	//TemplatePool.getTemplateInfo(tid)["tpic"];
+    var templateName = TemplatePool.getTemplateInfo(tid)["tname"];
+    var discountDisc = prizeType["info"];
+    var content = "哇!" + userName + "在命中章鱼贴竟然是" + templateName + "，我还能享受"+ discountDisc + "的命中优惠哦!" + "印像派章鱼贴，不只是让我的iphone与众不同~了解更多请点击 "+CONFIG.getURL();
+    var url = "http://t.163.com/article/user/checkLogin.do?"+"&info="+encodeURI(content) + "&pic=" + pic;
     window.open(url, "_blank", "width=500,height=300, resizable=yes");
-})
+});
 
 //share to sina weibo
-$('.m-share .u-sina').bind("click", function(){
-    var pic = TemplatePool.getTemplateInfo(tid)["tpic"];
-    var url="http://v.t.sina.com.cn/share/share.php?"+"url="+escape(CONFIG.getURL())+"&title="+encodeURI(CONFIG.getContent()) + "&pic=" + pic;
+content.find('.m-share .u-sina').bind("click", function(){
+	var pic = "http://st1.yxp.126.net/img/action/120824/weibopic.jpg";
+    var templateName = TemplatePool.getTemplateInfo(tid)["tname"];
+    var discountDisc = prizeType["info"];
+    var content = "哇!" + userName + "在命中章鱼贴竟然是" + templateName + "，我还能享受"+ discountDisc + "的命中优惠哦!" + "印像派章鱼贴，不只是让我的iphone与众不同~了解更多请点击 "+CONFIG.getURL();
+    var url="http://v.t.sina.com.cn/share/share.php?"+"title="+encodeURI(content) + "&pic=" + pic;
     window.open(url, "_blank", "width=500,height=300, resizable=yes");
 });
 
 //share to douban
-$('.m-share .u-douban').bind("click", function(){
-    var pic = TemplatePool.getTemplateInfo(tid)["tpic"];
-    var url = "http://shuo.douban.com/!service/share?" + "href=" + escape(CONFIG.getURL()) + "&name=" + encodeURI(CONFIG.getContent()) + "&image=" + pic;
+content.find('.m-share .u-douban').bind("click", function(){
+    var pic = "http://st1.yxp.126.net/img/action/120824/weibopic.jpg";
+    var templateName = TemplatePool.getTemplateInfo(tid)["tname"];
+    var discountDisc = prizeType["info"];
+    var content = "哇!" + userName + "在命中章鱼贴竟然是" + templateName + "，我还能享受"+ discountDisc + "的命中优惠哦!" + "印像派章鱼贴，不只是让我的iphone与众不同~了解更多请点击 "+CONFIG.getURL();
+    var url = "http://shuo.douban.com/!service/share?" + "name=" + encodeURI(content) + "&image=" + pic;
     window.open(url, "_blank", "width=500,height=300, resizable=yes");
 });
 
 //shre to qzone
-$('.m-share .u-qq').bind("click", function(){
-    var pic = TemplatePool.getTemplateInfo(tid)["tpic"];
-    var url = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?" + "url=" + escape(CONFIG.getURL()) + "&title=" + encodeURI(CONFIG.getContent())+ "&pics=" + pic;
+content.find('.m-share .u-qq').bind("click", function(){
+    var pic = "http://st1.yxp.126.net/img/action/120824/weibopic.jpg";
+   	var templateName = TemplatePool.getTemplateInfo(tid)["tname"];
+    var discountDisc = prizeType["info"];
+    var url = encodeURIComponent(CONFIG.getURL());
+    var title = encodeURI("印像派章鱼贴");
+    var content = encodeURI("哇!" + userName + "在命中章鱼贴竟然是" + templateName + "，我还能享受"+ discountDisc + "的命中优惠哦!" + "印像派章鱼贴，不只是让我的iphone与众不同~了解更多请点击 "+ CONFIG.getURL());
+    var url = "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?" + "url=" + url  + "&title=" + title + "&pics=" + encodeURIComponent(pic) + "&summary=" + content;
     window.open(url, "_blank", "width=500,height=300, resizable=yes");
 });
 
 //share to renren
-$('.m-share .u-renren').bind("click", function(){
-    var pic = TemplatePool.getTemplateInfo(tid)["tpic"];
-    var url = "http://share.renren.com/share/buttonshare/post/1004?" + "url=" + escape(CONFIG.getURL()) + "&content=" + encodeURI(CONFIG.getContent()) + "&pic=" + pic;
+content.find('.m-share .u-renren').bind("click", function(){
+    var pic = "http://st1.yxp.126.net/img/action/120824/weibopic.jpg";
+    var templateName = TemplatePool.getTemplateInfo(tid)["tname"];
+    var discountDisc = prizeType["info"];
+    var content = "哇!" + userName + "在命中章鱼贴竟然是" + templateName + "，我还能享受"+ discountDisc + "的命中优惠哦!" + "印像派章鱼贴，不只是让我的iphone与众不同~了解更多请点击 "+CONFIG.getURL();
+    var url = "http://widget.renren.com/dialog/share?" + "resourceUrl=" + encodeURIComponent(CONFIG.getURL()) + "&srcUrl" + encodeURIComponent(CONFIG.getURL()) + "&title=" + encodeURI(content) + "&pic=" + pic;
     window.open(url, "_blank", "width=500,height=300, resizable=yes");
 });
+}
+
