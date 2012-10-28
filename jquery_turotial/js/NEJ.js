@@ -44,7 +44,7 @@ function case1(){
     console.log(window.yxp);
 }
 
-function case3() {
+function case2() {
     /**
      * define class, which has <b>static expend<b> interface: _$extend
      */
@@ -188,9 +188,29 @@ function case3() {
     b.__initTransport();
 }
 
+function case3(){
+    case2();
+    var _$$Event = NEJ.C();
+    _$$Event._$allocate = function(_options) {
+        _options = _options||{};
+        var _instance = new this(_options);
+        _instance.__xxxx = !0;
+        return _instance;
+    }
+    
+    var widget = _$$Event._$allocate({
+       conf0 : "config0",
+       conf1 : "config1",
+       onchange : function() {
+           console.log("this is onchgange handler");
+       } 
+    });
+    console.log(widget);
+}
 
 (function(){
-    case1();
+    //case1();
+    //case2();
     case3();
 })()
 

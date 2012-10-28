@@ -111,6 +111,26 @@ function case6(){
 }
 
 /**
+ * another context example 
+ *
+ */
+function case9(){
+    function Person(name) {
+        this.personName = name;
+    }
+    
+    var person = new Person("jason");//this point to person
+    console.log(person.personName);
+    /**
+     *  Error:person2 is undefined
+     *  var person2 = Person("jason");
+     *  console.log(person2.personName);
+     */
+    var person2 = Person("jason");
+    console.log(window.personName);//this point to window
+}
+
+/**
  * arguments and function length
  */
 function case7(){

@@ -5,7 +5,8 @@
     //case4();
     //case5();
     //case6();
-    case7()
+    //case7();
+    case8();
 })();
 
 /**
@@ -98,7 +99,6 @@ function case4(){
              * var result = fn.apply(null, finalArgs);
              * return result;
              */
-            
         }
     }
     
@@ -108,6 +108,7 @@ function case4(){
     
     //curry definition has only one param, but pass two params to it
     var curriedAdd = curry(add, 5);
+    console.log(curriedAdd + "");
     //currriedAdd definition has no param, but here pass a param to it
     console.log(curriedAdd(3));
 }
@@ -160,3 +161,4 @@ function case7(){
         };
     })(), false);
 }
+
