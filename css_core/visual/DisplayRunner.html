@@ -6,9 +6,14 @@
 			/**
 			 * 	anonymous boxes, refer http://www.w3.org/TR/CSS2/visuren.html
 			 */
-			make_inline { display: inline }
-			span { display:block }
-			.make_inline_block {display:inline-block;background: #00CC33}
+			.make_inline { display: inline }
+			.make_inline span { display:block }
+			
+			.make_inline_block .specificText {
+			    width:80px;
+			    border:solid 3px red;
+			    display: inline-block;
+			}
 		</style>
 	</head>
 	<body>
@@ -19,10 +24,10 @@
 		</div>
 		
 		<div class="make_inline_block">
-			This is paragragh one
-			<em>This is paragragh two</em>
+            <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed <span class="specificText">Hello This is specific text</span>diam nonummy nibh euismod tincidunt ut laoreet
+            dolore magna aliquam erat volutpat. Urper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure
+            </p>
 		</div>
-		
-
 	</body>
 </html>

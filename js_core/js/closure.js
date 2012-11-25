@@ -9,6 +9,16 @@
     case8();
 })();
 
+function warning(){
+    for(var i= 0;i<elements.length;i++){
+        (function(n){
+            elements[n].attachEvent('click',function(){
+            alert(n);
+         });
+        })(i);
+    }
+}
+
 /**
  * private varibales
  */

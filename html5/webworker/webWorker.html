@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <title>Offline Detect</title>
+    <meta charset="utf-8"/>
+    <head>
+        <script type="text/javascript">
+            var worker = new Worker("task.js");
+            worker.onmessage = function(event) {
+              console.log("Worker said : " + event.data);
+            };
+            worker.postMessage('ali');
+        </script>
+    </head>
+    <body>
+        <div id="log"></div>
+    </body>
+</html>

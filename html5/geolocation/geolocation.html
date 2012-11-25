@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <title>Offline Detect</title>
+    <meta charset="utf-8"/>
+    <head>
+        <script type="text/javascript">
+            function getCurrentPosition() {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                  do_something(position.coords.latitude, position.coords.longitude);
+                }, errorCallback);
+            }
+            
+            function errorCallback(error) {
+                console.log("error code: " + error.code + ", error message: " + error.message);
+            }
+            
+            function do_something(latitude, longitude) {
+                var log = document.getElementById("log");
+                log.appendChild(document.createTextNode("latitude: " + msg + "; longitude=" + condition + "\n"));
+            }
+            
+            function loaded() {
+              getCurrentPosition();
+            }
+        </script>
+    </head>
+    <body onload="loaded()">
+        <div id="log"></div>
+    </body>
+</html>

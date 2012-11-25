@@ -1,17 +1,3 @@
-function Person(){
-    this._name = null;
-    
-    this.__defineGetter__("name", function(){
-        return this._name;
-    });
-    
-    this.__defineSetter__("name", function(value){
-        if(typeof value == "string") {
-            this._name = value;
-        }
-    });
-}
-
 function Person(name,age){
     this.name = name;
     this.age = age;
@@ -27,16 +13,20 @@ function Person(name,age){
 }
 
 function Student(name,age,grade,school){
-    this.name = name;
-    this.age = age;
+    Person.call(this, name, age);
     this.grade = grade;
     this.school = school;
 }
 
-var person1 = new Person("老王", 60);
-var student = new Student("小明", 20,"大一", "浙大");
-person1.print();
-person1.print.apply(student,['age']);
-person1.print.call(student,'grade','age');
+Student.prototype = new Person();
+Student.prototype.constructor = Student;
+
+var person = new Person("person", 60);
+var student = new Student("student", 20,"2", "zju");
+console.log(Person.prototype);
+console.log(person.name);
+console.log(Student.prototype);
+console.log(student.name);
+
 
 

@@ -100,13 +100,3 @@ function mockEvent() {
         alert("I'm clicked");
     });
 })();
-
-console.log("This is events.js");
-
-// (function delayExecute(){
-    // var count = 0; 
-    // for(var i =0; i<1000000000; i++) {
-        // count++;
-    // }
-// })();
-
