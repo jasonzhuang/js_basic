@@ -61,14 +61,6 @@ function processArray(items, process, callback){
 }
 
 /**
- * central timer control
- */
-function case3(){
-        
-}
-
-
-/**
  * Asynchronous Test
  */
 function case4(){
@@ -118,7 +110,7 @@ function case4(){
 }
 
 /**
- * the specified interval indicates when the timer¡¯s code will be added to the queue, not when the code will actually be executed
+ * the specified interval indicates when the timerï¿½ï¿½s code will be added to the queue, not when the code will actually be executed
  */
 function case5(){
     var btn = document.createElement("button");

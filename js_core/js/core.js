@@ -58,3 +58,33 @@ function case3() {
     var scope="local";
     console.log(scope);//output : local
 }
+
+/**
+ *
+ * Since the this object is bound at runtime, calling Person() directly maps this to the global object ( window ) 
+ * for...in iterates over the enumerable properties of an object 
+ */
+function case4() {
+    function Person(name,age){
+        this.name = name;
+        this.age = age;
+        this.print = function() {
+            
+        }
+    }
+    
+    function Student(name,age,grade,school){
+        Person.call(this, name, age);
+        this.grade = grade;
+        this.school = school;
+    }
+    
+    Student.prototype = new Person();
+    Student.prototype.constructor = Student;
+    
+    var person = Person("person",25);
+    console.log("window.name: " + window.name);
+    for (var prop in student) {
+        console.log(prop);
+    }
+}

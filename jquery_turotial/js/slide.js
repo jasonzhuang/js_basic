@@ -42,7 +42,7 @@ function Slide(){
         } else {
             self.position = 0;
         }
-        setTimeout(arguments.callee, 3000);        
+        setTimeout(arguments.callee, 2000);        
     }, 3000);
     
 /*
@@ -67,21 +67,16 @@ function Slide(){
         this.navs[i].setAttribute("ref", i);
         this.navs[i].addEventListener("click", function(event){
             var ref = event.target.getAttribute("ref");
+            self.position = ref;
             self.changeStyle(event.target);
-            //console.log(self.navs);//========can't use this.navs==========
             self.banner.src = self.imgArr[ref];
         }, false);
     }
     
     this.changeStyle = function(divItem){
         for (var i=0; i<this.navs.length;i++) {
-            if(divItem === this.navs[i]) {
-                this.navs[i].className = "active";
-                console.log("current show image: " + divItem.getAttribute("ref"));
-            } else {
-                this.navs[i].className = '';
-            }
+            this.navs[i].className = '';
+            divItem.className = "active";
         }
-        this.position = divItem.getAttribute("ref");
     }
 }

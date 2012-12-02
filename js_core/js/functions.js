@@ -3,10 +3,58 @@
     //case2();
     //case3();
     //case4();
-    case5();
-    //case8();
+    //case5();
+    //case6();
     //case7();
+    //case8();
+    //case9();
+    case10();
 })();
+
+/**
+ * function name is simply pointer to function
+ * 
+ */
+function case9() {
+    function add(){
+        console.log(arguments.callee == add);   
+    }
+    add();
+}
+
+/**
+ * apply() and call()
+ */
+function case8() {
+    var list = [1,2,3];
+    var result = Array.prototype.slice.apply(list);
+    console.log(result);
+}
+
+/**
+ * 
+ * return function
+ */
+function case10(){
+    function compareFunction(propName) {
+        return function(obj1, obj2) {
+            var value1 = obj1[propName];
+            var value2 = obj2[propName];
+            
+            if(value1 < value2) {
+                return -1;
+            } else if(value1 > value2) {
+                return 1
+            } else {
+                return 0;
+            }
+        }
+    }
+    
+    var data = [{name: "zachary", age:28}, {name:"Nicholas", age:29}];
+    console.log(compareFunction("name")(data[0],data[1]));
+}
+
 
 function case1(){
     var ninja = {
@@ -24,10 +72,11 @@ function case1(){
 /**
  * Anonymous functions can be named but those names are only visible
  * within the functions themselves.
+ * 
  */
 function case2(){
    var ninja = function myNinja(){
-    console.log(ninja == myNinja);
+       console.log(ninja == myNinja);
    }
 
     ninja();
@@ -38,7 +87,7 @@ function case2(){
 
 /**
  * anonymous function only exist after the point in the code at which they've been defined.
- * 
+ * function declaration vs function expression
  */
 function case3(){
     console.log(typeof canFly == "undefined");
@@ -111,27 +160,7 @@ function case6(){
 }
 
 /**
- * another context example 
- *
- */
-function case9(){
-    function Person(name) {
-        this.personName = name;
-    }
-    
-    var person = new Person("jason");//this point to person
-    console.log(person.personName);
-    /**
-     *  Error:person2 is undefined
-     *  var person2 = Person("jason");
-     *  console.log(person2.personName);
-     */
-    var person2 = Person("jason");
-    console.log(window.personName);//this point to window
-}
-
-/**
- * arguments and function length
+ * arguments.length and function.length
  */
 function case7(){
     console.log("multiParam length: " + multiParam.length);
@@ -150,57 +179,8 @@ function case7(){
     function bind(){
         console.log(arguments.length);
     }
-    //even the bind() has no params, you can still pass param
+    //named arguments are a convenience, not a necessity
     bind("hello", 5);
-}
-
-/**
- * overloading
- */
-function case8(){
-    function Ninjas(){
-        var ninjas = [ "Dean Edwards", "Sam Stephenson", "Alex Russell" ];
-        
-        addMethod(this, "find", function(){
-            return ninjas;
-        });
-        
-
-        addMethod(this, "find", function(name){
-            var ret = [];
-            for ( var i = 0; i < ninjas; i++ ){
-                if (ninjas[i].indexOf(name) == 0) {
-                    ret.push( ninjas[i] );
-                }
-            }
-            return ret;
-        });
-        
-        addMethod(this, "find", function(first, last){
-            var ret = [];
-            for (var i = 0; i < ninjas; i++ ) {
-                if (ninjas[i] == (first + "" + last) ) {
-                    ret.push( ninjas[i] );
-                }
-            }
-            return ret;
-            
-        });
-
-        function addMethod(object, name, fn){
-            var old = object[name];
-            object[name] = function(){
-                if(fn.length == arguments.length){
-                    return fn.apply(this, arguments);
-                } else if(typeof old == "undefined") {
-                    return old.apply(this, arguments);
-                }
-            }
-        }  
-     }
-     
-     var ninjas = new Ninjas();
-     console.log(ninjas.find().length == 3);   
 }
 
 
