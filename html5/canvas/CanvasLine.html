@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="utf-8"/>
+    <head>
+        <title>Canvas Use</title>
+        <style>
+            #mycanvas{
+                border:1px solid red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="support"></div>
+        <canvas id="mycanvas" width="400" height="600"></canvas>
+    </body>
+    <script type="text/javascript">
+        try {
+            document.createElement("canvas").getContext("2d");
+            document.getElementById("support").innerHTML = "HTML5 Canvas is supported in your browser.";
+        } catch(e) {
+            document.getElementById("support").innerHTML = "HTML5 Canvas is not supported in your browser.";
+        }
+    </script>
+    <script type="text/javascript">
+            function drawDiagonal() {
+                var canvas = document.getElementById('mycanvas');
+                var context = canvas.getContext('2d');
+                // save the unmodified context so you can get back to its original state at the end of the drawing and transformation operation.
+                context.save();
+                // Move the drawing context to the right, and down, which means the coordination origin is now (70,140)
+                context.translate(70, 140);
+                context.beginPath();
+                context.moveTo(0, 0);
+                context.lineTo(70, -70);
+                context.stroke();
+                // Restore the old drawing state
+                context.restore();
+        }
+    </script>
+</html>

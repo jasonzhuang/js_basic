@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="utf-8"/>
+    <head>
+        <title>Canvas Draw</title>
+        <style type="text/css">
+            #mycanvas{
+                border:1px solid red;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="mycanvas" width="960" height="900">Not Supported Canvas</canvas>
+    </body>
+    <script type="text/javascript">
+            var canvas = document.getElementById('mycanvas');
+            var context = canvas.getContext('2d');
+            
+            function canvasState() {
+                context.fillStyle = "rgb(255, 0, 0)";
+                context.save();
+                context.fillRect(50, 50, 100, 100);
+                context.fillStyle = "rgb(0, 0, 255)";
+                context.fillRect(200, 50, 100, 100); // Blue square
+                context.restore();
+                context.fillRect(350, 50, 100, 100);//Red square
+            }
+            
+            function exportCanvasData() {
+                context.save();
+                context.fillRect(50, 50, 100, 100);
+                context.fillStyle = "rgb(255, 0, 0)";
+                context.fillRect(100, 100, 100, 100);
+                context.restore();
+                context.fillRect(150, 150, 100, 100);
+                var dataURL = canvas.toDataURL();//copied the string in the dataURL variable and pasted it into the address bar of a modern browser
+                console.log(dataURL);
+            }
+            
+            function drawArc() {
+                context.moveTo(100,100);
+                context.arcTo(150,120,80,500,120);
+                context.stroke();            }
+            
+            function drawCurve() {
+                context.lineWidth = 5;
+                context.beginPath();
+                context.moveTo(50, 250);
+                context.quadraticCurveTo(250, 100, 450, 250);
+                context.stroke();
+            }
+            
+            function drawGradient() {
+                var gradient = context.createLinearGradient(0, 0, 300, 0);
+                gradient.addColorStop(0, "black");
+                gradient.addColorStop(1, "white");
+                context.fillStyle = gradient;
+                context.fillRect(0, 0, 400, 600);
+            }
+            
+            function drawRadialGradient() {
+                var gradient = context.createRadialGradient(300, 300, 10, 100, 100, 50);
+                gradient.addColorStop(0, "rgb(0, 0, 0)");
+                gradient.addColorStop(1, "rgb(150, 150, 150)");
+                context.fillStyle = gradient;
+                context.fillRect(0, 0, 400, 600);
+            }
+            
+            function drawText() {
+                context.save();
+                context.shadowColor = 'rgba(0, 0, 0, 0.2)';
+                // Move the shadow to the right 15 pixels, up 10
+                context.shadowOffsetX = 15;
+                context.shadowOffsetY = -10;
+                context.shadowBlur = 2;
+                context.font = "60px Arial";
+                context.fillStyle = '#996600';
+                context.textAlign = 'center';
+                context.fillText('Happy Trails!', 200, 60, 400);
+                context.restore();
+            }
+            
+            (function run() {
+               canvasState();
+               //drawArc();
+               //drawCurve();
+               //drawGradient();
+               //drawText();
+               //exportCanvasData();
+            })();
+    </script>
+</html>
