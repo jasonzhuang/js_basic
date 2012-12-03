@@ -6,11 +6,12 @@
         <style type="text/css">
             #mycanvas{
                 border:1px solid red;
+                display:block;
             }
         </style>
     </head>
     <body>
-        <canvas id="mycanvas" width="960" height="900">Not Supported Canvas</canvas>
+        <canvas id="mycanvas" width="600" height="900">Not Supported Canvas</canvas>
     </body>
     <script type="text/javascript">
             var canvas = document.getElementById('mycanvas');
@@ -35,6 +36,13 @@
                 context.fillRect(150, 150, 100, 100);
                 var dataURL = canvas.toDataURL();//copied the string in the dataURL variable and pasted it into the address bar of a modern browser
                 console.log(dataURL);
+            }
+            
+            function drawCircle() {
+                context.beginPath();
+                context.arc(230, 90, 50, 0, Math.PI*2, false);
+                context.closePath();
+                context.fill();
             }
             
             function drawArc() {
@@ -66,6 +74,10 @@
                 context.fillRect(0, 0, 400, 600);
             }
             
+            /**
+             * Text is drawn as an image, which means that it isnt selectable with a mouse cursor
+             *  
+             */
             function drawText() {
                 context.save();
                 context.shadowColor = 'rgba(0, 0, 0, 0.2)';
@@ -76,16 +88,17 @@
                 context.font = "60px Arial";
                 context.fillStyle = '#996600';
                 context.textAlign = 'center';
-                context.fillText('Happy Trails!', 200, 60, 400);
+                context.fillText('Happy Trails!', 200, 60, 400); //(x, y) coordinate values for the origin of the text (the bottom left).
                 context.restore();
             }
             
             (function run() {
-               canvasState();
+               //canvasState();
+               //drawCircle();
                //drawArc();
                //drawCurve();
                //drawGradient();
-               //drawText();
+               drawText();
                //exportCanvasData();
             })();
     </script>

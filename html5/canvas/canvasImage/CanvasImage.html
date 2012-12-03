@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="utf-8"/>
+    <head>
+        <title>Canvas Image Manipulate</title>
+        <style type="text/css">
+            #mycanvas{
+                border:1px solid red;
+                display:block;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="mycanvas" width="600" height="900">Not Supported Canvas</canvas>
+    </body>
+    <script type="text/javascript">
+        (function sizeCanvas(){
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+            var canvas = document.getElementById('mycanvas');
+            canvas.width = w;
+            canvas.height = h;
+        })();
+    </script>
+    <script type="text/javascript">
+            var canvas = document.getElementById('mycanvas');
+            var context = canvas.getContext('2d');
+            var imageURL = "50725.jpg";
+            
+            function scratchImage() {
+                var imageData = context.createImageData(200, 200);
+                var pixels = imageData.data;
+                var numPixels = pixels.length;//imageData.width * imageData.height
+                for (var i = 0; i < numPixels; i++) {
+                    pixels[i*4] = 255; // Red
+                    pixels[i*4+1] = 0; // Green
+                    pixels[i*4+2] = 0; // Blue
+                    pixels[i*4+3] = 255; // Alpha
+                }
+                context.putImageData(imageData, 0, 0);
+            }
+            
+            function simpleDraw() {
+                var image = new Image();
+                image.src = imageURL;
+                image.onload = function draw() {
+                    context.drawImage(image, 0, 0, 300, 300, 100, 100, 200, 200);
+                    
+                } 
+            }
+            
+            function transforImage() {
+                context.translate(250, 250);
+                context.rotate(Math.PI*45/180);//45 degrees
+                var image = new Image();
+                image.src = imageURL;
+                image.onload = function draw() {
+                    context.drawImage(image, 0, 0, 500, 500, -150, -150, 300, 300);
+                }
+            }
+            
+            //By using a negative scale factor, you're able to cause the image to flip over
+            function flipImage() {
+                var image = new Image();
+                image.src = imageURL;
+                image.onload = function draw() {
+                    //top left
+                    //context.translate(50, 50);
+                    //context.drawImage(image, 0, 0, 500, 500, 0, 0, 200, 200);
+                    // Bottom left
+                    context.setTransform(1, 0, 0, 1, 0, 0); // Reset the transformation matrix
+                    context.translate(50, 450);
+                    context.scale(1, -1);
+                    context.drawImage(image, 0, 0, 500, 500, 0, 0, 200, 200);
+                    // Bottom right
+                    // context.setTransform(1, 0, 0, 1, 0, 0);
+                    // context.translate(450, 450);
+                    // context.scale(-1, -1);
+                    // context.drawImage(image, 0, 0, 500, 500, 0, 0, 200, 200);
+                    // Top right
+                    // context.setTransform(1, 0, 0, 1, 0, 0);
+                    // context.translate(450, 50);
+                    // context.scale(-1, 1);
+                    // context.drawImage(image, 0, 0, 500, 500, 0, 0, 200, 200);
+                }
+            }
+            
+            (function run() {
+                //simpleDraw();
+                //transforImage();
+                //flipImage();
+                scratchImage();
+            })();
+    </script>
+</html>
