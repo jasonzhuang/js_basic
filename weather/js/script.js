@@ -115,9 +115,9 @@ $(function(){
     }
     
     function addWeather(code, day, condition){
-        
+        console.info(code);
         var markup = '<li>'+
-            '<img src="assets/img/icons/'+ weatherIconMap[code] +'.png" />'+
+            '<img src="img/icons/'+ weatherIconMap[code] +'.png" />'+
             ' <p class="day">'+ day +'</p> <p class="cond">'+ condition +
             '</p></li>';
         
