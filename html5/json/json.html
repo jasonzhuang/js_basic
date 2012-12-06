@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JSON USE</title>
+        <meta charset="utf-8"/>
+        <script type="text/javascript">
+            var locations = JSON.parse("[]");
+            locations.push({"latitude" : 30, "longitude" : 130});
+            console.info(locations);
+            var store = JSON.stringify(locations);
+            console.info(store);
+        </script>
+    </head>
+    <body>
+        <header>JSON Test</header>
+    </body>
+</html>

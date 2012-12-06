@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Example</title>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+      function checkStorageSupport() {
+        //sessionStorage
+        if (window.sessionStorage) {
+          console.log('This browser supports sessionStorage');
+    
+          sessionStorage.mySessionKey = 'Session example2';
+          console.log(sessionStorage.mySessionKey);
+    
+        } else {
+          console.info('This browser does NOT support sessionStorage');
+        }
+    
+        //localStorage
+        if (window.localStorage) {
+          console.log('This browser supports localStorage');
+    
+          localStorage.myLocalKey = 'Local example3';
+          console.log(localStorage.myLocalKey);
+    
+        } else {
+          console.info('This browser does NOT support localStorage');
+        }
+      }
+    
+      // display the contents of a storage event
+      function displayStorageEvent(e) {
+        var logged = "key:" + e.key + ", newValue:" + e.newValue + ", oldValue:" +
+                     e.oldValue +", url:" + e.url + ", storageArea:" + e.storageArea;
+    
+        console.info('EVENT: ' + logged);
+      }
+    
+    window.addEventListener("storage", displayStorageEvent, true);
+  </script>
+
+</head>
+
+<body onload="checkStorageSupport()">
+   <div id="container">
+    <header>
+        <h1>Web Storage Test</h1>
+    </header>
+   </div>
+</body>
+
+</html>

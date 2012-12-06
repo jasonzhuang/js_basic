@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Storage Log</title>
+<meta charset="utf-8">
+<script>
+
+    // display records of new storage events
+    function displayStorageEvent(e) {
+        var incomingRow = document.createElement('div');
+        document.getElementById("container").appendChild(incomingRow);
+
+        var logged = "key:" + e.key + ", newValue:" + e.newValue + ", oldValue:" + e.oldValue +
+        ", url:" + e.url + ", storageArea:" + e.storageArea;
+
+        incomingRow.innerHTML = logged;
+    }
+
+    //The storage event is fired when a storage area changes
+    //In this case(cross page), only when the localStorage item value change then trigger this event.
+    // can't listen for sessionStorage change
+    window.addEventListener("storage", displayStorageEvent, true);
+</script>
+
+</head>
+  <body>
+    <div id="container"></div>
+  </body>
+</html>

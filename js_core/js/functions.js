@@ -1,14 +1,14 @@
 (function runAll(){
     // case1();
     //case2();
-    //case3();
+    case3();
     //case4();
     //case5();
     //case6();
     //case7();
     //case8();
     //case9();
-    case10();
+    //case10();
 })();
 
 /**
@@ -86,14 +86,34 @@ function case2(){
 
 
 /**
- * anonymous function only exist after the point in the code at which they've been defined.
  * function declaration vs function expression
+ * anonymous function only exist after the point in the code at which they've been defined.
  */
 function case3(){
     console.log(typeof canFly == "undefined");
-    console.log(typeof stealth == "function")
+    console.log(typeof stealth == "function");
     var canFly = function(){console.log("this is canFly function")};
-    function stealth(){console.log("this is stealth function")}
+    function stealth(){console.log("this is stealth function")};
+    
+    var handlePositionUpdate = function() {
+        console.log("handlePositionUpdate() executed");
+        uploadLocations();
+        storeLocation();
+    }
+
+    //handlePositionUpdate(); //error:uploadLocations is not a function
+
+    var uploadLocations = function() {
+        console.info("this is uploadLocations()");
+    }
+    
+    //handlePositionUpdate(); //error:storeLocation is not a function
+    
+    var storeLocation = function() {
+        console.info("this is storeLocation()");
+    }
+    
+    handlePositionUpdate(); // work fine
 }
 
 

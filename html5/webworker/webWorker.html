@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <title>Offline Detect</title>
+    <title>HTML5 Web Worker</title>
     <meta charset="utf-8"/>
     <head>
-        <script type="text/javascript">
-            var worker = new Worker("task.js");
-            worker.onmessage = function(event) {
-              console.log("Worker said : " + event.data);
-            };
-            worker.postMessage('ali');
-        </script>
     </head>
     <body>
-        <div id="log"></div>
+        <input id="echo" type="button" value="Post Message"/>
+        <input type="button" value="NO use"/>
+        <input type="text"/>
+        <script type="text/javascript">
+            var worker = new Worker("task.js");
+            //add an event listener to the page that listens for messages from the Web Worker
+            worker.addEventListener("message", messageHandler, true);
+            worker.addEventListener("error", errorHandler, true);
+            
+            var echoBtn = document.getElementById("echo");
+            //a message sent to the Web Worker when the user clicks the button
+            echoBtn.addEventListener("click", delegate, true);
+            
+            function delegate(event) {
+                worker.postMessage(100);
+            }
+            
+            // process message from worker
+            function messageHandler(e) {
+                console.info(e.data);
+            }
+            
+            function errorHandler(e) {
+                console.log(e.message);   
+            }
+        </script>
     </body>
 </html>
