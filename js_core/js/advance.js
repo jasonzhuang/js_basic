@@ -33,29 +33,37 @@ getScript("http://www.cornify.com/js/cornify.js",function(){
     }
 })
 
-//json
 (new Function("return " + data))()
 
-//for <IE7
-function createXHR() {
-    if(typeof arguments.callee.activeXString != "string") {
-        var versions = ["MSXML2.XMLHttp.6.0", "MSXML2.XMLHttp.3.0", "MSXML2.XMLHttp"];
-        for (var i=0,len=versions.length;i<len;i++) {
-            try{
-                var xhr = new ActiveXObject(versions[i]);
-                arguments.callee.activeXString = versions[i];
-                return xhr;
-            } catch(ex) {
-                
-            }
-        }
+var msg = "*** Welcome to Dr. Clue's HTML/CGI Guide *** I hope you enjoy";
+
+function scrollText(){
+    var lchar;
+    lchar = msg.substring(0,1);
+    msg += lchar;
+    msg = msg.substring(1, msg.length);
+    var display = document.myForm.display;
+    display.value = msg.substring(0,55);
+    setTimeout(scrollText, 100);
+};
+
+
+// release memory
+assert = function( fn ) {
+    var div = document.createElement("div");
+
+    try {
+        return fn( div );
+    } catch (e) {
+        return false;
+    } finally {
+        // release memory in IE
+        div = null;
     }
-    return new ActiveXObject(arguments.callee.activeXString);
 }
 
-/*
-function nestObj(){
-    var a = {outer:"hello"};
-    a.b = {inner:"world"};
-    console.log(a)// {outer="hello", b={}}
-}*/
+assertTagNameNoComments = assert(function( div ) {
+    div.appendChild( document.createComment("") );
+    return !div.getElementsByTagName("*").length;
+})
+

@@ -1,7 +1,7 @@
 (function runAll(){
     // case1();
     //case2();
-    case3();
+    //case3();
     //case4();
     //case5();
     //case6();
@@ -9,7 +9,36 @@
     //case8();
     //case9();
     //case10();
+    case11();
 })();
+
+/**
+ * 
+ * static function, private function, public function
+ */
+function case11(){
+    function Sizzle(){
+        //public function
+        this.say = function(msg){
+            inner(msg);
+        }
+        
+        //private function
+        var inner = function(msg){
+            console.log(msg);
+        }
+    }
+    
+    //static function
+    Sizzle.error = function(msg){
+        console.log(msg);
+    }
+    
+    var sizzle = new Sizzle();
+    sizzle.say("say.....");
+    console.log(sizzle);
+    Sizzle.error("hhhh");
+} 
 
 /**
  * function name is simply pointer to function
@@ -33,7 +62,7 @@ function case8() {
 
 /**
  * 
- * return function
+ * return function as value
  */
 function case10(){
     function compareFunction(propName) {

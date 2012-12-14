@@ -4,14 +4,21 @@
   <meta charset="UTF-8"/>
   <title>Test</title>
   <script type="text/javascript" src="js/jquery.js"></script>
-  <style>
+  <style type="text/css">
+    p + p {
+        color:#ff0000;
+    }
   </style>
 </head>
 <body>
-   <div id="content" data-name="yougen" data-lang="html5"></div>
-   <script>
-       var data = $("#content").data();
-       console.log(data);
+    <div>
+         <p>Line one</p>
+         <p>Line two</p>
+         <div>Box</div>
+         <p>Line three</p>
+    </div>
+
+   <script type="text/javascript" src="js/regExp.js">
    </script> 
 </body>
 </html>
