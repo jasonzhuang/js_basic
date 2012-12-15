@@ -1,10 +1,10 @@
-this.MyLocation = this.MyLocation || {};
+window.MyLocation = window.MyLocation || {};
 
 function GeoHelper() {
-    //initial value is HangZhou location
-    var mylocation = {latitude:"30.27", lonitude:"120.15"};
-        
-    this.init = function(){
+    var mylocation = {latitude:"20", longitude:"110"};
+    var fn;
+    this.getLocation = function(callback){
+        fn = callback;
         if(navigator.geolocation) {
             navigator.geolocation.watchPosition(updateLocation,
                                             handleLocationError,
@@ -14,36 +14,12 @@ function GeoHelper() {
         }
     }
     
-    //how to dispatch event? move the google API handler to another js
+    //TODO:dispatch event or callback
     var updateLocation = function(position){
         mylocation.latitude = position.coords.latitude;
         mylocation.longitude = position.coords.longitude;
-        renderGoogleMap();
+        fn(mylocation);
         log("lat: " + position.coords.latitude + ", lon: " + position.coords.longitude);
-    }
-    
-    var renderGoogleMap = function(){
-        var map = document.getElementById("map");
-        var coords = new google.maps.LatLng(mylocation.latitude, mylocation.longitude);
-        var options = {
-            zoom: 15,
-            center: coords,
-            mapTypeControl: false,
-            navigationControlOptions: {
-                style: google.maps.NavigationControlStyle.SMALL
-            },
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-        var map = new google.maps.Map(map, options);
-        var marker = new google.maps.Marker({
-          position: coords,
-          map: map,
-          title:"You are here!"
-      });
-    }
-    
-    this.getPosition = function() {
-        return mylocation;
     }
     
     var handleLocationError = function(error){
