@@ -1,11 +1,10 @@
 window.MyLocation = window.MyLocation || {};
 
 $(document).ready(function() {
-    MyLocation.GeoHelper = new GeoHelper();
-    MyLocation.GeoHelper.getLocation(renderGoogleMap);
-    
-    function renderGoogleMap(position){
+	//TODO:if put the callback after getLocation, seems can't work
+    MyLocation.renderGoogleMap = function(position){
         var map = $("#map");
+        var map = document.getElementById("map");
         var coords = new google.maps.LatLng(position.latitude, position.longitude);
         var options = {
             zoom: 15,
@@ -23,5 +22,10 @@ $(document).ready(function() {
           title:"You are here!"
       });
     }
+
+    MyLocation.GeoHelper = new GeoHelper();
+    MyLocation.GeoHelper.getLocation(MyLocation.renderGoogleMap);
+    
+
 });
 
