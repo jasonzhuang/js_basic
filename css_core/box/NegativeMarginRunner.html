@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Negative Margin Runner</title>
+        <meta charset="utf-8"/>
+        <style type="text/css">
+            /**
+             * case1.negative margins will cause static elements to overlap     
+             *
+             */
+            div.case1 p {
+                margin:20px 0;
+                height:40px;
+                background:#ffffcc;
+                border:1px solid #000;
+            }
+            
+            div.case1 p.bottom {
+                margin:-35px 0 20px 10px;
+            }
+            
+            /**
+             * case2: The space on the inside is bigger than the space on the outside
+             *
+             */
+            .outer {
+                margin:50px;
+                padding:20px 0;
+                width:200px;
+                background:#ffffcc;
+                border:1px solid #000;
+            }
+
+
+            .outer div.inner {
+                margin:0 -20px;
+                background:red;
+                color:yellow;
+                border:1px solid #000;
+                padding:5px;
+            }
+            
+            /**fix for IE6**/
+            * html .outer div.inner {height:1px;position:relative;}
+            
+            /**
+             * case3: negative margin with float     
+             *
+             */
+            .float{
+                float:left;
+                padding:10px;
+                width:100px;
+                background:#ffffcc;
+                border:1px solid #000;
+                height:100px;
+                margin-left:20px;
+            }
+            
+            .one {
+                margin-right:-50px;
+            }
+            
+            .two {
+                background:red;
+                color:yellow;
+                height:90px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="case1">
+            <p>This is the paragraph 1</p>
+            <p class="bottom">This is the paragraph 2</p>
+            <p>This is the paragraph 3</p>
+        </div>
+
+        <div class="outer">
+            <div class="inner">This is the paragraph that we want to stretch outside the parent for a neat effect</div>
+        </div>
+        
+        <div class="float one">
+            <p>Float 1</p>
+        </div>
+        <div class="float two">
+            <p>Float 2</p>
+        </div>
+
+    </body>
+</html>

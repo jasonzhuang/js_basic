@@ -1,0 +1,28 @@
+body {
+    font: normal 14px verdana;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 150px; /* Width of Menu Items */
+}
+
+ul li {
+    float:left;
+    padding:5px;
+    position:relative;
+}
+
+li ul {
+    width:300px;
+    position: absolute;
+    top:20px;
+    display: none;
+    background-color:#ffff00;
+}
+
+li:hover ul {
+     display:block;
+}

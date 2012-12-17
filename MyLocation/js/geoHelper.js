@@ -10,7 +10,7 @@ function GeoHelper() {
                                             handleLocationError,
                                             {maximumAge:20000});//Setting this option will keep our page updating at regular intervals
         } else {
-            log("Your browser not support GeoLocation");
+            MyLocation.log("Your browser not support GeoLocation");
         }
     }
     
@@ -19,30 +19,26 @@ function GeoHelper() {
         mylocation.latitude = position.coords.latitude;
         mylocation.longitude = position.coords.longitude;
         fn(mylocation);
-        log("lat: " + position.coords.latitude + ", lon: " + position.coords.longitude);
+        MyLocation.log("lat: " + position.coords.latitude + ", lon: " + position.coords.longitude);
     }
     
     var handleLocationError = function(error){
         switch(error.code){
         case 0:
-            log("There was an error while retrieving your location: " +
+            MyLocation.log("There was an error while retrieving your location: " +
             error.message);
             break;
         case 1:
-            log("The user prevented this page from retrieving a location.");
+            MyLocation.log("The user prevented this page from retrieving a location.");
             break;
         case 2:
-            log("The browser was unable to determine your location: " +
+            MyLocation.log("The browser was unable to determine your location: " +
             error.message);
             break;
         case 3:
-            log("The browser timed out before retrieving the location.");
+            MyLocation.log("The browser timed out before retrieving the location.");
             break;
         }
-    }
-    
-    var log = this.log = function(msg){
-        console.log(msg);
     }
 }
 

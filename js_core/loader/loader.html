@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-type" content="text/html;charset=gbk"/>
+  <title>Image Loader</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var onload = function() {
+            console.info("image loaded");
+        }
+        
+        //only support in IE
+        var onReadyStateChange = function(){
+            console.info("readyStateChange handler");
+        }
+
+        var onError = function() {
+            console.error("image load error");
+        }
+        
+        var loader = new Image();
+        if(typeof window.addEventListener !== "undefined") {
+            loader.addEventListener("load", onload);
+            loader.addEventListener("readystatechange", onReadyStateChange);
+            loader.addEventListener("error", onError);
+        } else {
+            loader.attachEvent("load", onload);
+            loader.attachEvent("readystatechange", onReadyStateChange);
+            loader.attachEvent("error", onError);
+        }
+
+        loader.src = "camera.jpg";
+    </script>
+</body>
+</html>

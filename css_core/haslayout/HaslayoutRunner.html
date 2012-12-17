@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Box Model</title>
+        <style type="text/css">
+            /**
+             * for IE6-7, filter not work    
+             * reason: div/span has no "haslayout" in IE6-7
+             * fix: trigger haslayout by flowing css property
+             *  position
+             *  float
+             *  width(!auto) height(!auto)
+             *  zoom
+             *  overflow
+             */
+            div.box {
+                background:red;
+                filter:alpha(opacity=50);
+                zoom:1;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box">
+            text
+        </div>
+    </body>
+</html>

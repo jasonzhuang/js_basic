@@ -1,0 +1,62 @@
+        a {
+            text-decoration:none;
+        }
+        
+        .main {
+            margin:0px auto;
+        }
+        
+        /**
+         * even set parent width, the img width is still bigger than the parent    
+         * so you have to set img width individually
+         */
+        .product_view {
+            position:relative;
+            width:400px;
+            float:left;
+        }
+        
+        .product_detail {
+            width:640px;
+            float: left;
+        }
+        
+        .zoomple {
+            cursor:move;
+            height:400px;
+            overflow:hidden;
+        }
+        
+        .zoomplePopup {
+            position:absolute;
+            left:30px;
+            top:50px;
+            width:200px;
+            height:200px;
+            z-index:999;
+            background-color:#ff0000;
+            /**display:inline**/
+        }
+        
+        .preview {
+           position:absolute;
+           left:380px;
+           top:30px;
+           display:none;
+           width:400px;
+           height:400px;
+           overflow:hidden; /**IMPORT, clip the img**/
+           border:1px solid #dddddd;
+           background:#ffffff;
+        }
+        
+        /**IMPORT, position can't inherit, even the parent set position**/
+        .preview img {
+            position:absolute;
+        }
+        
+        .buy_btn a {
+            display:block;
+            margin:0 20px;
+            float:left;
+        }

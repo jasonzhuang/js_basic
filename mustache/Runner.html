@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mustache Runner</title>
+        <script type="text/javascript" src="mustache.js"></script>
+    </head>
+    <body>
+        <div id="employees">
+
+        </div>
+        <script type="text/javascript">
+            var data = {
+                employees: [
+                    {firstName: "Christophe",
+                     lastName: "Coenraets"
+                    },
+                    {firstName: "John",
+                     lastName: "Smith"
+                    }
+                ]};
+            
+            var tpl = "<ul>{{#employees}}" + "<li>{{firstName}} {{lastName}}</li>" + "{{/employees}}</ul>";
+            var html = Mustache.to_html(tpl, data);
+            var sampleArea = document.getElementById("employees");
+            sampleArea.innerHTML = html;
+        </script>
+    </body>
+</html>

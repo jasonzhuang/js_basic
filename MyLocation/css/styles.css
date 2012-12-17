@@ -1,4 +1,10 @@
 #map {
-    width:800px;
+    width:600px;
     height:600px;
+    float:left;
+}
+
+#actions {
+    float:left;
+    width:200px;
 }

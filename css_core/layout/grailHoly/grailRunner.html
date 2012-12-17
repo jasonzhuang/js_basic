@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Grail Holy</title>
+        <meta charset="utf-8">
+        <style type="textt/css">
+            /**
+             * LC: left column, RC:right column, CC:center column
+             *
+             */
+            body {
+              min-width: 550px;      /* 2x LC width + RC width */
+            }
+            #container {
+              padding-left: 200px;   /* LC width */
+              padding-right: 150px;  /* RC width */
+            }
+            #container .column {
+              position: relative;
+              float: left;
+            }
+            #center {
+              width: 100%;
+            }
+            #left {
+              width: 200px;          /* LC width */
+              right: 200px;          /* LC width */
+              margin-left: -100%;  /**Remember that the 100% refers to the central width of the container, which is also exactly the width of the center column.**/
+            }
+            #right {
+              width: 150px;          /* RC width */
+              margin-right: -150px;  /* RC width */
+            }
+            #footer {
+              clear: both;
+            }
+            /*** IE6 Fix ***/
+            * html #left {
+              left: 150px;           /* RC width */
+            }
+        </style>
+    </head>
+    <div id="header"></div>
+    
+    <div id="container">
+      <div id="center" class="column"></div>
+      <div id="left" class="column"></div>
+      <div id="right" class="column"></div>
+    </div>
+    
+    <div id="footer"></div>
+</html>

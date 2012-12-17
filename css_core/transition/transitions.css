@@ -1,0 +1,31 @@
+.slideRight {
+  position: absolute;
+  -moz-transition-property: background-color, color, left;
+  -moz-transition-duration: 5s;
+  -webkit-transition-property: background-color, color, left;
+  -webkit-transition-duration: 5s;
+  -o-transition-property: background-color, color, left;
+  -o-transition-duration: 5s;
+  text-align: center;
+  background-color: red;
+  left: 0%;
+  width: 100px;
+  height: 100px;
+  color: black;
+}
+
+.slideLeft {
+  position: absolute;
+  -moz-transition-property: background-color, color, left;
+  -moz-transition-duration: 5s;
+  -webkit-transition-property: background-color, color, left;
+  -webkit-transition-duration: 5s;
+  -o-transition-property: background-color, color, left;
+  -o-transition-duration: 5s;
+  text-align: center;
+  background-color: blue;
+  left: 90%;
+  color: white;
+  width: 100px;
+  height: 100px;
+}
