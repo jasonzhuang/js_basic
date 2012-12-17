@@ -1,7 +1,8 @@
 (function runAll(){
     //case4()
     //case5();
-    case6();
+    //case6();
+    case7();
 })();
 
 //RegEx.match()
@@ -70,4 +71,10 @@ function case6() {
       var attrValue = RegExp.$4;
       console.log(tagName + ", " + attrName + ", " + attrOperator + ", " + attrValue);
     }
+}
+
+//return null if no macth
+function case7(){
+    var match = /(win)/.exec("hahah");
+    console.log(match);
 }

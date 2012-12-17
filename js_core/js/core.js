@@ -5,8 +5,9 @@
  */
 (function runAll(){
     //case1();
-    case2();
+    //case2();
     //case3();
+    case4();
 })();
 
 function case1(){
@@ -68,22 +69,24 @@ function case4() {
     function Person(name,age){
         this.name = name;
         this.age = age;
-        this.print = function() {
+        this.print = function(name) {
             
         }
     }
     
-    function Student(name,age,grade,school){
+    function Student(name,age,title){
         Person.call(this, name, age);
-        this.grade = grade;
-        this.school = school;
+        this.title = title;
     }
     
+    Person.prototype.location = "hahah";
     Student.prototype = new Person();
     Student.prototype.constructor = Student;
     
     var person = Person("person",25);
     console.log("window.name: " + window.name);
+    
+    var student = new Student("zokas","20", "engineer");
     for (var prop in student) {
         console.log(prop);
     }

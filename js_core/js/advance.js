@@ -14,15 +14,6 @@ function doStuff(){
     console.log("do stuff...");
 }
 
-/**
- * short name
- */
-jQuery.props = {
-    "for":"htmlFor",
-    "class":"className",
-    maxlength:"maxLength",
-    tabindex:"tabIndex"
-}
 
 getScript("http://www.cornify.com/js/cornify.js",function(){
     var times = [42, 28, 75, 50];
@@ -33,7 +24,6 @@ getScript("http://www.cornify.com/js/cornify.js",function(){
     }
 })
 
-(new Function("return " + data))()
 
 var msg = "*** Welcome to Dr. Clue's HTML/CGI Guide *** I hope you enjoy";
 
@@ -47,23 +37,4 @@ function scrollText(){
     setTimeout(scrollText, 100);
 };
 
-
-// release memory
-assert = function( fn ) {
-    var div = document.createElement("div");
-
-    try {
-        return fn( div );
-    } catch (e) {
-        return false;
-    } finally {
-        // release memory in IE
-        div = null;
-    }
-}
-
-assertTagNameNoComments = assert(function( div ) {
-    div.appendChild( document.createComment("") );
-    return !div.getElementsByTagName("*").length;
-})
 
