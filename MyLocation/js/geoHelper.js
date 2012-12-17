@@ -6,7 +6,7 @@ function GeoHelper() {
     this.getLocation = function(callback){
         fn = callback;
         if(navigator.geolocation) {
-            navigator.geolocation.watchPosition(updateLocation,
+            navigator.geolocation.getCurrentPosition(updateLocation,
                                             handleLocationError,
                                             {maximumAge:20000});//Setting this option will keep our page updating at regular intervals
         } else {
@@ -44,6 +44,5 @@ function GeoHelper() {
     var log = this.log = function(msg){
         console.log(msg);
     }
-    
 }
 
