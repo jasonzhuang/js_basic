@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>jQuery idTabs plugin</title>
+        <script type="text/javascript" src="../js/jquery.js"></script> 
+        <script type="text/javascript" src="../js/idTabs.js"></script>
+        <style type="text/css">
+            /* Style for Usual tabs */
+            ul {
+                padding-left:0;    
+            }
+            
+            .usual {
+              background:#181818;
+              color:#111;
+              padding:15px 20px;
+              width:500px;
+              border:1px solid #222;
+              margin:8px auto;
+            }
+            
+            .usual li { list-style:none; float:left; }
+            .usual ul a {
+              display:block;
+              padding:6px 10px;
+              text-decoration:none!important;
+              margin:1px;
+              margin-left:0;
+              font:10px Verdana;
+              color:#FFF;
+              background:#444;
+            }
+            
+            .usual ul a:hover {
+              color:#FFF;
+              background:#111;
+            }
+            
+            .usual ul a.selected {
+              margin-bottom:0;
+              color:#000;
+              background:snow;
+              border-bottom:1px solid snow;
+              cursor:default;
+            }
+            
+            .usual div {
+              padding:10px 10px 8px 10px;
+              *padding-top:3px;
+              *margin-top:-15px;
+              clear:left;
+              background:snow;
+              font:10pt Georgia;
+            }
+            
+            .usual div a { color:#000; font-weight:bold; }
+        </style>
+    </head>
+    <body>
+        <div id="usual1" class="usual">
+          <ul> 
+            <li><a class="selected" href="#weather">Tab 1</a></li> 
+            <li><a href="#tab2">Tab 2</a></li> 
+            <li><a href="#tab3">Tab 3</a></li> 
+          </ul> 
+          <div id="weather">This is tab 1.</div> 
+          <div id="tab2">More content in tab 2.</div> 
+          <div id="tab3">Tab 3 is always last!</div> 
+        </div>
+        <script type="text/javascript">
+            $("#usual1 ul").idTabs();
+        </script>
+    </body>
+</html>
