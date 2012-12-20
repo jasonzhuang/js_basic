@@ -3,31 +3,61 @@
     <head>
         <title>background Runner</title>
         <style>
-            .para1 {
-                border:solid #6F3BA4;
-                margin:30px 0;
-                background-image: url('images/newshead.png');
-                background-repeat: repeat;/**initial value**/
+        /**
+         * Must set width and height which is the same as image size, otherwise the image will show other parts    
+         * 
+         */
+            .sprite li {
+                list-style:none;
+                margin-top:10px;
             }
             
-            .para2 {
-                border:3px solid #00CC33;
-                margin:30px 0;
-                color:#FF0000;
-                width:300px;
-                height:80px;
-                background-image: url('images/logo.png');
-                background-repeat: no-repeat;
-                background-position:-15px 5px;
+            .icons {
+                width:600px;
+                height:400px;
+            }
+            
+            li.icon1 {
+                width:120px;
+                height:81px;
+                background:url('images/print.png?v=3') 0 0  no-repeat;
+            }
+            
+            li.icon2 {
+                width:128px;
+                height:88px;
+                background:url('images/print.png') -128px 0 no-repeat;
+            }
+            
+            li.icon3 {
+                width:128px;
+                height:88px;
+                background:url('images/print.png') -267px 0 no-repeat;
+            }
+            
+            li.icon4 {
+                width:128px;
+                height:88px;
+                background:url('images/print.png') 0 -222px no-repeat;
+            }
+            
+            li.icon5 {
+                width:190px;
+                height:50px;
+                background:url('images/print.png') -224px -428px no-repeat;
             }
         </style>
     </head>
     <body>
-        <div class="para1">
-            This is para1
-        </div>
-        <div class="para2">
-            This is para2
+        <div class="sprite">
+            <ul class="icons">
+                <li class="icon1"></li>
+                <li class="icon2"></li>
+                <li class="icon3"></li>
+                <li class="icon4"></li>
+                <li class="icon5"></li>
+                <li class="icon6"></li>
+            </ul>
         </div>
     </body>
 </html>

@@ -38,7 +38,7 @@ $(function(){
         // Yahoo's PlaceFinder API http://developer.yahoo.com/geo/placefinder/
         // We are passing the R gflag for reverse geocoding (coordinates to place name)
         var geoAPI = 'http://where.yahooapis.com/geocode?location='+lat+','+lon+'&flags=J&gflags=R&appid='+APPID;
-        
+        console.log(geoAPI);
         // Forming the query for Yahoo's weather forecasting API with YQL
         // http://developer.yahoo.com/weather/
         

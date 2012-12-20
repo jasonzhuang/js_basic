@@ -2,25 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <title>jquery</title>
+  <title>jquery feature test</title>
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/jquery_source.js"></script>
+  <style type="text/css">
+    p { margin-left:10px; }
+    
+  </style>
 </head>
 <body>
-    <div id="foo">
-        <ul>
-           <li id="one">Item one</li>
-           <li>Item two</li>
-           <li>Item three</li>
-        </ul>
+    <h2>Greetings</h2>
+    <div class="container">
+      <div class="inner">Hello</div>
+      <div class="inner">Goodbye</div>
     </div>
     <script type="text/javascript">
-        var obj1 = {apple: 0,
-                      cherry: 97
-                    };
-        var obj2 = {cherry:100, durian:200};
-        $.extend(obj1, obj2);
-        console.log(obj1);
+        $('.inner').append($("<p>Test</p>"));
+        var ele = $("<p>Fly on Element</p>");
+        console.log(ele);
     </script>
 </body>
 </html>

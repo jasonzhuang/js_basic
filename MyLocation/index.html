@@ -8,15 +8,26 @@
 	    <script type="text/javascript" src="js/jquery.blockUI.js"></script>
 	    <script type="text/javascript" src="js/geoHelper.js"></script>
 	    <script type="text/javascript" src="js/app.js"></script>
+	    <script type="text/javascript" src="js/weather.js"></script>
+	    <script type="text/javacript" src="js/idTabs.js"></script>
         <link rel="stylesheet" href="css/styles.css" />
     </head>
     <body>
         <div id="page">
            <div id="map"></div>
-           <div id="actions">
-               <input class="queryWeather" type="button" value="Get Weather"/>
+            <div id="around">
+               <div id="actions">
+                   <input class="queryWeather" type="button" value="Get Weather"/>
+               </div>
+               <div id="weather">
+                   <ul id="scroller">
+                       <!-- The forecast items will go here -->
+                   </ul>
+                   <a href="#" class="arrow previous">Previous</a>
+                   <a href="#" class="arrow next">Next</a>
+                   <p class="location"></p>
+               </div>
            </div>
-        </div>
-        <script type="text/javascript" src="js/weather.js"></script>
+       </div>
     </body>
 </html>

@@ -13,41 +13,45 @@ function Weather(){
         code, city, results, woeid;
     
     
-    return {
-        getWeather:function(position){
+    
+    this.getWeather = function(position, fn){
             if(!position || !position.latitude || !position.longitude) {
                 throw new Error("position is null");
             }
-            
             var items = [];
             
             geoAPI = geoAPI.replace("LAT", position.latitude).replace("LON", position.longitude);
+            console.log(geoAPI);
+            
             $.getJSON(geoAPI, function(r){
                 if(r.ResultSet.Found == 1){
                     results = r.ResultSet.Results;
                     city = results[0].city;
                     code = results[0].statecode || results[0].countrycode;
-            
+                    //TODO:Could use global data?
+                    MyLocation.city = city;
+                    MyLocation.code = code;
+                    console.log("city:" + city + ", code: " + code);            
                     // This is the city identifier for the weather API
                     woeid = results[0].woeid;
                     $.getJSON(weatherYQL.replace('WID',woeid), function(r){
-                        
                        if(r.query && r.query.count == 1){
                            // current day
                            var item = r.query.results.channel.item.condition;
                            items.push(item);
+                           
                            if(!item){
                                 MyLocation.log("We can't find weather information about your city!");
                                 MyLocation.log("%s, %s; woeid: %d", city, code, woeid);
-                                return false;
+                                fn(false);
                            }
                            
                            for (var i=0;i<2;i++){
                                 item = r.query.results.channel.item.forecast[i];
                                 items.push(item);
                            }
-
-                           return items;
+                           //invoke callback
+                           fn(items);
                        } else {
                            MyLocation.log("Error retrieving weather data!");
                        }
@@ -59,10 +63,4 @@ function Weather(){
                 MyLocation.log("Your browser does not support CORS requests!");
             });
         }
-    }
 }
-
-
-
-
-

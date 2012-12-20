@@ -1,8 +1,13 @@
+/**
+ * exec: It returns an array of information or null on a mismatch
+ * test: It returns true or false
+ *  
+ */
 (function runAll(){
+    case2();
     //case4()
     //case5();
     //case6();
-    case7();
 })();
 
 //RegEx.match()
@@ -28,7 +33,10 @@ function case2(){
     if(pattern.test(text)) {
         console.log(RegExp.$1);
         console.log(RegExp.$2);
-    } 
+    }
+    
+    var result = /hello/.test("jkjkj");
+    console.log(result);
 }
 
 //trim white space
@@ -61,6 +69,7 @@ function case5() {
     console.log(matches);//[win]
 }
 
+//match is function of String
 function case6() {
     var token = "a[href^='http://']";
     var pattern = /^(\w*)\[(\w+)([=~\|\^\$\*]?)=?"?([^\]"]*)"?\]$/;
@@ -71,10 +80,4 @@ function case6() {
       var attrValue = RegExp.$4;
       console.log(tagName + ", " + attrName + ", " + attrOperator + ", " + attrValue);
     }
-}
-
-//return null if no macth
-function case7(){
-    var match = /(win)/.exec("hahah");
-    console.log(match);
 }
