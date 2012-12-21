@@ -60,21 +60,40 @@ var employee = new Employee("Nicholas", 29);
 // console.log(employee instanceof Employee);//false
 
 
-function Person(){
+// function Person(){
+// }
+// 
+// Person.prototype = {
+    // //constructor:Person,
+    // name : "Nicholas",
+    // age : 29,
+    // job : "Software Engineer",
+    // sayName : function () {
+        // alert(this.name);
+    // }
+// };
+// var person = new Person();
+// console.log(person.__proto__);
+// console.log(person.constructor);//Object
+// console.log(Person.prototype.constructor);//Object
+// console.log(person instanceof Person);//true, because Person.prototype is in person's prototype chain
+// 
+// console.log("===========================");
+
+
+function Person(name,age){
+    this.name = name;
+    this.age = age;
+    this.say = function() {
+    	console.log("my name is " + this.name);
+    }
 }
 
-Person.prototype = {
-    //constructor:Person,
-    name : "Nicholas",
-    age : 29,
-    job : "Software Engineer",
-    sayName : function () {
-        alert(this.name);
-    }
-};
+function Student(name,age,title){
+    Person.call(this, name, age);//Note the difference bwteen having this line and not
+    this.title = title;
+}
 
-var person = new Person();
-console.log(person.__proto__);
-console.log(person.constructor);//Object
-console.log(Person.prototype.constructor);//Object
-console.log(person instanceof Person);//true, because Person.prototype is in person's prototype chain
+var person = new Person("jason", "18");
+Student.prototype = new Person();
+var student = new Student("zokas","20", "engineer");
