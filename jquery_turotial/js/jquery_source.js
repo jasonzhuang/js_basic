@@ -273,3 +273,22 @@ Tween.prototype = {
 }
 //assign the init() function prototype
 Tween.prototype.init.prototype = Tween.prototype;
+
+
+/**
+ * Array-like object
+ * 
+ */
+function fakeArray(){
+    var fakeArray = {"length": 1, 0: "Addy", 1: "Subtracty"};
+    var realArray = $.makeArray( fakeArray );
+    $.map( realArray, function(val, i) {
+      // do something 
+    });
+    
+    var arr = [ "a", "b", "c", "d", "e" ];
+    //will NOT change original Array    
+    var result = $.map(arr, function(value,index){
+       return value + value; 
+    });
+}

@@ -7,19 +7,19 @@
   <script type="text/javascript" src="js/jquery_source.js"></script>
   <style type="text/css">
     p { margin-left:10px; }
-    
+    .highlight {
+        color:#ff00ff;
+    }
   </style>
 </head>
 <body>
     <h2>Greetings</h2>
     <div class="container">
-      <div class="inner">Hello</div>
-      <div class="inner">Goodbye</div>
+        <p class="para">para1</p>
+        <p class="para">para2</p>
     </div>
     <script type="text/javascript">
-        $('.inner').append($("<p>Test</p>"));
-        var ele = $("<p>Fly on Element</p>");
-        console.log(ele);
+        console.log($(".container"));
     </script>
 </body>
 </html>

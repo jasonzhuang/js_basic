@@ -1,16 +1,20 @@
 /**
  * exec: It returns an array of information or null on a mismatch
  * test: It returns true or false
- *  
+ * [xyz]: A character set, Special characters (such as the dot (.) and the asterisk (*)) do not have any special meaning inside a character set
  */
 (function runAll(){
-    case2();
+    //case1();
+    //case2();
     //case4()
     //case5();
     //case6();
+    //case7();
+    //case8();
+    case9();
 })();
 
-//RegEx.match()
+//RegEx.match(), $n store capture match
 function case1(){
     var text = "hahahhaluckyCount=2";
     var pattern = /luckyCount=(\d{1})/g;
@@ -48,7 +52,7 @@ function case3(){
     console.log("after trim length: " + result.length);
 }
 
-// (?:pattern) doesn't capture match
+// (?:x), Matches 'x' but does not remember the match
 function case4() {
     var pattern = /(some)/;
     var pattern2 = /(?:some)/;
@@ -59,7 +63,7 @@ function case4() {
 }
 
 
-// (?=pattern) matches only if there is a following pattern in input.
+// x(?=y), Matches 'x' only if 'x' is followed by 'y'. This is called a lookahead
 function case5() {
     var text = "hello winYEP98";
     var pattern = /win(?=98)/;
@@ -69,7 +73,16 @@ function case5() {
     console.log(matches);//[win]
 }
 
-//match is function of String
+//x(?!y), Matches 'x' only if 'x' is not followed by 'y'. This is called a negated lookahead.
+function case8(){
+    var text = "helloherk";
+    var pattern = /llo(?!j)/;
+    var matches = pattern.exec(text);
+    console.log(matches);
+}
+
+
+//match is String's function
 function case6() {
     var token = "a[href^='http://']";
     var pattern = /^(\w*)\[(\w+)([=~\|\^\$\*]?)=?"?([^\]"]*)"?\]$/;
@@ -80,4 +93,21 @@ function case6() {
       var attrValue = RegExp.$4;
       console.log(tagName + ", " + attrName + ", " + attrOperator + ", " + attrValue);
     }
+}
+
+//?, If used immediately after any of the quantifiers *, +, ?, or {}, makes the quantifier non-greedy
+function case7(){
+    var text = "foo bar";
+    var match1 = /\s\w*/.exec(text);//greedy
+    var match2 = /\s\w*?/.exec(text);//no-greedy
+    console.log(match1);
+    console.log(match2)
+}
+
+//flag
+function case9(){
+    var text = "fee fi fo fum";
+    var pattern = /\w+\s/g;
+    console.log(pattern.exec(text));//fee
+    console.log(pattern.exec(text));//fi
 }
