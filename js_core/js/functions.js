@@ -4,7 +4,6 @@
     //case3();
     //case4();
     //case5();
-    //case6();
     //case7();
     //case8();
     //case9();
@@ -186,26 +185,6 @@ function case5() {
     }
     
     base.partial();
-}
-
-/**
- * Context
- */
-function case6(){
-    var shuriken = {
-        toss:function(){
-            this.isSharp = true;
-        }
-    };
-    shuriken.toss();
-    console.log(shuriken.isSharp === true);
-    
-    function katana(){
-        this.isSharp = true;
-    }
-    
-    katana();
-    console.log("window.isSharp: " + (window.isSharp === true));
 }
 
 /**
