@@ -11,7 +11,8 @@
     //case6();
     //case7();
     //case8();
-    case9();
+    //case9();
+    case10();
 })();
 
 //RegEx.match(), $n store capture match
@@ -110,4 +111,12 @@ function case9(){
     var pattern = /\w+\s/g;
     console.log(pattern.exec(text));//fee
     console.log(pattern.exec(text));//fi
+}
+
+//back refer
+function case10(){
+    var text = "hello world hello barara";
+    var pattern = /(hello)\sworld\s+\1/;//\1 refer to hello
+    var match = pattern.exec(text);
+    console.log(match);
 }

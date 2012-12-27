@@ -9,6 +9,11 @@
             console.info(locations);
             var store = JSON.stringify(locations);
             console.info(store);
+            
+            var contact = "{\"name\" : \"nicholas\"}";//note the escape character and before { has a quote "
+            console.log(window.JSON);
+            var jsonText = window.JSON.parse(contact);
+            console.log(jsonText);
         </script>
     </head>
     <body>

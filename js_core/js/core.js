@@ -1,13 +1,10 @@
-/*
- *1. When a function is called with the word new in front of it, its "this" variable will point at a new object
- *2. "new" key word create "constructor" property, points at the constructor function.
- *3. for hidden properties, propertyIsEnumerable return false
- */
 (function runAll(){
     //case1();
     //case2();
     //case3();
-    case4();
+    //case4();
+    //case5();
+    case6();
 })();
 
 function case1(){
@@ -52,13 +49,27 @@ function case2(){
     console.log(Person.prototype);
 }
 
-function case3() {
-    var scope="global";
+/**
+ * use instanceof
+ *  
+ */
+function case3(){
+    function Employee(name, age){
+        var o = new Object();
+        o.name = name;
+        o.age = age;
+        o.sayName = function(){
+            return this.name;
+        }
+        return o;
+    }
     
-    console.log(scope);//output : "undefined"
-    var scope="local";
-    console.log(scope);//output : local
+    var employee = new Employee("Nicholas", 29);
+    console.log(employee.__proto__);
+    console.log(employee.construtor);
+    console.log(employee instanceof Employee);//false
 }
+
 
 /**
  *
@@ -75,7 +86,7 @@ function case4() {
     }
     
     function Student(name,age,title){
-        Person.call(this, name, age);
+        Person.call(this, name, age);///Note the difference bwteen having this line and not
         this.title = title;
     }
     
@@ -89,5 +100,92 @@ function case4() {
     var student = new Student("zokas","20", "engineer");
     for (var prop in student) {
         console.log(prop);
+    }
+    
+    console.log("============");
+    console.log(student);
+}
+
+/**
+ * parasitic constructor pattern
+ * 
+ * in the construtor, return an object
+ * 
+ */
+function case5(){
+    function Person(age,job) {
+        var o = new Object();
+        o.age = age;
+        o.job = job;
+        o.sayJob = function(){
+            console.log(this.job);
+        };
+        return o;//Notice it
+    }
+    
+    var person = new Person(29,"engineer");
+    person.sayJob();
+    var person2 = new Person(25,"yougen");
+    person2.sayJob();
+    //they're different
+    console.log(person.__proto__);
+    console.log(Person.prototype);
+}
+
+/**
+ * prototype issue
+ * 
+ */
+function case6(){
+    function SuperType(){
+        this.colors = ["red","green","blue"];
+    }
+    
+    function SubType(){
+        
+    }
+    
+    SubType.prototype = new SuperType();
+    var instance1 = new SubType();
+    instance1.colors.push("white");
+    console.log(instance1.colors);
+    console.log(instance1);
+    
+    var instance2 = new SubType();
+    console.log(instance2.colors);
+}
+
+/**
+ * |this| scope
+ *  
+ */
+function case7(){
+    
+}
+
+/**
+ * setTimeout
+ * 
+ * Note the variable location, put the n in line1 and line2, have different result
+ */
+function case8(){
+    var n = 8 //line1
+    function showIt(){
+        //var n = 8; //line2
+        console.log("n is " + n);
+        --n;
+        setTimeout(showIt,1000);
+    }
+}
+
+/**
+ * Object.create()
+ *  
+ */
+public function case7(){
+    Object.create = function(o) {
+        function F(){};
+        F.prototype = o;
+        return new F();
     }
 }

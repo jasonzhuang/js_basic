@@ -4,7 +4,6 @@
   <meta charset="UTF-8"/>
   <title>jquery feature test</title>
   <script type="text/javascript" src="js/jquery.js"></script>
-  <script type="text/javascript" src="js/jquery_source.js"></script>
   <style type="text/css">
     p { margin-left:10px; }
     .highlight {
@@ -16,10 +15,17 @@
     <h2>Greetings</h2>
     <div class="container">
         <p class="para">para1</p>
-        <p class="para">para2</p>
+        <p class="para2">para2</p>
+    </div>
+    <div id="images">
     </div>
     <script type="text/javascript">
-        console.log($(".container"));
+        function aaa(){
+            return function (){
+                
+            }
+        };
+        console.log("*".split(/\s+/));
     </script>
 </body>
 </html>

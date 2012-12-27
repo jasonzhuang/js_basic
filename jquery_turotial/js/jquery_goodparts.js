@@ -1,18 +1,3 @@
-function queryResult(){
-    /**
-     * <div>
-     *  <ul>
-     *     <li id="item">Item one</li>
-     *     <li>Item two</li>
-     *  </ul>
-     * </div>
-     */
-    var ele = $("#item");
-    console.log(ele instanceof Element)//false
-    ele = document.getElementById("item");
-    console.log(ele instanceof Element);//true
-}
-
 /**
  * refer http://api.jquery.com/jQuery/ and init()  in source code
  *  
@@ -57,8 +42,8 @@ function what$do(){
  *
  *     case1: object refer to jQuery
  *     var list = $("li");
- *      list.each(function(index,value) {
- *          console.log(index, value);
+ *      list.each(function(key,value) {
+ *          console.log(key, value);
  *      });
  *     
  *      case2: object refer to parks
@@ -243,7 +228,7 @@ function useToggleClass(){
      * 
      */
     $("p").click(function () {
-      //$(this) refer to the current element
+      //this refer to the current element
       $(this).toggleClass("highlight");
     });
 }
@@ -276,19 +261,179 @@ Tween.prototype.init.prototype = Tween.prototype;
 
 
 /**
- * Array-like object
- * 
+ * Array-like object, jquery objects are treated as arrays
+ * $.merge() also work for jQuery Object
  */
 function fakeArray(){
     var fakeArray = {"length": 1, 0: "Addy", 1: "Subtracty"};
     var realArray = $.makeArray( fakeArray );
-    $.map( realArray, function(val, i) {
-      // do something 
-    });
     
     var arr = [ "a", "b", "c", "d", "e" ];
-    //will NOT change original Array    
+    //will NOT change original Array 
     var result = $.map(arr, function(value,index){
        return value + value; 
     });
+    
+    //merge will change the first Array
+    $.merge($("<div>a</div>",$("<div>b</div>")));
+    
+    /**
+     * merge source code
+     *  
+     */
+    merge = function( first, second ) {
+        var i = first.length,
+            j = 0;
+
+        if ( typeof second.length === "number" ) {
+            for ( var l = second.length; j < l; j++ ) {
+                first[ i++ ] = second[ j ];
+            }
+
+        } else {
+            while ( second[j] !== undefined ) {
+                first[ i++ ] = second[ j++ ];
+            }
+        }
+
+        first.length = i;
+
+        return first;
+    };
+    
 }
+
+/**
+ * quick decision and scenario judge
+ * !!undefined === false, !!null === false
+ */
+function beautyDecision(){
+    if ( (options = arguments[ i ]) != null ) {
+        //bara bara ....
+    }
+    
+    memory = !flags.memory || [ context, args ];
+    
+    clone = src && jQuery.isPlainObject(src) ? src : {};
+    
+    isArray: Array.isArray || function( obj ) {
+        return jQuery.type(obj) === "array";
+    },
+    
+    //inv may not pass, so the value will be undefined
+    grep = function(elems, callback, inv) {
+        inv = !!inv;
+        //....
+    }
+    
+    // Unique for each copy of jQuery on the page
+    expando: "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
+    
+    data = data === "true" ? true :
+        data === "false" ? false :
+        data === "null" ? null :
+        jQuery.isNumeric( data ) ? parseFloat( data ) :
+            rbrace.test( data ) ? jQuery.parseJSON( data ) :
+            data;
+            
+    // Attach a bunch of functions
+    jQuery.each( "ajaxStart ajaxStop ajaxComplete ajaxError ajaxSuccess ajaxSend".split( " " ), function( i, o ){
+        jQuery.fn[ o ] = function( f ){
+            return this.bind( o, f );
+        };
+    });
+}
+
+/**
+ * chain pattern, always return itself
+ * 
+ * Promise is an interface???
+ */
+function chainPattern(){
+    var
+        list = [],
+        memory,
+        firing,
+        add = function(args) {
+            //bara bara ...
+        },
+        fire = function(context,args) {
+            //bara bara ...
+        },
+        // Actual Callbacks object
+        self = {
+            add:function(){
+                if ( list ) {
+                    var length = list.length;
+                    add( arguments ); // invoke private function
+                    if ( firing ) {
+                        firingLength = list.length;
+                    } else if ( memory && memory !== true ) {
+                        firingStart = length;
+                        fire( memory[ 0 ], memory[ 1 ] );//this line is how the memory works
+                    }
+                }
+            },
+            disable:function(){
+                list = stack = memory = undefined;
+                return this;
+            }
+            
+        };
+        
+        return self;
+}
+
+/**
+ * difference: Callbacks.disable and Callbacks.lock
+ *
+ */
+
+/**
+ * 
+ * plugin pattern
+ * 
+ * jQuery.extend({...}), jQuery.fn.extend({....}):
+ * $.extend() use as $.xxx();
+ * $.fn.extend() use as $("xxx").xxx()
+ * 
+ * Note the |this|.each
+ * 
+ */
+function pluginPattern(){
+    jQuery.extend({
+        foo:function(){
+            console.log("this is foo");
+            return this;
+        },
+        
+        bar:function(){
+            console.log("this is bar");
+        },
+        
+        outFoo:function(){
+            console.log("this is addFoo");
+            return this;
+        },
+        
+        //here |this| --> function(selector, context)
+        findBar:function(){
+            return this.each(function(){
+                var self = jQuery(this);
+                self.outFoo();
+            })
+        }
+    });
+    
+    jQuery.fn.extend({
+        //here |this| --> jQuery.fn.jQuery.init()
+        findBar:function(){
+            return this.each(function(){
+                var self = jQuery(this);
+                self.outFoo();
+            })
+        }
+    });
+}
+
+
