@@ -7077,6 +7077,7 @@ function ajaxExtend( target, src ) {
 }
 
 jQuery.fn.extend({
+    //load delegate to jQuery.ajax
     load: function( url, params, callback ) {
         if ( typeof url !== "string" && _load ) {
             return _load.apply( this, arguments );
@@ -7720,7 +7721,7 @@ jQuery.extend({
     }
 });
 
-//==================================end ajax definition=================================
+
 
 function buildParams( prefix, obj, traditional, add ) {
     if ( jQuery.isArray( obj ) ) {
@@ -8991,7 +8992,7 @@ function defaultDisplay( nodeName ) {
 
 //===========================================end animation definition===========================================
 
-
+//===========================================start offset definition============================================
 var rtable = /^t(?:able|d|h)$/i,
     rroot = /^(?:body|html)$/i;
 
@@ -9336,6 +9337,7 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 
 });
 
+//====================================================end offset definition=================================
 
 // Expose jQuery to the global object
 window.jQuery = window.$ = jQuery;

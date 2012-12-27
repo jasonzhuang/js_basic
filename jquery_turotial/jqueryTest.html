@@ -17,16 +17,15 @@
         <p class="para">para1</p>
         <p class="para2">para2</p>
     </div>
+    <div id="images">
+    </div>
     <script type="text/javascript">
-        var ret = $.ajax({
-          beforeSend: function ( xhr ) {
-            xhr.overrideMimeType("text/plain; charset=x-user-defined");
-          }
-        }).done(function ( data ) {
-          if( console && console.log ) {
-            console.log("Sample of data:", data.slice(0, 100));
-          }
-        });
+        function aaa(){
+            return function (){
+                
+            }
+        };
+        console.log("*".split(/\s+/));
     </script>
 </body>
 </html>

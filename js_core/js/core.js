@@ -177,3 +177,15 @@ function case8(){
         setTimeout(showIt,1000);
     }
 }
+
+/**
+ * Object.create()
+ *  
+ */
+public function case7(){
+    Object.create = function(o) {
+        function F(){};
+        F.prototype = o;
+        return new F();
+    }
+}

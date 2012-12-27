@@ -228,7 +228,7 @@ function useToggleClass(){
      * 
      */
     $("p").click(function () {
-      //$(this) refer to the current element
+      //this refer to the current element
       $(this).toggleClass("highlight");
     });
 }
@@ -335,11 +335,19 @@ function beautyDecision(){
         jQuery.isNumeric( data ) ? parseFloat( data ) :
             rbrace.test( data ) ? jQuery.parseJSON( data ) :
             data;
+            
+    // Attach a bunch of functions
+    jQuery.each( "ajaxStart ajaxStop ajaxComplete ajaxError ajaxSuccess ajaxSend".split( " " ), function( i, o ){
+        jQuery.fn[ o ] = function( f ){
+            return this.bind( o, f );
+        };
+    });
 }
 
 /**
  * chain pattern, always return itself
- *  
+ * 
+ * Promise is an interface???
  */
 function chainPattern(){
     var
