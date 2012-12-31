@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>this is topframe</title>
+</head>
+<body>
+    <div id="content">
+        <p>window.frames[0] is undefined</p>
+        <p>window.frames["topFrame"] is undefined</p>
+        <p>top.frames[0] is self</p>
+        <p>top.frames["topFrame"] is self</p>
+        <p>frames[0] is undefined</p>
+        <p>frames["topFrame"] is undefined</p>
+    </div>
+   <script type="text/javascript">
+        console.log(top.frames[0].name);
+        console.log(window.frames[0]);
+   </script>
+</body>
+</html>
