@@ -1,31 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <title>jquery feature test</title>
-  <script type="text/javascript" src="js/jquery.js"></script>
-  <style type="text/css">
-    p { margin-left:10px; }
-    .highlight {
-        color:#ff00ff;
+    <head>
+      <meta charset="UTF-8"/>
+      <title>jquery feature test</title>
+      <script type="text/javascript" src="js/jquery.js"></script>
+      <style type="text/css">
+        p { margin-left:10px; }
+        .highlight {
+            color:#ff00ff;
+        }
+      </style>
+    </head>
+    <body>
+        <div id="content"></div>
+        <script type="text/javascript">
+function asyncEvent(){
+    var dfd = new jQuery.Deferred();
+
+    // Resolve after a random interval
+    setTimeout(function(){
+        dfd.resolve("hurray");
+    }, Math.floor(400+Math.random()*2000));
+
+    // Reject after a random interval
+    setTimeout(function(){
+        dfd.reject("sorry");
+    }, Math.floor(400+Math.random()*2000));
+
+    // Show a "working..." message every half-second
+    setTimeout(function working(){
+        if ( dfd.state() === "pending" ) {
+            dfd.notify("working... ");
+            setTimeout(working, 500);
+        }
+    }, 1);
+
+    // Return the Promise so caller can't change the Deferred
+    return dfd.promise();
+}
+
+// Attach a done, fail, and progress handler for the asyncEvent
+$.when( asyncEvent() ).then(
+    function(status){
+        alert( status+', things are going well' );
+    },
+    function(status){
+        alert( status+', you fail this time' );
+    },
+    function(status){
+        $("body").append(status);
     }
-  </style>
-</head>
-<body>
-    <h2>Greetings</h2>
-    <div class="container">
-        <p class="para">para1</p>
-        <p class="para2">para2</p>
-    </div>
-    <div id="images">
-    </div>
-    <script type="text/javascript">
-        function aaa(){
-            return function (){
-                
-            }
-        };
-        console.log("*".split(/\s+/));
-    </script>
-</body>
+);
+        </script>
+    </body>
 </html>

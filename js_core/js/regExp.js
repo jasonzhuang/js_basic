@@ -12,7 +12,7 @@
     //case7();
     //case8();
     //case9();
-    case10();
+    //case10();
 })();
 
 //RegEx.match(), $n store capture match

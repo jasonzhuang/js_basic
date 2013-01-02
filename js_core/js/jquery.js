@@ -1698,14 +1698,6 @@ jQuery.boxModel = jQuery.support.boxModel;
 var rbrace = /^(?:\{.*\}|\[.*\])$/,
     rmultiDash = /([A-Z])/g;
 
-/**
- * for object:
- * expando:{data:{key:value},toJSON:noop}
- * 
- * for element:
- * 
- *
- */
 jQuery.extend({
     cache: {},
 
@@ -1730,12 +1722,12 @@ jQuery.extend({
         return !!elem && !isEmptyDataObject( elem );
     },
 
-    data: function( elem, name, data, pvt/**Boolean pvt**/ /* Internal Use Only */ ) {
+    data: function( elem, name/**key**/, data/**value**/, pvt/**Boolean**/ /* Internal Use Only */ ) {
         if ( !jQuery.acceptData( elem ) ) {
             return;
         }
 
-        var privateCache, thisCache, ret,
+        var privateCache, thisCache, ret/**result**/,
             internalKey = jQuery.expando,
             getByName = typeof name === "string",
 
@@ -1749,7 +1741,7 @@ jQuery.extend({
 
             // Only defining an ID for JS objects if its cache already exists allows
             // the code to shortcut on the same path as a DOM node with no cache
-            id = isNode ? elem[ jQuery.expando ] : elem[ jQuery.expando ] && jQuery.expando,
+            id = isNode ? elem[ jQuery.expando ] : elem[ jQuery.expando ] && jQuery.expando,/**first time, elem[jQuery.expando] == undefined**/
             isEvents = name === "events";
 
         // Avoid doing any more work than we need to when trying to get data on an
@@ -1780,11 +1772,11 @@ jQuery.extend({
 
         // An object can be passed to jQuery.data instead of a key/value pair; this gets
         // shallow copied over onto the existing cache
-        if ( typeof name === "object" || typeof name === "function" ) {
+        if ( typeof name === "object" || typeof name === "function" ) {/**function is internal use for parsedAttrs**/
             if ( pvt ) {
                 cache[ id ] = jQuery.extend( cache[ id ], name );
             } else {
-                cache[ id ].data = jQuery.extend( cache[ id ].data, name );
+                cache[ id ].data = jQuery.extend( cache[ id ].data, name );/**when pass undefined as first parameter, the target is {} in extend()**/
             }
         }
 
@@ -1801,6 +1793,7 @@ jQuery.extend({
             thisCache = thisCache.data;
         }
 
+        //store the value
         if ( data !== undefined ) {
             thisCache[ jQuery.camelCase( name ) ] = data;
         }
@@ -1950,7 +1943,7 @@ jQuery.fn.extend({
         var parts, attr, name,
             data = null;
 
-        if ( typeof key === "undefined" ) {
+        if ( typeof key === "undefined" ) {//get all values, means .data()
             if ( this.length ) {
                 data = jQuery.data( this[0] );
 
@@ -1959,7 +1952,7 @@ jQuery.fn.extend({
                     for ( var i = 0, l = attr.length; i < l; i++ ) {
                         name = attr[i].name;
 
-                        if ( name.indexOf( "data-" ) === 0 ) {
+                        if ( name.indexOf( "data-" ) === 0 ) { //html5 data-*
                             name = jQuery.camelCase( name.substring(5) );
 
                             dataAttr( this[0], name, data[ name ] );
@@ -1971,7 +1964,7 @@ jQuery.fn.extend({
 
             return data;
 
-        } else if ( typeof key === "object" ) {
+        } else if ( typeof key === "object" ) {//.data(obj)
             return this.each(function() {
                 jQuery.data( this, key );
             });
@@ -2918,6 +2911,7 @@ var rnamespaces = /\.(.*)$/,
 
 
 //=======================start event definition=========================================
+
 /*
  * Helper functions for managing events -- not part of the public interface.
  * Props to Dean Edwards' addEvent library for many of the ideas.

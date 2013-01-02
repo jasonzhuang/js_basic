@@ -50,52 +50,6 @@ function case9() {
     add();
 }
 
-/**
- * apply() and call()
- */
-function case8() {
-    var list = [1,2,3];
-    var result = Array.prototype.slice.apply(list);
-    console.log(result);
-}
-
-/**
- * 
- * return function as value
- */
-function case10(){
-    function compareFunction(propName) {
-        return function(obj1, obj2) {
-            var value1 = obj1[propName];
-            var value2 = obj2[propName];
-            
-            if(value1 < value2) {
-                return -1;
-            } else if(value1 > value2) {
-                return 1
-            } else {
-                return 0;
-            }
-        }
-    }
-    
-    var data = [{name: "zachary", age:28}, {name:"Nicholas", age:29}];
-    console.log(compareFunction("name")(data[0],data[1]));
-}
-
-
-function case1(){
-    var ninja = {
-        yell: function yell(n){
-            return n > 0 ? yell(n-1) + "a" : "hiy";
-        }
-    }
-        
-    var samurai = {yell: ninja.yell};
-    var ninja = {};
-    
-    console.log(samurai.yell(4));
-}
 
 /**
  * Anonymous functions can be named but those names are only visible
@@ -146,48 +100,6 @@ function case3(){
 
 
 /**
- * Storing function
- */
-function case4(){
-    var store = {
-        id: 1,
-        cache: {},
-        fns : [],
-        add: function(fn) {
-            if(!fn.id) {
-                fn.id = store.id++;
-                store.fns[fn.id] = fn;
-                return !!(store.cache[fn.uuid] = fn );
-            }
-        }
-    }
-    
-    function ninja(){console.log("ninja function")};
-    store.add(ninja);
-    var fn = store.fns[1];
-    fn();   
-}
-
-/**
- * Function as Object, which can attach property and function
- */
-function case5() {
-    function getElements(name) {
-        return getElements.cache[name] = getElements.cache[name] || document.getElementsByTagName(name);
-    }
-
-    function base() {
-        console.log("this is base");
-    }
-    
-    base.partial = function(){
-        console.log("this is partial");
-    }
-    
-    base.partial();
-}
-
-/**
  * arguments.length and function.length
  */
 function case7(){
@@ -211,4 +123,85 @@ function case7(){
     bind("hello", 5);
 }
 
+/**
+ * bad way
+ * 
+ */
+function warning(){
+    for(var i= 0;i<elements.length;i++){
+        (function(n){
+            elements[n].attachEvent('click',function(){
+            alert(n);
+         });
+        })(i);
+    }
+}
+
+/**
+ * Enforcing Function Context
+ * 
+ */
+function case3(){
+    Function.prototype.bind = function(){
+        var fn = this;
+        console.log(fn+"");// myFunction definition
+        var args = Array.prototype.slice.call(arguments);//copy params
+        var object = args.shift();
+        return function(){
+            return fn.apply(object, args.concat(Array.prototype.slice.call(arguments)));
+        };
+    };
+    
+    var myObject = {};
+    function myFunction(){
+        return this == myObject;
+    }
+    
+    console.log(myFunction() === false);
+    console.log(myFunction.bind(myObject)() === true);
+}
+
+/**
+ * currying 
+ */
+function case4(){
+    function curry(fn){
+        var args = Array.prototype.slice.call(arguments,1);//here arguments is curry's arguments, different from the return function
+        console.log("outer args: " + args);
+        return function(){
+            var innerArgs = Array.prototype.slice.call(arguments);
+            console.log("innerArgs: " + innerArgs);
+            var finalArgs = args.concat(innerArgs);
+            console.log("finalArgs: " + finalArgs);
+            return fn.apply(null, finalArgs);
+            /**same as:
+             * var result = fn.apply(null, finalArgs);
+             * return result;
+             */
+        }
+    }
+    
+    function add(num1, num2){
+        return num1 + num2;
+    }
+    
+    //curry definition has only one param, but pass two params to it
+    var curriedAdd = curry(add, 5);
+    console.log(curriedAdd + "");
+    //currriedAdd definition has no param, but here pass a param to it
+    console.log(curriedAdd(3));
+}
+
+/**
+ * (function(){})()
+ * instantly created, executed, and discarded
+ */
+function case7(){
+    document.addEventListener("click", (function(){
+        var numClicks = 0;
+        return function(){
+            alert( ++numClicks );
+        };
+    })(), false);
+}
 

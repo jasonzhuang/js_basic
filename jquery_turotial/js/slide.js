@@ -4,28 +4,24 @@
 
 window.onload = function(){
     var slide = new Slide();
-    //slide.slidingImages();
 }
 
-/**
- * TODO:
- * when click the specific image, the loop start from 0 again
- */
 function Slide(){
     //Create images Array
-    this.imgArr = new Array("images/image-slider-1.jpg",
+    var imgArr = new Array("images/image-slider-1.jpg",
                             "images/image-slider-2.jpg",
                             "images/image-slider-3.jpg",
                             "images/image-slider-4.jpg",
                             "images/image-slider-5.jpg"
                             );
                             
-    this.count = this.imgArr.length;
+    var count = imgArr.length;
     this.position = 0;
     var self = this;
 
     this.setCurrentImage = function() {
-        this.banner.src = this.imgArr[this.position];
+        this.banner.src = imgArr[self.position];
+        console.log("in setCurrentImage this.position: " + this.position);
         for(var i=0;i<this.navs.length;i++) {
             if(this.position == i) {
                 this.navs[i].className = "active";
@@ -35,27 +31,17 @@ function Slide(){
         }
     };
     
-    setTimeout(function(){
-        if (self.position < self.count) {
+    setTimeout(function changePosition(){
+        console.log("in timeout, self.position: " + self.position);
+        if (self.position < count) {
             self.setCurrentImage();
-            self.position += 1;
+            self.position++;/**when use self.position +=1, self.position will be a string, because in the handler, event.target.getAttribute() will return string*/
         } else {
             self.position = 0;
         }
-        setTimeout(arguments.callee, 2000);        
-    }, 3000);
+        setTimeout(changePosition, 5000);        
+    }, 5000);
     
-/*
-    this.slidingImages = function(){
-        if (self.position < self.count) {
-            self.setCurrentImage();
-            self.position += 1;
-        } else {
-            self.position = 0;
-        }
-        setTimeout(self.slidingImages, 3000);
-    };*/
-
     
     this.navs = document.getElementById("navs").getElementsByTagName("div");
     this.banner = document.getElementById("banner");
@@ -66,10 +52,11 @@ function Slide(){
     for(var i = 0; i < this.navs.length; i++) {
         this.navs[i].setAttribute("ref", i);
         this.navs[i].addEventListener("click", function(event){
-            var ref = event.target.getAttribute("ref");
+            var ref = event.target.getAttribute("ref");//Note: here will return string, Not we want
             self.position = ref;
+            console.log("in handler, self.position: "+ self.position);
             self.changeStyle(event.target);
-            self.banner.src = self.imgArr[ref];
+            self.banner.src = imgArr[ref];
         }, false);
     }
     

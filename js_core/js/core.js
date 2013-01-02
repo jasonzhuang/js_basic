@@ -164,18 +164,25 @@ function case7(){
 }
 
 /**
- * setTimeout
+ * setTimeout(), even though the interval is 300m, but still wait for the loop complete
+ * conclusion: the interval does not means execute the function after the specific time. It
+ * means the function will add to the queue after specific time.
  * 
  * Note the variable location, put the n in line1 and line2, have different result
  */
 function case8(){
     var n = 8 //line1
-    function showIt(){
+    
+    for (var i=0;i<10000;i++) {
+        console.log("I'm: " + i);
+    }
+    
+    setTimeout(function showIt(){
         //var n = 8; //line2
         console.log("n is " + n);
         --n;
-        setTimeout(showIt,1000);
-    }
+        setTimeout(showIt, 300);
+    }, 300);
 }
 
 /**

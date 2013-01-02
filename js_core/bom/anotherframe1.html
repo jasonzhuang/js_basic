@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>this is anotherframe1</title>
+</head>
+<body>
+    <div id="content">
+        <p>window.frames[1] == undefined, because here window is owned by frame itself, not the top window</p>
+        <p>window.frames["leftFrame"] == undefined</p>
+        <p>top.frames[1] is self</p>
+        <p>top.frames["leftFrame"] is self</p>
+        <p>frames[1] == undefiend</p>
+        <p>frames["leftFrame"] == undefined</p>
+    </div>
+   <script type="text/javascript">
+        //console.log(top.frames[1].name);
+        //console.log(window.frames[1]);
+   </script>
+</body>
+</html>

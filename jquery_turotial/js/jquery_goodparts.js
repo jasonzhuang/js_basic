@@ -38,19 +38,20 @@ function what$do(){
 }
 
 
-/**    each:function(object, callback, args )
+/**    
+ *     $.each() is different from $(selector).each()
  *
  *     case1: object refer to jQuery
  *     var list = $("li");
- *      list.each(function(key,value) {
+ *     list.each(function(key,value) {
  *          console.log(key, value);
- *      });
+ *     });
  *     
- *      case2: object refer to parks
- *       var parks = ["one", "new", "chin"];
- *       $.each(parks, function(index, value) {
+ *     case2: object refer to collection
+ *      var parks = ["one", "new", "chin"];
+ *      $.each(parks, function(index, value) {
  *           //...
- *      });
+ *     });
  *  
  */
 function eachCase(){
@@ -66,6 +67,7 @@ function eachCase(){
     }
     printObj(settings);
 }
+
 
 //new Function
 function parseJSON(data){
@@ -95,7 +97,7 @@ assertTagNameNoComments = assert(function( div ) {
 
 
 /**
- * learn context && override, refer proxy API
+ * learn context && override function, refer proxy API
  * 
  * jQuery.proxy( function, context )
  * jQuery.proxy( context, name )
@@ -141,60 +143,25 @@ function useProxy() {
     console.log(youClick);
 };
 
-//event object
-function Event(){
-    jQuery.Event = function( src, props ) {
-        // Allow instantiation without the 'new' keyword
-        if ( !(this instanceof jQuery.Event) ) {
-            return new jQuery.Event( src, props );
-        }
-    
-        // Event object
-        if ( src && src.type ) {
-            this.originalEvent = src;
-            this.type = src.type;
-    
-            // Events bubbling up the document may have been marked as prevented
-            // by a handler lower down the tree; reflect the correct value.
-            this.isDefaultPrevented = ( src.defaultPrevented || src.returnValue === false ||
-                src.getPreventDefault && src.getPreventDefault() ) ? returnTrue : returnFalse;
-    
-        // Event type
-        } else {
-            this.type = src;
-        }
-    
-        // Put explicitly provided properties onto the event object
-        if ( props ) {
-            jQuery.extend( this, props );
-        }
-    
-        // Create a timestamp if incoming event doesn't have one
-        this.timeStamp = src && src.timeStamp || jQuery.now();
-    
-        // Mark it as fixed
-        this[ jQuery.expando ] = true;
-    };
-}
-
 /**
+ *  jQuery Event base on jQuery.data mechanism
  * 
  *  Within the callback function, this refers to the current DOM element, so should wrap as $(this)
+ *  
+ *  Notice the update: live-> bind-> on
+ * 
+ *  trigger(event, params), params can pass to handler
  */
 function useEvent(){
-    /**
-     * <ul id="browsers">
-          <li>Chrome</li>
-          <li>Safari</li>
-          <li>Firefox</li>
-          <li>Opera</li>
-        </ul>
-     *  
-     */
-      $('li').click(function() {
-        var $li = $(this);
-        $li.css("background", "red");
-      });
+    var div = document.createElement("div");
+    $(div).bind('custom', function(event, param1, param2) {
+      console.log(param1 + "\n" + param2);
+    });
+    $(div).trigger('custom', ['Custom', 'Event']);
+    
+    var div = document.createElement("div");
+    $(div).bind("customer customer2", {js_good:"js_good"}, function(e/**e is an instance of jQuery.Event**/) {console.log(e)});
+    $(div).trigger("customer");
 }
 
 jQuery.props = {
@@ -228,7 +195,7 @@ function useToggleClass(){
      * 
      */
     $("p").click(function () {
-      //this refer to the current element
+      //|this| refer to the current element
       $(this).toggleClass("highlight");
     });
 }
@@ -342,6 +309,9 @@ function beautyDecision(){
             return this.bind( o, f );
         };
     });
+    
+    param = ['id=1234','limit=50'];
+    url = "/test.py" + "?" + param.join("&");
 }
 
 /**
@@ -386,12 +356,15 @@ function chainPattern(){
 
 /**
  * difference: Callbacks.disable and Callbacks.lock
- *
+ *             delete obj.XXX and obj.XXX = null 
  */
 
 /**
- * 
  * plugin pattern
+ * 
+ * If only one argument is supplied to $.extend(), this means the target argument was omitted.
+ * In this case, the jQuery object itself is assumed to be the target. This can be useful for plugin.
+ * In the source code, jQuery.extend({}) use frequently.
  * 
  * jQuery.extend({...}), jQuery.fn.extend({....}):
  * $.extend() use as $.xxx();
@@ -436,4 +409,24 @@ function pluginPattern(){
     });
 }
 
-
+/**
+ * use jQuery.data()
+ * Calling .data() with no parameters retrieves all of the values as a JavaScript object
+ * 
+ * Note how to define both get and set function as one
+ * 
+ * .data( key, value )
+ * .data( key )
+ */
+function useData(){
+    var div = document.createElement("div");
+    console.log($(div).data("test1"));
+    $(div).data("test1", "VALUE-1");
+    console.log($(div).data("test1"));
+    console.log($(div).removeData("test1"));
+    
+    /**
+     * <div data-role="page" data-last-value="43" data-hidden="true" data-options='{"name":"John"}'></div> 
+     */
+    $("div").data("role");
+}
