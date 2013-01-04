@@ -157,10 +157,25 @@ function case6(){
 
 /**
  * |this| scope
- *  
+ * reref: http://davidshariff.com/blog/javascript-this-keyword/
+ *        https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/this
  */
 function case7(){
+    function Car(){
+        this.name = "car";
+        this.say = function(){
+            console.log(this.name);
+        }
+        var o = {};
+        o.name = "ooo";
+        o.say = function(){
+            console.log(this.name);
+        }
+        return o;
+    }
     
+    var car = new Car();
+    car.say();
 }
 
 /**
@@ -196,3 +211,4 @@ public function case7(){
         return new F();
     }
 }
+

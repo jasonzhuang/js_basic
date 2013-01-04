@@ -12,6 +12,14 @@
  * Released under the MIT, BSD, and GPL Licenses.
  *
  * Date: Thu Nov 3 16:18:21 2011 -0400
+ *
+ * ===============================================================================================
+ * rootjQuery = jQuery(document);
+ * expando: "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" )
+ * jQuery.find = Sizzle
+ * 
+ * 
+ * ================================================================================================
  */
 (function( window, undefined ) {
 
@@ -20,15 +28,15 @@ var document = window.document,
     navigator = window.navigator,
     location = window.location;
     
-//==============end at 977 line =====================
+//==============start jQuery object definition(end at 993 line)=====================
 var jQuery = (function() {
 
-//=========================start variable definition==============================
-// Define a local copy of jQuery
-var jQuery = function( selector, context ) {
-        // The jQuery object is actually just the init constructor 'enhanced'
-        return new jQuery.fn.init( selector, context, rootjQuery );
-    },
+    //=========================start variable definition==============================
+    // Define a local copy of jQuery
+    var jQuery = function( selector, context ) {
+            // The jQuery object is actually just the init constructor 'enhanced'
+            return new jQuery.fn.init( selector, context, rootjQuery );
+        },
 
     // Map over jQuery in case of overwrite
     _jQuery = window.jQuery,
@@ -101,6 +109,8 @@ var jQuery = function( selector, context ) {
     class2type = {};
 //===========================end variable definition====================================//
 
+
+//===========================start prototype definition=================================
 jQuery.fn = jQuery.prototype = {
     constructor: jQuery,
     init: function( selector, context, rootjQuery ) {
@@ -199,9 +209,12 @@ jQuery.fn = jQuery.prototype = {
                 return this.constructor( context ).find( selector );
             }
 
+        
+        } // end Handle HTML strings
+        
         // HANDLE: $(function)
         // Shortcut for document ready
-        } else if ( jQuery.isFunction( selector ) ) {
+        else if ( jQuery.isFunction( selector ) ) {
             return rootjQuery.ready( selector );
         }
 
@@ -211,7 +224,7 @@ jQuery.fn = jQuery.prototype = {
         }
 
         return jQuery.makeArray( selector, this );
-    },// end init function
+    },// =============end init function==========================
 
     // Start with an empty selector
     selector: "",
@@ -323,6 +336,7 @@ jQuery.fn = jQuery.prototype = {
     sort: [].sort,
     splice: [].splice
 };
+//===========================end prototype definition=================================
 
 // Give the init function the jQuery prototype for later instantiation
 jQuery.fn.init.prototype = jQuery.fn;
@@ -391,6 +405,7 @@ jQuery.extend = jQuery.fn.extend = function() {
     return target;
 };
 
+// ===========================start extend==============================================
 jQuery.extend({
     noConflict: function( deep ) {
         if ( window.$ === jQuery ) {
@@ -486,6 +501,7 @@ jQuery.extend({
                 toplevel = window.frameElement == null;
             } catch(e) {}
 
+            //document.documentElment.doScroll is supported by IE
             if ( document.documentElement.doScroll && toplevel ) {
                 doScrollCheck();
             }
@@ -898,6 +914,8 @@ jQuery.extend({
 
     browser: {}
 });
+// ======================================end extend ===============================
+
 
 // Populate the class2type map
 jQuery.each("Boolean Number String Function Array Date RegExp Object".split(" "), function(i, name) {
@@ -977,7 +995,9 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 return jQuery;
 
 })();
+//=======================================end jQuery definition=============================
 
+//==============================start jQuery.Callbacks ===============================
 
 // String to Object flags format cache
 var flagsCache = {};
@@ -992,6 +1012,7 @@ function createFlags( flags ) {
     }
     return object;
 }
+
 
 /*
  * Create a callback list using the following parameters:
@@ -1098,7 +1119,7 @@ jQuery.Callbacks = function( flags ) {
                     // With memory, if we're not firing then
                     // we should call right away, unless previous
                     // firing was halted (stopOnFalse)
-                    } else if ( memory && memory !== true ) {
+                    } else if ( memory && memory !== true ) {//how "memory" works
                         firingStart = length;
                         fire( memory[ 0 ], memory[ 1 ] );
                     }
@@ -1183,7 +1204,7 @@ jQuery.Callbacks = function( flags ) {
                             stack.push( [ context, args ] );
                         }
                     } else if ( !( flags.once && memory ) ) {
-                        fire( context, args );
+                        fire( context, args );//??????why NOT call self.fire()????
                     }
                 }
                 return this;
@@ -1202,9 +1223,10 @@ jQuery.Callbacks = function( flags ) {
     return self;
 };
 
+//===============================end jQuery.Callbacks definition=======================
 
 
-
+//==============================start Deferred definition===============================
 var // Static reference to slice
     sliceDeferred = [].slice;
 
@@ -1253,10 +1275,11 @@ jQuery.extend({
                             if ( jQuery.isFunction( fn ) ) {
                                 deferred[ handler ](function() {
                                     returned = fn.apply( this, arguments );
+                                    console.log(arguments);
                                     if ( returned && jQuery.isFunction( returned.promise ) ) {
                                         returned.promise().then( newDefer.resolve, newDefer.reject, newDefer.notify );
                                     } else {
-                                        newDefer[ action + "With" ]( this === deferred ? newDefer : this, [ returned ] );
+                                        newDefer[ action + "With" ]( this === deferred ? newDefer : this, [ returned ] );//invoke the callback
                                     }
                                 });
                             } else {
@@ -1302,6 +1325,10 @@ jQuery.extend({
         return deferred;
     },
 
+    /**
+     * Returns a promise read-only deferred object
+     *  
+     */
     // Deferred helper
     when: function( firstParam ) {
         var args = sliceDeferred.call( arguments, 0 ),
@@ -1328,6 +1355,7 @@ jQuery.extend({
                 deferred.notifyWith( promise, pValues );
             };
         }
+        // if multiple objects are passed in
         if ( length > 1 ) {
             for ( ; i < length; i++ ) {
                 if ( args[ i ] && args[ i ].promise && jQuery.isFunction( args[ i ].promise ) ) {
@@ -1345,10 +1373,9 @@ jQuery.extend({
         return promise;
     }
 });
+//===================================end Deferred definition=========================================
 
-
-
-
+//===================================start jQuery.support===========================================
 jQuery.support = (function() {
 
     var div = document.createElement( "div" ),
@@ -1496,7 +1523,7 @@ jQuery.support = (function() {
     // We don't want to do body-related feature tests on frameset
     // documents, which lack a body. So we use
     // document.getElementsByTagName("body")[0], which is undefined in
-    // frameset documents, while document.body isn¡¯t. (7398)
+    // frameset documents, while document.body isnï¿½ï¿½t. (7398)
     body = document.getElementsByTagName("body")[ 0 ];
     // We use our own, invisible, body unless the body is already present
     // in which case we use a div (#9239)
@@ -1671,7 +1698,7 @@ jQuery.support = (function() {
 // Keep track of boxModel
 jQuery.boxModel = jQuery.support.boxModel;
 
-
+//============================================end jQuery.support================================
 
 
 var rbrace = /^(?:\{.*\}|\[.*\])$/,
@@ -1701,12 +1728,12 @@ jQuery.extend({
         return !!elem && !isEmptyDataObject( elem );
     },
 
-    data: function( elem, name, data, pvt /* Internal Use Only */ ) {
+    data: function( elem, name/**key**/, data/**value**/, pvt/**Boolean**/ /* Internal Use Only */ ) {
         if ( !jQuery.acceptData( elem ) ) {
             return;
         }
 
-        var privateCache, thisCache, ret,
+        var privateCache, thisCache, ret/**result**/,
             internalKey = jQuery.expando,
             getByName = typeof name === "string",
 
@@ -1720,7 +1747,7 @@ jQuery.extend({
 
             // Only defining an ID for JS objects if its cache already exists allows
             // the code to shortcut on the same path as a DOM node with no cache
-            id = isNode ? elem[ jQuery.expando ] : elem[ jQuery.expando ] && jQuery.expando,
+            id = isNode ? elem[ jQuery.expando ] : elem[ jQuery.expando ] && jQuery.expando,/**first time, elem[jQuery.expando] == undefined**/
             isEvents = name === "events";
 
         // Avoid doing any more work than we need to when trying to get data on an
@@ -1751,11 +1778,11 @@ jQuery.extend({
 
         // An object can be passed to jQuery.data instead of a key/value pair; this gets
         // shallow copied over onto the existing cache
-        if ( typeof name === "object" || typeof name === "function" ) {
+        if ( typeof name === "object" || typeof name === "function" ) {/**function is internal use for parsedAttrs**/
             if ( pvt ) {
                 cache[ id ] = jQuery.extend( cache[ id ], name );
             } else {
-                cache[ id ].data = jQuery.extend( cache[ id ].data, name );
+                cache[ id ].data = jQuery.extend( cache[ id ].data, name );/**when pass undefined as first parameter, the target is {} in extend()**/
             }
         }
 
@@ -1772,6 +1799,7 @@ jQuery.extend({
             thisCache = thisCache.data;
         }
 
+        //store the value
         if ( data !== undefined ) {
             thisCache[ jQuery.camelCase( name ) ] = data;
         }
@@ -1921,7 +1949,7 @@ jQuery.fn.extend({
         var parts, attr, name,
             data = null;
 
-        if ( typeof key === "undefined" ) {
+        if ( typeof key === "undefined" ) {//get all values, means .data()
             if ( this.length ) {
                 data = jQuery.data( this[0] );
 
@@ -1930,7 +1958,7 @@ jQuery.fn.extend({
                     for ( var i = 0, l = attr.length; i < l; i++ ) {
                         name = attr[i].name;
 
-                        if ( name.indexOf( "data-" ) === 0 ) {
+                        if ( name.indexOf( "data-" ) === 0 ) { //html5 data-*
                             name = jQuery.camelCase( name.substring(5) );
 
                             dataAttr( this[0], name, data[ name ] );
@@ -1942,7 +1970,7 @@ jQuery.fn.extend({
 
             return data;
 
-        } else if ( typeof key === "object" ) {
+        } else if ( typeof key === "object" ) {//.data(obj)
             return this.each(function() {
                 jQuery.data( this, key );
             });
@@ -2205,7 +2233,7 @@ jQuery.fn.extend({
 });
 
 
-
+//================================start css relative operation=====================================
 
 var rclass = /[\n\t\r]/g,
     rspace = /\s+/,
@@ -2887,6 +2915,9 @@ var rnamespaces = /\.(.*)$/,
         return jQuery.event.special.hover ? events : events.replace( rhoverHack, "mouseenter$1 mouseleave$1" );
     };
 
+
+//=======================start event definition=========================================
+
 /*
  * Helper functions for managing events -- not part of the public interface.
  * Props to Dean Edwards' addEvent library for many of the ideas.
@@ -3477,6 +3508,7 @@ jQuery.event = {
     }
 };
 
+
 // Some plugins are using, but it's undocumented/deprecated and will be removed.
 // The 1.7 special event interface should provide all the hooks needed now.
 jQuery.event.handle = jQuery.event.dispatch;
@@ -3912,9 +3944,9 @@ jQuery.each( ("blur focus focusin focusout load resize scroll unload click dblcl
         jQuery.event.fixHooks[ name ] = jQuery.event.mouseHooks;
     }
 });
+//=================================end event definition======================================================
 
-
-
+//=========================================start Sizzle definition(end at 5388 line)===============================================
 /*!
  * Sizzle CSS Selector Engine
  *  Copyright 2011, The Dojo Foundation
@@ -5365,6 +5397,8 @@ jQuery.contains = Sizzle.contains;
 
 
 })();
+//===========================================end Sizzle difinition==========================================
+
 
 
 var runtil = /Until$/,
@@ -6886,7 +6920,7 @@ if ( jQuery.expr && jQuery.expr.filters ) {
 }
 
 
-
+//===============================start ajax definition==========================================
 
 var r20 = /%20/g,
     rbracket = /\[\]$/,
@@ -7043,6 +7077,7 @@ function ajaxExtend( target, src ) {
 }
 
 jQuery.fn.extend({
+    //load delegate to jQuery.ajax
     load: function( url, params, callback ) {
         if ( typeof url !== "string" && _load ) {
             return _load.apply( this, arguments );
@@ -7686,6 +7721,8 @@ jQuery.extend({
     }
 });
 
+
+
 function buildParams( prefix, obj, traditional, add ) {
     if ( jQuery.isArray( obj ) ) {
         // Serialize array item.
@@ -8270,10 +8307,10 @@ if ( jQuery.support.ajax ) {
         }
     });
 }
+//============================================end ajax definition====================================
 
 
-
-
+//============================================start animation=========================================
 var elemdisplay = {},
     iframe, iframeDoc,
     rfxtypes = /^(?:toggle|show|hide)$/,
@@ -8680,6 +8717,7 @@ jQuery.extend({
 
 });
 
+//=========================================start jQuery.fx prototype============================
 jQuery.fx.prototype = {
     // Simple function for setting a style value
     update: function() {
@@ -8841,6 +8879,7 @@ jQuery.fx.prototype = {
         return true;
     }
 };
+//=============================================end jQuery.fx prototype definition============================
 
 jQuery.extend( jQuery.fx, {
     tick: function() {
@@ -8951,9 +8990,9 @@ function defaultDisplay( nodeName ) {
     return elemdisplay[ nodeName ];
 }
 
+//===========================================end animation definition===========================================
 
-
-
+//===========================================start offset definition============================================
 var rtable = /^t(?:able|d|h)$/i,
     rroot = /^(?:body|html)$/i;
 
@@ -9298,6 +9337,7 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 
 });
 
+//====================================================end offset definition=================================
 
 // Expose jQuery to the global object
 window.jQuery = window.$ = jQuery;
