@@ -1,4 +1,10 @@
 /**
+ * delete obj.XXX vs obj.XXX = null 
+ *  
+ */
+
+
+/**
  * refer http://api.jquery.com/jQuery/ and init()  in source code
  *  
  * case1: $('<div class="g-sorry"></div>'), create the html element and wrap with jQuery properties
@@ -354,10 +360,6 @@ function chainPattern(){
         return self;
 }
 
-/**
- * difference: Callbacks.disable and Callbacks.lock
- *             delete obj.XXX and obj.XXX = null 
- */
 
 /**
  * plugin pattern
@@ -429,4 +431,43 @@ function useData(){
      * <div data-role="page" data-last-value="43" data-hidden="true" data-options='{"name":"John"}'></div> 
      */
     $("div").data("role");
+}
+
+
+/**
+ * use ajax
+ * 
+ */
+function useAjax(){
+    $.ajax("jqueryTest.html").done(function(){
+            console.log("get file complete");
+        }).done(function(){
+           console.log("another complete handler") 
+        }).fail(function(){
+            console.log("ajax request fail");
+        });
+}
+
+
+function test(){
+    var Callbacks = function(flags) {
+        var
+        fire = function(context, args){
+          console.log("this is private fire() function");  
+        },
+        self = {
+            fireWith:function(context,args){
+                console.log("this is self.fireWith()");
+                fire(context, args);//WHY invoke private fire()
+                return;
+            }
+            ,
+            fire:function(){
+                console.log("this is self.fire()");
+                self.fireWith(this, arguments);
+                return this;
+            }
+        };
+        return self;
+    }
 }

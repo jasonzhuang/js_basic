@@ -19,7 +19,19 @@
     </div>
    <script type="text/javascript" src="js/test.js"></script>
    <script type="text/javascript">
-       case8();
+       var sayHello = "Hello";
+       function person(){
+           var first = "firstName";
+           var last = "lastName";
+           function firstName(){
+               return first;
+           }
+           function lastName(){
+               return last;
+           }
+           console.log(sayHello + firstName() + " " + lastName());
+       }
+       
    </script>
 </body>
 </html>

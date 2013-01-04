@@ -1079,6 +1079,7 @@ jQuery.Callbacks = function( flags ) {
         },
         // Fire callbacks
         fire = function( context, args ) {
+            console.log("this is private fire");
             args = args || [];
             memory = !flags.memory || [ context, args ];
             firing = true;
@@ -1204,13 +1205,15 @@ jQuery.Callbacks = function( flags ) {
                             stack.push( [ context, args ] );
                         }
                     } else if ( !( flags.once && memory ) ) {
-                        fire( context, args );
+                        console.log("this is self.fireWith()");
+                        fire( context, args );//??????why NOT call self.fire()?
                     }
                 }
                 return this;
             },
             // Call all the callbacks with the given arguments
             fire: function() {
+                console.log("this is self.fire()");
                 self.fireWith( this, arguments );
                 return this;
             },
@@ -1324,6 +1327,10 @@ jQuery.extend({
         return deferred;
     },
 
+    /**
+     * Returns a promise read-only deferred object
+     *  
+     */
     // Deferred helper
     when: function( firstParam ) {
         var args = sliceDeferred.call( arguments, 0 ),
@@ -1350,6 +1357,7 @@ jQuery.extend({
                 deferred.notifyWith( promise, pValues );
             };
         }
+        // if multiple objects are passed in
         if ( length > 1 ) {
             for ( ; i < length; i++ ) {
                 if ( args[ i ] && args[ i ].promise && jQuery.isFunction( args[ i ].promise ) ) {
