@@ -4,7 +4,7 @@
     //case3();
     //case4();
     //case5();
-    case6();
+    case8();
 })();
 
 function case1(){
@@ -180,7 +180,7 @@ function case7(){
 
 /**
  * setTimeout(), even though the interval is 300m, but still wait for the loop complete
- * conclusion: the interval does not means execute the function after the specific time. It
+ * conclusion: the delay does not means execute the function after the specific time. It
  * means the function will add to the queue after specific time.
  * 
  * Note the variable location, put the n in line1 and line2, have different result
@@ -188,23 +188,25 @@ function case7(){
 function case8(){
     var n = 8 //line1
     
-    for (var i=0;i<10000;i++) {
+    for (var i=0;i<100;i++) {
         console.log("I'm: " + i);
     }
     
-    setTimeout(function showIt(){
+    setInterval(function(){
+        console.log("in ther interval, n is " + n);
+        --n;
+    }, 300);    setTimeout(function showIt(){
         //var n = 8; //line2
         console.log("n is " + n);
         --n;
         setTimeout(showIt, 300);
-    }, 300);
-}
+    }, 300);}
 
 /**
  * Object.create()
  *  
  */
-public function case7(){
+function case7(){
     Object.create = function(o) {
         function F(){};
         F.prototype = o;

@@ -3,7 +3,12 @@
 	<head>
 		<title>Z-index Runner</title>
 		<style>
-		.pile { 
+		/**
+		 *     
+		 * Note:
+		 * An element's z-index is not applicable to the whole page, but only within that element's containment hierarchy.
+		 */
+		.pile {
 	        position: absolute; 
 	        left: 2in; 
 	        top: 2in; 
@@ -23,12 +28,12 @@
 	<body>
 		<P>
 	      <IMG id="image" class="pile" 
-	           src="../images/leaves.jpg" alt="A butterfly image"
+	           src="../assets/leaves.jpg" alt="A butterfly image"
 	           style="z-index: 1">
 	    </P>
 	   
 	    <DIV id="text1" class="pile" 
-	         style="z-index: 3">
+	         style="z-index: 103">
 	      This text will overlay the butterfly image.
 	    </DIV>
 	

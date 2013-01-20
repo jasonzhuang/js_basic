@@ -4,10 +4,20 @@
 		<title>Float flow Runner</title>
 		<style>
 		/**
-		 * 	If a shortened line box is too small to contain any content, then the line box is shifted downward
+		 * 	float:take an element out of the flow and place it to the left or right of other elements in the same parent element.
+		 *  a floated element is first laid out according to the normal flow, then removed from the normal flow.
 		 * 
-		 *  If a child element is floating, the containing box will not count its height,
-		 *  in this example, try comment img float property
+		 *  float value:
+		 *  left: move to the left-most boundary of its parent element
+		 *   
+		 *  clear value
+		 *  left: the top edge of this element must sit below any element that has the float: left property applied to it
+		 *  (brings the elements following any floated elements back into the normal flow)
+		 * 
+		 *  float collapsing: floated elements are originally calculated in the normal flow and then removed, 
+		 *  the parent element doesn’t consider it within its bounds and therefore acts as if it isn’t even there.
+		 *  http://www.alistapart.com/d/css-floats-101/example_i.html
+		 *  
 		 */
 			.para1{
 				 width: 10em; 
@@ -21,12 +31,12 @@
 				border: solid blue;
 			}
 			
+			.para2 {
+                border: solid #00FF00;
+            }
+			
 			.para2, img {
 				margin: 2em;
-			}
-			
-			.para2 {
-				border: solid #00FF00;
 			}
 			
 			.para2 img {
@@ -35,23 +45,30 @@
 			}
 			
 			.para3 {
-				/*clear:left;*/
 				border:solid #FF0000;
 			}
 			
-			.f-cb:after{clear:both;content:'.';display:block;height:0;visibility:visible;}
+			.f-cb:after{clear:both;content:'.';display:block;height:0;visibility:hidden;}
             .f-cb{zoom:1;}
+            
+            /**
+             * another way for remedying float collapsing    
+             * overflow:hidden allows a parent element to clear itself of any floated elements inside it
+             */
+            .para2 {
+                border: solid #00FF00;
+                overflow:hidden;
+            }
 		</style>
 	</head>
 	<body>
 		<div class="para1">
-			<!-- <p>Supercalifragilisticexpialidocious</p> -->
 			<span>SPAN Context</span>
 			<p>Supercalifragilisticexpialidocious</p>
 		</div>
 		
-		<p class="para2 f-cb">
-			<img src="../images/leaves.jpg" alt="This image will illustrate floats"/>
+		<p class="para2">
+			<img src="../assets/leaves.jpg" alt="This image will illustrate floats"/>
 			Some sample text that has no other purpose to show how floating
 			elements are moved to side of the parent element while honoring
 			margins borders and padding. Note how adjacent vertical margins
