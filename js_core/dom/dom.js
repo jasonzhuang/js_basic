@@ -94,30 +94,6 @@ function dynamicAddElement(){
     ul.appendChild(fragment);
 }
 
-//dynamic load script
-var code = "(function sayHi(){alert('hi');})()";
-function loadScript(code) {
-    console.log("execute...");
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    try {
-        script.appendChild(document.createTextNode(code));
-    }catch (ex) {
-        script.text = code;
-    }
-    document.body.appendChild(script);
-};
-
-//dynamic load css
-function loadCSS(url) {
-    var link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.type = "text/css";
-    link.href = url;
-    var head = document.getElementsByTagName("head")[0];
-    head.appendChild(link);
-}
-
 //inspect DOM2 and DOM3
 function inspect(){
     var supportDOM2Core = document.implementation.hasFeature("Core", "2.0");

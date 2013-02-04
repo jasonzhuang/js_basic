@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <title>index</title>
-  <script type="text/javascript" src="js/jquery.js"></script>
-  <script type="text/javascript" src="js/selector.js"></script> 
-</head>
-<body>
-    <div id="foo">
-        <p>Everything inside the red border is inside a div with <code>id="foo"</code>.</p>
-        <p>This is a normal link: <a href="http://www.yahoo.com/">Yahoo</a></p>
-        
-        <p>This link has <code>class="blog"</code>: <a href="http://simonwillison.net/" class="blog">Simon Willison's Weblog</a></p>
-    </div>
-    <script type="text/javascript">
-        var links = document.getElementsBySelector("div#foo a.blog");
-        var scripts = document.getElementsByClassName("blog");
-        var href = links[0];
-        var elems = [5,6,4];
-        console.log(elems.shift().length);
-    </script>
-</body>
+    <head>
+      <meta charset="UTF-8"/>
+      <title>jquery feature test</title>
+      <!-- <script type="text/javascript" src="js/jquery.js"></script> -->
+      <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+      <style type="text/css">
+        body{
+            padding:0;
+            margin:0
+        }
+        .demo-container {
+            height:300px;
+            width:200px;
+        }
+      </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="inner1" class="inner">Hello</div>
+            <div class="another">
+                <div id="inner2" class="inner">Goodbye</div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var ret = $(".inner").map(function(){
+                return this.id;
+            });
+            console.log(ret);
+        </script>
+    </body>
 </html>

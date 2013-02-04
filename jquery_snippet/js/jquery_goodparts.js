@@ -10,7 +10,8 @@
  * case1: $('<div class="g-sorry"></div>'), create the html element and wrap with jQuery properties
  * case2: $(function()), short cut for $.ready(function())
  * case3: $("div#main"), select element and wrap them with jQuery properties
- * case4: $("li", "li.item-ii"), equals $("li.item-ii").find("li");
+ * case4: $("li", "li.item-ii"), equals $("li.item-ii").find("li"); $(selector, context) becomes $(context).find(selector)
+ *
  */
 function what$do(){
     //Handle HTML strings
@@ -51,21 +52,34 @@ function what$do(){
  *        //bara...
  *     }
  * 
+ *     //use for traversal
  *     jQuery.fn.each = function(callbacks, args) {
  *         jQuery.each(this, callback, args);
  *     }
  * 
- *     case1: object refer to jQuery
- *     var list = $("li");
- *     list.each(function(key,value) {
+ *     case1: jQuery.each(), http://api.jquery.com/jQuery.each/
+ *     $("li").each(function(key,value) {
  *          console.log(key, value);
  *     });
  *     
- *     case2: object refer to collection
+ *     case2: .each, http://api.jquery.com/each/
  *     var parks = ["one", "new", "chin"];
  *     $.each(parks, function(index, value) {
  *           //...
  *     });
+ * 
+ *     case3:plugin use
+ *     
+ *     $.fn.yougen = function(){
+ *        console.log(this);//this refer to $() which has the elements of the selector element
+ *           return this.each(function(){
+ *               console.log(this);//selector element
+ *               console.log("just say something");
+ *           }
+ *        );
+ *     }
+ * 
+ *     $("<div></div>").yougen();
  *  
  */
 function eachCase(){
@@ -191,29 +205,6 @@ jQuery.props = {
         frameborder: "frameBorder"
 };
 
-
-/**
- * toggleClass()
- * 
- * .toggleClass( className )
- * .toggleClass( className, switch )
- * .toggleClass( function(index, class, switch) [, switch] )
- */
-function useToggleClass(){
-    /**
-     * <p class="blue">Click to toggle</p>
-     * <p class="blue highlight">highlight</p>
-     * <p class="blue">on these</p>
-     * <p class="blue">paragraphs</p>
-     * 
-     */
-    $("p").click(function () {
-      //|this| refer to the current element
-      $(this).toggleClass("highlight");
-    });
-}
-
-
 /**
  * 
  * Delegate to another class
@@ -245,7 +236,7 @@ Tween.prototype.init.prototype = Tween.prototype;
  * $.merge() also work for jQuery Object
  */
 function fakeArray(){
-    var fakeArray = {"length": 1, 0: "Addy", 1: "Subtracty"};
+    var fakeArray = {"length": 1, 0: "Addy", 1: "Subtracty"}; //Note:length will affect the result
     var realArray = $.makeArray( fakeArray );
     
     var arr = [ "a", "b", "c", "d", "e" ];
@@ -344,8 +335,9 @@ function beautyDecision(){
         new jQuery.Event( type, event ) :
         // Just the event type (string)
         new jQuery.Event( type );
-        
-    
+
+     Array.prototype.slice("hello",0);//[h,e,l,l,o]
+     Array.prototype.slice($(".demo"),0);//elems
 }
 
 /**
@@ -396,8 +388,8 @@ function chainPattern(){
  * In the source code, jQuery.extend({}) use frequently.
  * 
  * jQuery.extend({...}), jQuery.fn.extend({....}):
- * $.extend() use as $.xxx();
- * $.fn.extend() use as $("xxx").xxx()
+ * $.extend() use as $.extend();
+ * $.fn.extend() use as $("xxx").extend()
  * 
  * Note the |this|.each
  * 
@@ -418,7 +410,6 @@ function pluginPattern(){
             return this;
         },
         
-        //here |this| --> function(selector, context)
         findBar:function(){
             return this.each(function(){
                 var self = jQuery(this);
@@ -428,7 +419,6 @@ function pluginPattern(){
     });
     
     jQuery.fn.extend({
-        //here |this| --> jQuery.fn.jQuery.init()
         findBar:function(){
             return this.each(function(){
                 var self = jQuery(this);
@@ -442,7 +432,7 @@ function pluginPattern(){
  * use jQuery.data()
  * Calling .data() with no parameters retrieves all of the values as a JavaScript object
  * 
- * Note how to define both get and set function as one
+ * Note how to define both get and set function
  * 
  * .data( key, value )
  * .data( key )
@@ -572,3 +562,21 @@ function useQueue() {
         });
     theQueue.dequeue('log');
 }
+
+
+/**
+ * encapsulate function 
+ */ 
+function encap(){
+    //following is source code
+    access: function( elems, fn, key, value, chainable, emptyGet, raw ) {/** ...**/}
+    
+    attr: function( name, value ) {
+        return jQuery.access( this, jQuery.attr, name, value, arguments.length > 1 );
+    },
+
+    prop: function( name, value ) {
+        return jQuery.access( this, jQuery.prop, name, value, arguments.length > 1 );
+    },
+}
+
