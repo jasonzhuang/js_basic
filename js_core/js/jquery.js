@@ -1226,10 +1226,6 @@ jQuery.Callbacks = function( flags ) {
     return self;
 };
 
-//===============================end jQuery.Callbacks definition=======================
-
-
-//==============================start Deferred definition===============================
 var // Static reference to slice
     sliceDeferred = [].slice;
 

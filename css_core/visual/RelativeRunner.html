@@ -4,18 +4,23 @@
 		<title>Float flow Runner</title>
 		<style>
 		/**
-		 * 	Offsetting a box (B1) in this way has no effect on the box (B2) that follows:
+		 * 	1.Offsetting a box (B1) in this way has no effect on the box (B2) that follows:
 		 *  B2 is given a position as if B1 were not offset and B2 is not re-positioned after B1's offset is applied
+		 *  2.create a new coordinate system for child elements.
 		 */
 			.para1 {
 				background: #00CC33;
 				position: relative;
-				left:3px;
-				top:10px;
+				left:150px;
+				/**top:60px;**/
+				width:200px;
+				height:200px;
 			}
 			
 			.para2 {
 				background: #207EBF;
+				width:200px;
+				height:200px;
 			}
 		</style>
 	</head>
