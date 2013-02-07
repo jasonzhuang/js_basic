@@ -224,6 +224,14 @@ jQuery.fn.extend({
 });
 
 jQuery.extend({
+    /**
+     *  <select id="multiple" multiple="multiple">
+            <option selected="selected">Multiple</option>
+            <option>Multiple2</option>
+            <option selected="selected">Multiple3</option>
+        </select> 
+     *
+     */
 	valHooks: {
 		option: {
 			get: function( elem ) {

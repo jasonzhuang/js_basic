@@ -338,6 +338,43 @@ function beautyDecision(){
 
      Array.prototype.slice("hello",0);//[h,e,l,l,o]
      Array.prototype.slice($(".demo"),0);//elems
+
+     /**toggleClass source**/
+     self = jQuery(this); 
+     state = isBool ? state : !self.hasClass( className );
+     self[ state ? "addClass" : "removeClass" ]( className );
+     
+     hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ];
+     
+     if ( hooks && "get" in hooks && (ret = hooks.get( elem, false, extra )) !== undefined ) {
+        return ret;
+     }
+     
+     /**
+      * temp change value
+      * 
+      * jQuery.swap( elem, { "display": "inline-block" },
+                        curCSS, [ elem, "marginRight" ] );
+      */
+     swap: function( elem, options, callback, args ) {
+        var ret, name,
+            old = {};
+
+        // Remember the old values, and insert the new ones
+        for ( name in options ) {
+            old[ name ] = elem.style[ name ];
+            elem.style[ name ] = options[ name ];
+        }
+
+        ret = callback.apply( elem, args || [] );
+
+        // Revert the old values
+        for ( name in options ) {
+            elem.style[ name ] = old[ name ];
+        }
+
+        return ret;
+     }
 }
 
 /**

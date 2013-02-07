@@ -10,9 +10,12 @@
             padding:0;
             margin:0
         }
-        .demo-container {
+        .container {
             height:300px;
-            width:200px;
+            width: 200px;
+            padding: 5px;
+            border:solid 1px red;
+            display:none;
         }
       </style>
     </head>
@@ -23,11 +26,19 @@
                 <div id="inner2" class="inner">Goodbye</div>
             </div>
         </div>
+        <input class="action" type="button" value="click"/>
         <script type="text/javascript">
-            var ret = $(".inner").map(function(){
-                return this.id;
-            });
-            console.log(ret);
+            (function(){
+                console.log(typeof foo); // function pointer
+                console.log(typeof bar); // undefined
+                var bar = function() {
+                    return 'world';
+                };
+                function foo() {
+                    return 'hello';
+                }                
+                var foo = 'hello';
+            }());
         </script>
     </body>
 </html>
