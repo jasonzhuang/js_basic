@@ -3,6 +3,7 @@
     <meta charset="utf-8"/>
     <head>
         <title>Canvas Image Manipulate</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
         <style type="text/css">
             #mycanvas{
                 border:1px solid red;
@@ -11,18 +12,16 @@
         </style>
     </head>
     <body>
-        <canvas id="mycanvas" width="600" height="900">Not Supported Canvas</canvas>
+        <canvas id="mycanvas">Not Supported Canvas</canvas>
     </body>
     <script type="text/javascript">
-        (function sizeCanvas(){
+        $(function(){
             var w = window.innerWidth;
             var h = window.innerHeight;
             var canvas = document.getElementById('mycanvas');
             canvas.width = w;
             canvas.height = h;
-        })();
-    </script>
-    <script type="text/javascript">
+            
             var canvas = document.getElementById('mycanvas');
             var context = canvas.getContext('2d');
             var imageURL = "50725.jpg";
@@ -37,16 +36,29 @@
                     pixels[i*4+2] = 0; // Blue
                     pixels[i*4+3] = 255; // Alpha
                 }
+                context.clearRect(0, 0, canvas.width, canvas.height); 
                 context.putImageData(imageData, 0, 0);
             }
             
             function simpleDraw() {
                 var image = new Image();
                 image.src = imageURL;
-                image.onload = function draw() {
-                    context.drawImage(image, 0, 0, 300, 300, 100, 100, 200, 200);
-                    
-                } 
+                $(image).load(function() {  
+                    context.drawImage(image, 0, 0);  
+                });
+                
+                $(canvas).click(function(e) {  
+                    var canvasOffset = $(canvas).offset();  
+                    var canvasX = Math.floor(e.pageX-canvasOffset.left);  
+                    var canvasY = Math.floor(e.pageY-canvasOffset.top);  
+                  
+                    var imageData = context.getImageData(0, 0, canvas.width, canvas.height);  
+                    var pixels = imageData.data;  
+                    var pixelRedIndex = ((canvasY - 1) * (imageData.width * 4)) + ((canvasX - 1) * 4);  
+                    var pixelcolor = "rgba("+pixels[pixelRedIndex]+", "+pixels[pixelRedIndex+1]+", "+pixels[pixelRedIndex+2]+", "+pixels[pixelRedIndex+3]+")";  
+                  
+                    $("body").css("backgroundColor", pixelcolor);  
+                }); 
             }
             
             function transforImage() {
@@ -58,38 +70,13 @@
                     context.drawImage(image, 0, 0, 500, 500, -150, -150, 300, 300);
                 }
             }
-            
-            //By using a negative scale factor, you're able to cause the image to flip over
-            function flipImage() {
-                var image = new Image();
-                image.src = imageURL;
-                image.onload = function draw() {
-                    //top left
-                    //context.translate(50, 50);
-                    //context.drawImage(image, 0, 0, 500, 500, 0, 0, 200, 200);
-                    // Bottom left
-                    context.setTransform(1, 0, 0, 1, 0, 0); // Reset the transformation matrix
-                    context.translate(50, 450);
-                    context.scale(1, -1);
-                    context.drawImage(image, 0, 0, 500, 500, 0, 0, 200, 200);
-                    // Bottom right
-                    // context.setTransform(1, 0, 0, 1, 0, 0);
-                    // context.translate(450, 450);
-                    // context.scale(-1, -1);
-                    // context.drawImage(image, 0, 0, 500, 500, 0, 0, 200, 200);
-                    // Top right
-                    // context.setTransform(1, 0, 0, 1, 0, 0);
-                    // context.translate(450, 50);
-                    // context.scale(-1, 1);
-                    // context.drawImage(image, 0, 0, 500, 500, 0, 0, 200, 200);
-                }
-            }
-            
-            (function run() {
+                        
+            (function(){
                 //simpleDraw();
                 //transforImage();
                 //flipImage();
                 scratchImage();
             })();
+        });
     </script>
 </html>
