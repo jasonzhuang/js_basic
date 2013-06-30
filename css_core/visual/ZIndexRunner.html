@@ -7,43 +7,50 @@
 		 *     
 		 * Note:
 		 * An element's z-index is not applicable to the whole page, but only within that element's containment hierarchy.
-		 */
-		.pile {
-	        position: absolute; 
-	        left: 2in; 
-	        top: 2in; 
-	        width: 3in; 
-	        height: 3in; 
-      	}
-      	
-      	#text1 {
-      		color:#FF0000;
-      	}
-      	
-      	#text3 {
-      		color:#00FFFF;
-      	}
+		   Z-index only works for positioned element(position value other than "static")
+		   opacity will create stacking contexts
+		 * */
+		div:first-child {
+			opacity: .99;
+		}
+		.red, .green, .blue {
+		  position: absolute;
+		  width: 120px;
+		  height: 120px;
+		  margin: 0 auto;
+		  line-height:120px;
+		  text-align: center;
+		  font-weight: bold;
+		}
+		
+		.red {
+		  left:50px;
+		  top: 50px;
+		  background: red;
+		  z-index: 1;
+		  
+		}
+		.green {
+		  left:100px;
+		  top: 100px;
+		  background: green;
+		}
+		.blue {
+		  left:150px;
+		  top: 150px;
+		  background: blue;
+		}
 		</style>
 	</head>
 	<body>
-		<P>
-	      <IMG id="image" class="pile" 
-	           src="../assets/leaves.jpg" alt="A butterfly image"
-	           style="z-index: 1">
-	    </P>
-	   
-	    <DIV id="text1" class="pile" 
-	         style="z-index: 103">
-	      This text will overlay the butterfly image.
-	    </DIV>
-	
-	    <DIV id="text2">
-	      This text will be beneath everything.
-	    </DIV>
-	
-	    <DIV id="text3" class="pile" 
-	         style="z-index: 2">
-	      This text will underlay text1, but overlay the butterfly image
-	    </DIV>
+		<div>
+			<span class="red">Red</span>
+		</div>
+		<div>
+			<span class="green">Green</span>
+		</div>
+		<div>
+			<span class="blue">Blue</span>
+		</div>
 	</body>
 </html>
