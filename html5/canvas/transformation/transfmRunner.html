@@ -16,8 +16,8 @@
 		
 		(function run(){
 			//translate();
-			//rotate();
-			scale();
+			rotate();
+			//scale();
 		})();
 		
 		function scale() {
@@ -40,6 +40,9 @@
 			context.fillRect(-50, -50, 100, 100);
 		}
 		
+		/**
+		 * translate(x,y): (x,y)indicate how far to move the origin of the 2d rendering context, not moving the object
+		 */
 		function translate() {
 			context.fillRect(150, 150, 100, 100);
 			context.translate(150,150);
