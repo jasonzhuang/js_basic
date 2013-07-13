@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>inline-block Runner</title>
+        <style>
+            /**
+             * inline-block elements are like inline elements but they can have a width and height.
+             * set vertical-align to top is import
+             */
+            li {
+                width: 200px;
+                min-height: 250px;
+                border: 1px solid #000;
+                display: inline-block;
+                vertical-align: top;
+                margin: 5px;
+                /**for IE7 and blow hack**/
+                zoom: 1;
+                *display: inline;
+                /**for IE6 min-height hack**/
+                _height: 250px;
+            }
+        </style>
+    </head> 
+    <body>
+       <ul>
+           <li>
+               <h4>This is awesome</h4>
+               <img src="../assets/leaves.jpg" alt="lobster" width="75" height="75"/>
+           </li>
+           <li>
+               <h4>This is awesome</h4>
+               <img src="../assets/leaves.jpg" alt="lobster" width="75" height="75"/>
+           </li>
+           <li>
+               <h4>This is awesome</h4>
+               <img src="../assets/leaves.jpg" alt="lobster" width="75" height="75"/>
+               <span>Some extra text here to make this one taller.Some extra text here to make this one taller.
+               Some extra text here to make this one taller.Some extra text here to make this one taller.Some extra text here to make this one taller.
+               Some extra text here to make this one taller.Some extra text here to make this one taller.
+               </span>
+           </li>
+           <li>
+               <h4>This is awesome</h4>
+               <img src="../assets/leaves.jpg" alt="lobster" width="75" height="75"/>
+           </li>
+           <li>
+               <h4>This is awesome</h4>
+               <img src="../assets/leaves.jpg" alt="lobster" width="75" height="75"/>
+           </li>
+           <li>
+               <h4>This is awesome</h4>
+               <img src="../assets/leaves.jpg" alt="lobster" width="75" height="75"/>
+           </li>
+           <li>
+               <h4>This is awesome</h4>
+               <img src="../assets/leaves.jpg" alt="lobster" width="75" height="75"/>
+           </li>
+           <li>
+               <h4>This is awesome</h4>
+               <img src="../assets/leaves.jpg" alt="lobster" width="75" height="75"/>
+           </li>
+       </ul>
+    </body>
+</html>

@@ -8,8 +8,33 @@
     //case8();
     //case9();
     //case10();
-    case11();
+    //case11();
+    rightway();
 })();
+
+/**
+ * bad way
+ * 
+ */
+function badwway(){
+    for(var i = 0; i < 5; i++) {
+        setTimeout(function() {
+            console.log(i);
+        }, 100);
+    }
+    //result:5,5,5,5,5
+}
+
+/**
+ * right way
+ */
+function rightway(){
+    for(var i = 0; i < 5; i++) {
+      (function(j) {
+        setTimeout( function() { console.log(j); }, 500*j);
+      })(i);
+    }
+}
 
 /**
  * 
@@ -121,20 +146,6 @@ function case7(){
     }
     //named arguments are a convenience, not a necessity
     bind("hello", 5);
-}
-
-/**
- * bad way
- * 
- */
-function warning(){
-    for(var i= 0;i<elements.length;i++){
-        (function(n){
-            elements[n].attachEvent('click',function(){
-            alert(n);
-         });
-        })(i);
-    }
 }
 
 /**
