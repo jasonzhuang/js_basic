@@ -1,7 +1,6 @@
 (function runAll() {
-    //init();
-    //case4();
-    case5();
+    //case1();
+    case2();
 })()
 
 function init(){
@@ -12,6 +11,7 @@ function init(){
 
 /**poor implementatio**/
 function case1(){
+    init();
     var table = document.getElementsByTagName("table");
     for ( var i = 0; i < 2000; i++ ) {
         var tr = document.createElement("tr");
@@ -27,6 +27,7 @@ function case1(){
 
 /**use timer to split**/
 function case2(){
+    init();
     var table = document.getElementsByTagName("table");
     var i=0, max = 1999;
     setTimeout(function(){
@@ -45,124 +46,3 @@ function case2(){
         }
     }, 0)
 }
-
-function processArray(items, process, callback){
-    var todo = items.concat(); //create a clone of the original
-    
-    setTimeout(function(){
-        process(todo.shift());
-        
-        if (todo.length > 0){
-            setTimeout(arguments.callee, 25);
-        } else {
-            callback(items);
-        }
-      }, 25);
-}
-
-/**
- * Asynchronous Test
- */
-function case4(){
-    (function(){
-        var queue = [], timer;
-        
-        this.test = function(fn){
-            queue.push( fn );
-            resume();
-        };
-        
-        this.pause = function(){
-            clearInterval( timer );
-            timer = 0;
-        };
-        
-        this.resume = function(){
-            if ( !timer ){
-                return;
-            }
-            timer = setInterval(function(){
-                if (queue.length) {
-                    queue.shift()();
-                }else {
-                    pause();
-                }
-            }, 1);
-        };
-        
-    })();
-    
-    test(function(){
-        pause();
-        setTimeout(function(){
-            console.log("First test completed");
-            resume();
-        }, 100);
-    });
-    
-    test(function(){
-       pause();
-       setTimeout(function(){
-           console.log("second test completed");
-           resume();
-       }, 200) 
-    });
-}
-
-/**
- * the specified interval indicates when the timer's code will be added to the queue, not when the code will actually be executed
- */
-function case5(){
-    var btn = document.createElement("button");
-    btn.setAttribute("value", "Click");
-    btn.style.width = "30px";
-    btn.style.height = "20px";
-    document.body.appendChild(btn);
-    btn.onclick = function(){
-        var start = Timer.start();
-        setTimeout(function(){
-            console.log("timer function");
-        }, 250);
-
-        for(var i=0;i<100000000;i++){
-            var j = j+1;
-        }
-        Timer.stop();
-        var elapse = Timer.getTime();
-        console.log("end onclick: " + elapse);
-    }
-}
-
-
-var Timer = function() {
-    //private variable
-    var _data = {};
-    
-    return {
-        start:function(key) {
-            _data[key] = new Date();
-        },
-        stop:function(key) {
-            var time = _data[key];
-            if(time) {
-                _data[key] = new Date() - time;
-            }
-            
-        },
-        getTime:function(key) {
-            return _data[key];
-        }
-    };
-}();
-
-function test(){
-    var items = [123, 789, 323, 778, 232, 654, 219, 543, 321, 160];
-    
-    function outputValue(value){
-        console.log(value);
-    };
-    
-    processArray(items, outputValue, function(){
-        console.log("Done!");
-    });
-};

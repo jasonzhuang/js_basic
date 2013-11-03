@@ -1,10 +1,4 @@
 /**
- * delete obj.XXX vs obj.XXX = null 
- *  
- */
-
-
-/**
  * refer http://api.jquery.com/jQuery/ and init()  in source code
  *  
  * case1: $('<div class="g-sorry"></div>'), create the html element and wrap with jQuery properties
@@ -298,7 +292,7 @@ function beautyDecision(){
     }
     
     // Unique for each copy of jQuery on the page
-    expando: "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
+    expando = "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
     
     data = data === "true" ? true :
         data === "false" ? false :
@@ -356,7 +350,7 @@ function beautyDecision(){
       * jQuery.swap( elem, { "display": "inline-block" },
                         curCSS, [ elem, "marginRight" ] );
       */
-     swap: function( elem, options, callback, args ) {
+     swap = function( elem, options, callback, args ) {
         var ret, name,
             old = {};
 
@@ -535,7 +529,15 @@ function useCallbacks(){
     })();
     
     //stack illustration
-    (function(){
+    /**
+     * Pass #1 says: 1
+     * Pass #1 says: 2
+     * Pass #1 says: 3
+     * Pass #2 says: 1
+     * Pass #2 says: 2
+     * Pass #2 says: 3
+     */
+     (function(){
         var callbacks = $.Callbacks(),
             counter = 1;
          
@@ -553,15 +555,6 @@ function useCallbacks(){
         });
         
         callbacks.fire(counter);
-        //output:
-        /**
-         * Pass #1 says: 1 
-         * Pass #1 says: 2 
-         * Pass #1 says: 3 
-         * Pass #2 says: 1
-         * Pass #2 says: 2
-         * Pass #2 says: 3
-         * / 
     })();
     
     /**
@@ -573,7 +566,8 @@ function useCallbacks(){
      * Pass #2 says: 1
      * Pass #2 says: 2
      * Pass #2 says: 3
-     */
+     **/
+
     fireWith = function( context, args ) {
         args = args || [];
         args = [ context, args.slice ? args.slice() : args ];
@@ -606,14 +600,14 @@ function useQueue() {
  */ 
 function encap(){
     //following is source code
-    access: function( elems, fn, key, value, chainable, emptyGet, raw ) {/** ...**/}
+    access = function( elems, fn, key, value, chainable, emptyGet, raw ) {/** ...**/}
     
-    attr: function( name, value ) {
+    attr = function( name, value ) {
         return jQuery.access( this, jQuery.attr, name, value, arguments.length > 1 );
     },
 
-    prop: function( name, value ) {
+    prop = function( name, value ) {
         return jQuery.access( this, jQuery.prop, name, value, arguments.length > 1 );
-    },
+    }
 }
 
