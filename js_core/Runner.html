@@ -4,27 +4,18 @@
   <meta charset="UTF-8"/>
   <title>JS feature test</title>
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-  <style type="text/css">
-  </style>
 </head>
 <body>
    <script type="text/javascript">
-        var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
-        var FN_ARG_SPLIT = /,/;
-        var FN_ARG = /^\s*(_?)(\S+?)\1\s*$/;
-        var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
-        
-        function MyController($http, $scope) {
-            $scope.phones = [1,2,3,4];
-            //this is comment
-            $http.get("url").success(function(data) {
-               //inline comment
-               console.log(data); 
-            });
-        }
-        var fnText = MyController.toString().replace(STRIP_COMMENTS, '');
-        var argDecl = fnText.match(FN_ARGS);
-        console.log(argDecl);
+       var script = document.createElement( "script" );
+       script.type = "text/javascript";
+       script.src = "test.js";
+       script.onload = function(){
+           console.log("load test.js complete");
+       }
+       document.getElementsByTagName("head")[ 0].appendChild(script);
+
+       console.log("execute others...");
    </script>
 </body>
 </html>

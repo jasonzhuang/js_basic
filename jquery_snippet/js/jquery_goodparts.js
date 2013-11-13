@@ -40,8 +40,6 @@ function what$do(){
 
 
 /**    
- *     $.each() is different from $(selector).each()
- *         
  *     jQuery.each = function(elem, callback, args){
  *        //bara...
  *     }
@@ -64,7 +62,7 @@ function what$do(){
  * 
  *     case3:plugin use
  *     
- *     $.fn.yougen = function(){
+ *     $.fn.plugin = function(){
  *        console.log(this);//this refer to $() which has the elements of the selector element
  *           return this.each(function(){
  *               console.log(this);//selector element
@@ -73,7 +71,7 @@ function what$do(){
  *        );
  *     }
  * 
- *     $("<div></div>").yougen();
+ *     $("<div></div>").plugin();
  *  
  */
 function eachCase(){
@@ -281,10 +279,6 @@ function beautyDecision(){
     
     clone = src && jQuery.isPlainObject(src) ? src : {};
     
-    isArray: Array.isArray || function( obj ) {
-        return jQuery.type(obj) === "array";
-    },
-    
     //inv may not pass, so the value will be undefined
     grep = function(elems, callback, inv) {
         inv = !!inv;
@@ -329,9 +323,6 @@ function beautyDecision(){
         new jQuery.Event( type, event ) :
         // Just the event type (string)
         new jQuery.Event( type );
-
-     Array.prototype.slice("hello",0);//[h,e,l,l,o]
-     Array.prototype.slice($(".demo"),0);//elems
 
      /**toggleClass source**/
      self = jQuery(this); 
@@ -594,20 +585,4 @@ function useQueue() {
     theQueue.dequeue('log');
 }
 
-
-/**
- * encapsulate function 
- */ 
-function encap(){
-    //following is source code
-    access = function( elems, fn, key, value, chainable, emptyGet, raw ) {/** ...**/}
-    
-    attr = function( name, value ) {
-        return jQuery.access( this, jQuery.attr, name, value, arguments.length > 1 );
-    },
-
-    prop = function( name, value ) {
-        return jQuery.access( this, jQuery.prop, name, value, arguments.length > 1 );
-    }
-}
 
