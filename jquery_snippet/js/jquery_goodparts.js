@@ -1,8 +1,15 @@
-/**
- * delete obj.XXX vs obj.XXX = null 
- *  
- */
+/**what exactly jQuery is**/
+var jQuery = (function(){
+  var jQeury = function(selector, context){
+      // The jQuery object is actually just the init constructor 'enhance'
+      return new jQuery.fn.init(selector, context);
+  };
 
+   bunchastuff();
+   //...
+
+   return (window.jQuery = window.$ = jQeury);
+}());
 
 /**
  * refer http://api.jquery.com/jQuery/ and init()  in source code
@@ -25,7 +32,7 @@ function what$do(){
     // HANDLE: $(expr, context)
     // (which is just equivalent to: $(context).find(expr)
     else {
-        return this.constructor( context ).find( selector );
+        return this.constructor(context).find( selector );
     }
     
          
@@ -70,7 +77,7 @@ function what$do(){
  * 
  *     case3:plugin use
  *     
- *     $.fn.yougen = function(){
+ *     $.fn.plugin = function(){
  *        console.log(this);//this refer to $() which has the elements of the selector element
  *           return this.each(function(){
  *               console.log(this);//selector element
@@ -79,7 +86,7 @@ function what$do(){
  *        );
  *     }
  * 
- *     $("<div></div>").yougen();
+ *     $("<div></div>").plugin();
  *  
  */
 function eachCase(){
@@ -286,10 +293,7 @@ function beautyDecision(){
     memory = !flags.memory || [ context, args ];
     
     clone = src && jQuery.isPlainObject(src) ? src : {};
-    
-    isArray: Array.isArray || function( obj ) {
-        return jQuery.type(obj) === "array";
-    },
+
     
     //inv may not pass, so the value will be undefined
     grep = function(elems, callback, inv) {
@@ -298,7 +302,7 @@ function beautyDecision(){
     }
     
     // Unique for each copy of jQuery on the page
-    expando: "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
+    expando = "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
     
     data = data === "true" ? true :
         data === "false" ? false :
@@ -336,8 +340,8 @@ function beautyDecision(){
         // Just the event type (string)
         new jQuery.Event( type );
 
-     Array.prototype.slice("hello",0);//[h,e,l,l,o]
-     Array.prototype.slice($(".demo"),0);//elems
+     Array.prototype.slice("hello", 0);//[h,e,l,l,o]
+     Array.prototype.slice($(".demo"), 0);//elems
 
      /**toggleClass source**/
      self = jQuery(this); 
@@ -356,7 +360,7 @@ function beautyDecision(){
       * jQuery.swap( elem, { "display": "inline-block" },
                         curCSS, [ elem, "marginRight" ] );
       */
-     swap: function( elem, options, callback, args ) {
+     swap = function( elem, options, callback, args ) {
         var ret, name,
             old = {};
 
@@ -582,38 +586,22 @@ function useCallbacks(){
         }
         return this;
     }
-}
-
+}());
+};
 /**
  * use queue
  * refer: http://stackoverflow.com/questions/1058158/can-somebody-explain-jquery-queue-to-me
  */ 
 function useQueue() {
     var theQueue = $({});
-        $.each([1,2,3],function(i, num) {
-            theQueue.queue('log', function(next) { 
-               console.log("i: " + i + ", num: " + num);
-               console.log(next + "");//next is function definition: function() {jQuery.dequeue(elem, type)}
-               next();
-            });
+    $.each([1,2,3],function(i, num) {
+        theQueue.queue('log', function(next) {
+           console.log("i: " + i + ", num: " + num);
+           console.log(next + "");//next is function definition: function() {jQuery.dequeue(elem, type)}
+           next();
         });
+    });
     theQueue.dequeue('log');
-}
+};
 
-
-/**
- * encapsulate function 
- */ 
-function encap(){
-    //following is source code
-    access: function( elems, fn, key, value, chainable, emptyGet, raw ) {/** ...**/}
-    
-    attr: function( name, value ) {
-        return jQuery.access( this, jQuery.attr, name, value, arguments.length > 1 );
-    },
-
-    prop: function( name, value ) {
-        return jQuery.access( this, jQuery.prop, name, value, arguments.length > 1 );
-    },
-}
 
