@@ -3,71 +3,29 @@
 	<head>
 		<title>Pseudo Runner</title>
 		<style>
-        	/**
-        	 * :before or :after pseudo-element of the initial value of the 'display' property is 'inline'
-        	 * 
-        	 */
-        .clearfix:before,
-        .clearfix:after {
-             content: ".";
-             display: block;
-             height: 0;
-             visibility: hidden;
-          }
-          
-         .clearfix:after {clear: both;}
-         
-         .clearfix {zoom: 1;}/**IE6**/
-        
-        .demo {
-             width: 350px;
-             border: 1px solid #ccc;
-             padding: 10px;                  
-         }
-         
-         ul {
-           list-style-type:none;   
-         }
-         
-        .demo li {
-             border: 1px solid #ccc;
-             padding: 2px;
-             float: left;
-             margin-right:4px;
-        }
-        .demo a {
-            float: left;
-            display: block;
-            height: 20px;
-            line-height: 20px;
-            width: 20px;
-            -moz-border-radius: 10px;
-            -webkit-border-radius: 10px;
-            border-radius: 10px;
-            text-align: center;
-            background: #f36;
-            color: green;
-            text-decoration: none;
-        }
-            
-        .demo li:first-child {background: green; border: 1px dotted blue;}/**match li#first**/
-        .demo li:nth-child(even) {background: lime;}
+           .content {
+               width: 300px;
+               height: 100px;
+               border: 2px solid #00CC33;
+               padding: 10px;
+           }
+
+           .content:before {
+               content: "pseudo sign";
+               display: block;
+               height: 180px;
+           }
+
+           .content:after {
+               content: 'after content';
+               display:block;
+               height: 150px;
+           }
 		</style>
 	</head>
 	<body>
-        <div class="demo clearfix">
-            <ul class="clearfix">
-                <li class="first links odd" id="first"><a href="">1</a></li>
-                <li class="links even"><a href="">2</a></li>
-                <li class="links odd"><a href="">3</a></li>
-                <li class="links even"><a href="">4</a></li>
-                <li class="links odd"><a href="">5</a></li>
-                <li class="links even"><a href="">6</a></li>
-                <li class="links odd"><a href="">7</a></li>
-                <li class="links even"><a href="">8</a></li>
-                <li class="links odd"><a href="">9</a></li>
-                <li class="links even last" id="last"><a href="">10</a></li>
-            </ul>
+        <div class="content">
+           This is Content
         </div>
 	</body>
 </html>
