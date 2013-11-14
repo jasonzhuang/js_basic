@@ -5,21 +5,12 @@
       <title>jquery feature test</title>
       <!-- <script type="text/javascript" src="js/jquery.js"></script> -->
       <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-      <style type="text/css">
-      </style>
     </head>
     <body>
-		<script id="contactTemplate" type="text/template">
-            <img src="<%= photo %>" alt="<%= name %>" />
-            <h1><%= name %><span><%= type %></span></h1>
-            <div><%= address %></div>
-            <dl>
-                <dt>Tel:</dt><dd><%= tel %></dd>
-                <dt>Email:</dt><dd><a href="mailto:<%= email %>"><%= email %></a></dd>
-            </dl>
-        </script>
-        <script type="text/javascript">
-            console.log($("#contactTemplate").html());
+        <div id="useBtn">aa</div>
+        <script>
+            var value = $("#useBtn").attr('id', 'hahaha');
+            console.log(value);
         </script>
     </body>
 </html>
