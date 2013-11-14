@@ -1,10 +1,9 @@
 (function runAll(){
     //case1();
-    //case2();
     //case3();
     //case4();
-    //case5();
-    case8();
+    case5();
+    //case8();
 })();
 
 function case1(){
@@ -38,16 +37,6 @@ function case1(){
     console.log(Rabbit.prototype.propertyIsEnumerable("legs"));//true
 }
 
-function case2(){
-    function Person(){
-        console.log("====Person====");
-    }
-    
-    var person = new Person();
-    console.log(person.prototype);//undefined, prototype is in function
-    console.log(person.__proto__);
-    console.log(Person.prototype);
-}
 
 /**
  * use instanceof
@@ -108,7 +97,6 @@ function case4() {
 
 /**
  * parasitic constructor pattern
- * 
  * in the construtor, return an object
  * 
  */
@@ -125,10 +113,8 @@ function case5(){
     
     var person = new Person(29,"engineer");
     person.sayJob();
-    var person2 = new Person(25,"yougen");
-    person2.sayJob();
     //they're different
-    console.log(person.__proto__);
+    console.log(person.__proto__.constructor);
     console.log(Person.prototype);
 }
 
@@ -156,29 +142,6 @@ function case6(){
 }
 
 /**
- * |this| scope
- * reref: http://davidshariff.com/blog/javascript-this-keyword/
- *        https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Operators/this
- */
-function case7(){
-    function Car(){
-        this.name = "car";
-        this.say = function(){
-            console.log(this.name);
-        }
-        var o = {};
-        o.name = "ooo";
-        o.say = function(){
-            console.log(this.name);
-        }
-        return o;
-    }
-    
-    var car = new Car();
-    car.say();
-}
-
-/**
  * setTimeout(), even though the interval is 300m, but still wait for the loop complete
  * conclusion: the delay does not means execute the function after the specific time. It
  * means the function will add to the queue after specific time.
@@ -195,22 +158,13 @@ function case8(){
     setInterval(function(){
         console.log("in ther interval, n is " + n);
         --n;
-    }, 300);    setTimeout(function showIt(){
+    }, 300);
+
+    setTimeout(function showIt(){
         //var n = 8; //line2
         console.log("n is " + n);
         --n;
         setTimeout(showIt, 300);
-    }, 300);}
-
-/**
- * Object.create()
- *  
- */
-function case7(){
-    Object.create = function(o) {
-        function F(){};
-        F.prototype = o;
-        return new F();
-    }
+    }, 300);
 }
 
