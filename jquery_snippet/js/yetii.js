@@ -33,6 +33,7 @@ function Yetii() {
         var elem = document.getElementById(this.defaults.id).getElementsByTagName('*');
         console.log("this.defaults.tabclass: " + this.defaults.tabclass);
         var regexp = new RegExp("(^|\\s)" + this.defaults.tabclass.replace(/\-/g, "\\-") + "(\\s|$)");
+        //get tabs from tabclass
         for (var i = 0; i < elem.length; i++) {
             if (regexp.test(elem[i].className)) retnode.push(elem[i]);
         }
