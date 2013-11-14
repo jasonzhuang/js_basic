@@ -4,27 +4,25 @@
   <meta charset="UTF-8"/>
   <title>JS feature test</title>
   <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-  <style type="text/css">
-  </style>
+   <style>
+       .bar {
+          width: 300px;
+          height: 100px;
+          background-color: #0196e3;
+       }
+
+       .foo {
+           width: 300px;
+           height: 100px;
+           background-color: #66cc00;
+       }
+   </style>
 </head>
 <body>
    <script type="text/javascript">
-        var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
-        var FN_ARG_SPLIT = /,/;
-        var FN_ARG = /^\s*(_?)(\S+?)\1\s*$/;
-        var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
-        
-        function MyController($http, $scope) {
-            $scope.phones = [1,2,3,4];
-            //this is comment
-            $http.get("url").success(function(data) {
-               //inline comment
-               console.log(data); 
-            });
-        }
-        var fnText = MyController.toString().replace(STRIP_COMMENTS, '');
-        var argDecl = fnText.match(FN_ARGS);
-        console.log(argDecl);
+
+
+
    </script>
 </body>
 </html>
