@@ -48,9 +48,14 @@
 				border:solid #FF0000;
 			}
 			
-			.f-cb:after{clear:both;content:'.';display:block;height:0;visibility:hidden;}
-            .f-cb{zoom:1;}
-            
+			.clearfix{
+                clear:both;
+                content:'.';
+                display:block;
+                height:0;
+                visibility:hidden;
+            }
+
             /**
              * another way for remedying float collapsing    
              * overflow:hidden allows a parent element to clear itself of any floated elements inside it
