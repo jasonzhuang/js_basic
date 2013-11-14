@@ -53,7 +53,7 @@ function Slide(){
         this.navs[i].setAttribute("ref", i);
         this.navs[i].addEventListener("click", function(event){
             var ref = event.target.getAttribute("ref");//Note: here will return string, Not we want
-            self.position = ref;
+            self.position = parseInt(ref,10);
             console.log("in handler, self.position: "+ self.position);
             self.changeStyle(event.target);
             self.banner.src = imgArr[ref];
