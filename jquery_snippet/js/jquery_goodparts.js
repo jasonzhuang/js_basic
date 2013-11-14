@@ -1,12 +1,33 @@
 /**
- * delete obj.XXX vs obj.XXX = null 
- *  
+ * what jquery does
+ *
  */
+var jQuery = (function(){
+    var jQeury = function(selector, context){
+        // The jQuery object is actually just the init constructor 'enhance'
+        return new jQuery.fn.init(selector, context);
+    };
 
+    bunchastuff();
+    //...
+
+    return (window.jQuery = window.$ = jQeury);
+}());
+
+/**
+ *
+ * what $.fn does
+ */
+jQuery.fn = jQuery.prototype = {
+    constructor: jQuery,
+    init : function(selectorm, context, rootjQuery){
+        // handle $(DOMElement), $(function)...
+        return jQuery.makeArray(selector, this);
+    }
+}
 
 /**
  * refer http://api.jquery.com/jQuery/ and init()  in source code
- *  
  * case1: $('<div class="g-sorry"></div>'), create the html element and wrap with jQuery properties
  * case2: $(function()), short cut for $.ready(function())
  * case3: $("div#main"), select element and wrap them with jQuery properties
@@ -46,8 +67,6 @@ function what$do(){
 
 
 /**    
- *     $.each() is different from $(selector).each()
- *         
  *     jQuery.each = function(elem, callback, args){
  *        //bara...
  *     }
@@ -57,12 +76,12 @@ function what$do(){
  *         jQuery.each(this, callback, args);
  *     }
  * 
- *     case1: jQuery.each(), http://api.jquery.com/jQuery.each/
+ *     case1: http://api.jquery.com/jQuery.each/
  *     $("li").each(function(key,value) {
  *          console.log(key, value);
  *     });
  *     
- *     case2: .each, http://api.jquery.com/each/
+ *     case2:, http://api.jquery.com/each/
  *     var parks = ["one", "new", "chin"];
  *     $.each(parks, function(index, value) {
  *           //...
@@ -70,7 +89,7 @@ function what$do(){
  * 
  *     case3:plugin use
  *     
- *     $.fn.yougen = function(){
+ *     $.fn.plugin = function(){
  *        console.log(this);//this refer to $() which has the elements of the selector element
  *           return this.each(function(){
  *               console.log(this);//selector element
@@ -79,7 +98,7 @@ function what$do(){
  *        );
  *     }
  * 
- *     $("<div></div>").yougen();
+ *     $("<div></div>").plugin();
  *  
  */
 function eachCase(){
@@ -287,7 +306,7 @@ function beautyDecision(){
     
     clone = src && jQuery.isPlainObject(src) ? src : {};
     
-    isArray: Array.isArray || function( obj ) {
+    isArray = Array.isArray || function( obj ) {
         return jQuery.type(obj) === "array";
     },
     
@@ -298,7 +317,7 @@ function beautyDecision(){
     }
     
     // Unique for each copy of jQuery on the page
-    expando: "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
+    expando = "jQuery" + ( jQuery.fn.jquery + Math.random() ).replace( /\D/g, "" ),
     
     data = data === "true" ? true :
         data === "false" ? false :
@@ -356,7 +375,7 @@ function beautyDecision(){
       * jQuery.swap( elem, { "display": "inline-block" },
                         curCSS, [ elem, "marginRight" ] );
       */
-     swap: function( elem, options, callback, args ) {
+     swap = function( elem, options, callback, args ) {
         var ret, name,
             old = {};
 
@@ -487,22 +506,6 @@ function useData(){
     $("div").data("role");
 }
 
-
-/**
- * use ajax
- * 
- */
-function useAjax(){
-    $.ajax("jqueryTest.html").done(function(){
-            console.log("get file complete");
-        }).done(function(){
-           console.log("another complete handler") 
-        }).fail(function(){
-            console.log("ajax request fail");
-        });
-}
-
-
 /**
  * refer : http://stackoverflow.com/questions/12252709/callbacks-disable-vs-callbacks-lock/12252901#comment19667168_12252901
  *  
@@ -535,7 +538,7 @@ function useCallbacks(){
     })();
     
     //stack illustration
-    (function(){
+     (function(){
         var callbacks = $.Callbacks(),
             counter = 1;
          
@@ -553,17 +556,18 @@ function useCallbacks(){
         });
         
         callbacks.fire(counter);
-        //output:
-        /**
-         * Pass #1 says: 1 
-         * Pass #1 says: 2 
-         * Pass #1 says: 3 
-         * Pass #2 says: 1
-         * Pass #2 says: 2
-         * Pass #2 says: 3
-         * / 
     })();
-    
+
+    /**
+     * Pass #1 says: 1
+     * Pass #1 says: 2
+     * Pass #1 says: 3
+     * Pass #2 says: 1
+     * Pass #2 says: 2
+     * Pass #2 says: 3
+     */
+
+
     /**
      * change fireWith, no stack
      * the above case output:
@@ -599,21 +603,3 @@ function useQueue() {
         });
     theQueue.dequeue('log');
 }
-
-
-/**
- * encapsulate function 
- */ 
-function encap(){
-    //following is source code
-    access: function( elems, fn, key, value, chainable, emptyGet, raw ) {/** ...**/}
-    
-    attr: function( name, value ) {
-        return jQuery.access( this, jQuery.attr, name, value, arguments.length > 1 );
-    },
-
-    prop: function( name, value ) {
-        return jQuery.access( this, jQuery.prop, name, value, arguments.length > 1 );
-    },
-}
-
