@@ -4,13 +4,13 @@
  */
 var jQuery = (function(){
     var jQeury = function(selector, context){
-        // The jQuery object is actually just the init constructor 'enhance'
-        return new jQuery.fn.init(selector, context);
+        // The jQuery object is actually just the init constructor 'enhanced'
+        return new jQuery.fn.init(selector, context, rootjQuery);
     };
 
     bunchastuff();
     //...
-
+    rootjQuery = jQuery(document);
     return (window.jQuery = window.$ = jQeury);
 }());
 
@@ -22,9 +22,21 @@ jQuery.fn = jQuery.prototype = {
     constructor: jQuery,
     init : function(selectorm, context, rootjQuery){
         // handle $(DOMElement), $(function)...
-        return jQuery.makeArray(selector, this);
     }
 }
+
+/**
+ * how to handle multi items ===> handle in jQuery.extend.access()
+ * $("a").greenify() ==> will change all a to color "green"
+ *
+ * $.fn.greenify = function(){
+ *      this.css( "color", "green" );
+        return this;
+ * }
+ *
+ * call stack:
+ * $.fn.greenfy -> jQuery.fn.css() ->jQuery.extends.access()
+ */
 
 /**
  * refer http://api.jquery.com/jQuery/ and init()  in source code
@@ -90,16 +102,20 @@ function what$do(){
  *     case3:plugin use
  *     
  *     $.fn.plugin = function(){
- *        console.log(this);//this refer to $() which has the elements of the selector element
+ *        console.log(this);//this refer to $() which contains the matched elements
  *           return this.each(function(){
- *               console.log(this);//selector element
- *               console.log("just say something");
+ *               console.log(this);//matched dom element
+ *               $(this).css("color", "green")
  *           }
  *        );
  *     }
  * 
- *     $("<div></div>").plugin();
- *  
+ *     <div>
+ *         <a href="/a">This is a</a>
+ *         <b href="/b">This is b</b>
+ *     </div>
+ *
+ *     $("a").plugin();
  */
 function eachCase(){
     var settings = {"validate":true,"limit":5,"name":"bar"};
