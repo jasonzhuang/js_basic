@@ -1,55 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>jQuery Lottery</title>
-  <link rel="stylesheet" href="css/site.css">
-  <!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+    <title>Lottery Runner</title>
+    <link href="demo.css" type="text/css"/>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="lottery.js"></script>
 </head>
-
 <body>
+   <div class="content">
+       <img class="luckImg"/>
+   </div>
+   <div class="action">
+       <button class="start">Start</button>
+       <button class="stop">Stop</button>
+   </div>
+   <script>
+        $(function(){
+           //init data
+           var items = [12,6,3,9];
+            $(".start").on("click", function(){
+                $(".content").lottery({items: items});
+            });
 
-  <div id="container">
-    <header>
-      <h1>jQuery Lottery</h1>
-    </header>
-
-    <div id="main">
-      <div id="basic-usage">
-        <h2>Basic usage</h2>
-<pre><code>
-&lt;ul id="main"&gt;
-  &lt;li&gt;Fernando&lt;/li&gt;
-  &lt;li&gt;Brahian&lt;/li&gt;
-  &lt;li&gt;Tadeo&lt;/li&gt;
-&lt;ul&gt;
-
-$(function() {
-  $('#main').lottery();
-} );
-</code></pre>
-
-        <ul id="names" class="lottery">
-          <li>Fernando</li>
-          <li>Pepe</li>
-          <li>Jessy</li>
-        </ul>
-      </div>
-    </div>
-
-    <footer>
-    </footer>
-  </div>
-
-  <script src="js/libs/jquery.js"></script>
-  <script src="js/jquery-lottery.js"></script>
-  <script>
-  $(function() {
-    $('.lottery').lottery();
-  });
-  </script>
-
+            $(".stop").on("click",function(){
+                $.fn.lottery.stop();
+            });
+        });
+   </script>
 </body>
 </html>
