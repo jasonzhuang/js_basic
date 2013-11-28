@@ -15,6 +15,28 @@ var jQuery = (function(){
 }());
 
 /**
+ * simple plugin
+ *
+ * use case:
+ * <ul>
+ *    <li>A1</li>
+ *    <li>B1</li>
+ *    <li>C1</li>
+ *  </ul>
+ *
+ *  $("li").colorfy();
+ *
+ */
+$.fn.colorfy = function(){
+    console.log(this);// this refer to jquery object which has matched li elements
+    return this.each(function(){
+        // this refer to li element
+        var elem = $(this);
+        elem.css("color", "green");
+    })
+}
+
+/**
  *
  * what $.fn does
  */
@@ -77,7 +99,6 @@ function what$do(){
     return jQuery.makeArray( selector, this );
 }
 
-
 /**    
  *     jQuery.each = function(elem, callback, args){
  *        //bara...
@@ -98,24 +119,6 @@ function what$do(){
  *     $.each(parks, function(index, value) {
  *           //...
  *     });
- * 
- *     case3:plugin use
- *     
- *     $.fn.plugin = function(){
- *        console.log(this);//this refer to $() which contains the matched elements
- *           return this.each(function(){
- *               console.log(this);//matched dom element
- *               $(this).css("color", "green")
- *           }
- *        );
- *     }
- * 
- *     <div>
- *         <a href="/a">This is a</a>
- *         <b href="/b">This is b</b>
- *     </div>
- *
- *     $("a").plugin();
  */
 function eachCase(){
     var settings = {"validate":true,"limit":5,"name":"bar"};
