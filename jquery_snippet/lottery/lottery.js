@@ -10,7 +10,11 @@
     $.fn[pluginName] =  function(options){
         //default settings
         var defaults = {
-           speed:200
+           speed:200,
+           suffix:".jpg",
+           path:'img/',
+           imgW: 305,
+           imgH: 305
         };
 
         var settings = $.extend(defaults, options);
@@ -42,7 +46,7 @@
             self.previousIndex = randomIndex;
             console.log(randomIndex);
             elem.data("plugin_" + pluginName, randomIndex);
-            //elem.empty().append("<b>" + items[randomIndex] + "</b>").css("color","blue").data("lotteryIndex", randomIndex);
+            elem.find(".luckImg").prop("src", settings.path + items[randomIndex] + settings.suffix);
             self.timeoutId = setTimeout(function(){
                 tryLucky(items, elem);
             }, settings.speed);
@@ -53,6 +57,7 @@
         return this.each(function(){
             console.log("trigger " + pluginName);
             var elem = $(this);
+            elem.width(settings.imgW).height(settings.imgH);
             tryLucky(settings.items, elem);
             return elem;
         });
