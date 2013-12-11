@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style type="text/css">
+        .pictureContainer {
+            height: 150px;
+            width: 150px;
+            overflow: hidden;
+        }
+
+        .pictureContainer img {
+            position: relative;
+            top: 0px;
+            transition: top 0.2s ease-in-out;
+        }
+        .pictureContainer img:hover {
+            top: -150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="pictureContainer">
+        <img src="../assets/smiley.png" height="300" width="150"/>
+    </div>
+</body>
+</html>

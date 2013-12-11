@@ -3,25 +3,21 @@
 <head>
   <meta charset="UTF-8"/>
   <title>JS feature test</title>
-  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-   <style>
-       .bar {
-          width: 300px;
-          height: 100px;
-          background-color: #0196e3;
-       }
-
-       .foo {
-           width: 300px;
-           height: 100px;
-           background-color: #66cc00;
-       }
-   </style>
+ <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>-->
+  <script type="text/javascript" src=""></script>
 </head>
 <body>
    <script type="text/javascript">
+        function Scope(){};
+        Scope.prototype.$eval = function(expr, locals){
+            return expr(this, locals);
+        }
 
+        var scope = new Scope();
+        scope.number = 1;
 
+        scope.$eval(function(theScope){
+            console.log('Number during $eval',theScope.number)});
 
    </script>
 </body>
