@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        .wheel-container {
+            width: 388px;
+            height: 388px;
+            position: relative;
+        }
+
+        .lottery-wheel {
+            width: 388px;
+            height: 388px;
+            z-indx:1;
+            left:0;
+            top:0;
+            overflow: hidden;
+            position: absolute;
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            transform: rotate(0deg);
+            transition: transform 0s ease-out;
+            -webkit-transition: -webkit-tranform 0s ease-out;
+        }
+
+        .lottery-trigger {
+            cursor: pointer;
+            z-index: 3;
+            overflow: hidden;
+            position: absolute;
+            background: url("../assets/lottery-trigger.png");
+            width: 101px;
+            height:100px;
+            left: 144px;
+            top: 144px;
+        }
+
+        .lottery-arrow {
+            left: 182px;
+            top: 99px;
+            background: url("../assets/lottery-arrow.png");
+            width: 25px;
+            height: 54px;
+            z-index: 2;
+            overflow: hidden;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="wheel-container">
+        <div class="lottery-wheel">
+            <img src="../assets/lottery-wheel.png"/>
+        </div>
+        <div class="lottery-trigger"></div>
+        <div class="lottery-arrow"></div>
+    </div>
+
+<script>
+    var trigger = document.querySelector(".lottery-trigger"),
+         lottery_wheel = document.querySelector(".lottery-wheel"),
+         ROUND_COUNT = 6,
+         lastRotation;
+    function setInit(){
+        trigger.addEventListener("click", startLucky);
+        lottery_wheel.addEventListener("transitionend", modifyRotate);
+    }
+
+    setInit();
+
+    function startLucky(e){
+        var randomR = Math.random()*360;
+        var rotate = 360 * ROUND_COUNT + randomR;
+        console.log(rotate);
+        //roll back to 0-360 degree
+        lastRotation = rotate - 360 * ROUND_COUNT;
+        lottery_wheel.style["transition"]  = "-webkit-transform 5s ease-out";
+        lottery_wheel.style["-webkit-transform"] = "rotate(" + rotate  + "deg)";
+    }
+
+    function modifyRotate(e){
+        if(e.propertyName == "-webkit-transform"){
+            lottery_wheel.style["transition"] = "";
+            lottery_wheel.style["-webkit-transform"] = "rotate(" + lastRotation + "deg)";
+        }
+    }
+</script>
+</body>
+</html>
