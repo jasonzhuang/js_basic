@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Scroll to Top Animation Example</title>
+    <style type="text/css">
+        body {
+            padding: 45px;
+            background-color: #F3F3F3;
+        }
+
+        h1 {
+            text-transform: capitalize;
+            font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+            font-size: 48px;
+            padding: 10px;
+            margin: 0px;
+            background-color: #CCFF33;
+            color: #333333;
+        }
+        #floatie {
+            position: fixed;
+            bottom: 0px;
+            right: 53px;
+            background-color: #FFFF00;
+            width: 50px;
+            height: 50px;
+            border: 2px #FF9900 solid;
+            font-weight: bold;
+            font-size: 48px;
+            text-align: center;
+            padding-top: 10px;
+            border-radius: 4px;
+            transition: transform .2s cubic-bezier(.59,-0.54,.72,1.59);
+            transform: translate(0px, 10px);
+            box-shadow: 0 0 10px 0 #666;
+        }
+        #floatie:hover {
+            background-color: #CCFF33;
+            border-color: #669900;
+            cursor: pointer;
+            transform: translate(0px, 4px);
+        }
+
+        .content {
+            height: 2000px;
+            border: 1px solid #f47d31;
+            width: 100%;
+            background-color: #00CC33;
+            text-align: center;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="floatie">
+    ^
+</div>
+
+<h1>Some Random Content</h1>
+<div class="content">This is content</div>
+
+<script src="http://www.kirupa.com/prefixfree.min.js"></script>
+<script src="http://kirupa.googlecode.com/svn/trunk/easing.js"></script>
+<script>
+
+    var requestAnimationFrame = window.requestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.msRequestAnimationFrame;
+
+    var bodyElement = document.querySelector("body");
+    var floatie = document.querySelector("#floatie");
+
+
+    var currentScrollPosition;
+    var iteration;
+    var start = false;
+
+    function setup() {
+        // do something when the up arrow is clicked
+        floatie.addEventListener("click", animateToTopOfPage, false);
+
+        // deal with the mouse wheel
+        bodyElement.addEventListener("mousewheel", stopEverything, false);
+        bodyElement.addEventListener("DOMMouseScroll", stopEverything, false);
+
+        // wheeeeeeee!
+        animationLoop();
+    }
+    setup();
+
+    //
+    // kick of the animation to scroll your window back to the top
+    //
+    function animateToTopOfPage(e) {
+        currentScrollPosition = getScrollPosition();
+
+        start = !start;
+        iteration = 0;
+    }
+
+    //
+    // stop the animation and reset start and iteration
+    //
+    function stopEverything() {
+        start = false;
+    }
+
+    //
+    // a cross-browser (minus Opera) way of getting the current scroll position
+    //
+    function getScrollPosition() {
+        if (document.documentElement.scrollTop == 0) {
+            return document.body.scrollTop;
+        } else {
+            return document.documentElement.scrollTop;
+        }
+    }
+
+    //
+    // kicks into high gear only when the start variable is true
+    //
+    function animationLoop() {
+        // start is true when you click on the up arrow
+        if (start) {
+            // where the magic happens
+            window.scrollTo(0, easeOutCubic(iteration,
+                    currentScrollPosition,
+                    -currentScrollPosition,
+                    50));
+
+            iteration++;
+
+            // once you reach the top of the document, stop the scrolling
+            if (getScrollPosition() <= 0) {
+                stopEverything();
+            }
+        }
+        requestAnimationFrame(animationLoop);
+    }
+</script>
+</body>
+</html>
