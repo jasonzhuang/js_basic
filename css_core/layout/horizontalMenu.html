@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Horizontal Menu</title>
+</head>
+<style>
+     body {
+         background-color: #EBF3FA;
+         margin-left: 45px;
+     }
+
+     p {
+         background-color: #4AA5FF;
+         color: #ffffff;
+         font-size: 40px;
+         padding-left: 10px;
+         width: 350px;
+     }
+
+     ul {
+         font-family: "Trebutchet MS", Helvetica, Tahoma, sans-serif;
+         font-size: 24px;
+         padding-left: 10px;
+     }
+
+     /**Notice: we do NOT use float**/
+     ul li {
+         display: inline;/**modern browsers will not show list-style**/
+         list-style-type: none;/**ensure that older browsers do not accidentally display the bullet graphic/icon**/
+         margin-right: 34px;
+     }
+
+
+     ul li a {
+         text-decoration: none;
+         color: #0066CC;
+         padding: 10px;
+         border-radius: 5px;
+     }
+
+
+     ul li a:hover {
+         background-color: #E1F0FF;
+         text-decoration: underline;
+     }
+</style>
+<body>
+     <p>Horizontal Menu</p>
+     <ul>
+         <li><a href="#">Home</a></li>
+         <li><a href="#">Shop</a></li>
+         <li><a href="#">Contact</a></li>
+     </ul>
+</body>
+</html>
