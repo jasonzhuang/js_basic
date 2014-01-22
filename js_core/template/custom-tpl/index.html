@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script src="tpl-engine.js"></script>
+   <script>
+       var tpl = 'My skills:' +
+               '<%for(var index in this.skills) {%>' +
+               '<a href="#"><%this.skills[index]%></a>' +
+               '<%}%>';;
+       var ret = TemplateEngine(tpl, {skills:['js','css','sass','less']});
+       console.log(ret);
+   </script>
+</body>
+</html>

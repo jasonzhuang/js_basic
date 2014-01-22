@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="libs/jquery.js"></script>
+    <script type="text/javascript" src="libs/jtemplates.js"></script>
+</head>
+<body>
+<div id="result">
+<textarea class="my-data" id="tpl-item"><!--
+    <ul>
+   {#foreach $T.items as item}
+   <li>id: {$T.item.id}, price: {$T.item.price}</li>
+   {#/for}
+   </ul>
+--></textarea>
+</div>
+
+<div id="dynamic">
+    <textarea id="tpl-amount"><!--
+       {#if $T.amount == 100 }
+       <div>greate amount</div>
+       {#elseif $T == 200}
+       <div>huge amount!</div>
+       {/#if}
+    -->
+    </textarea>
+</div>
+<script type="text/javascript">
+    $(".tpl-item").hide();
+    $(".tpl-amount").hide();
+    var data = {
+        name : "mock",
+        items: [
+            {id:1, price: 10},
+            {id:2, price: 20},
+            {id:5, price: 30}
+        ]
+    }
+
+    $("#result").setTemplateElement("tpl-item").processTemplate(data);
+    $("#dynamic").setTemplateElement("tpl-amount").processTemplate(200);
+</script>
+</body>
+</html>
