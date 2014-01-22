@@ -7,5 +7,13 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
 <body>
+
+    <div class="hook">content A</div>
+    <div class="hook">content B</div>
+    <script>
+        $(".hook").each(function(){
+            console.log(this);
+        })
+    </script>
 </body>
 </html>

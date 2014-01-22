@@ -38,6 +38,25 @@
                 height:50px;
                 background:url('images/print.png') -224px -428px no-repeat;
             }
+
+            input[type=text] {
+                width: 260px;
+                padding: 5px;
+                padding-right: 40px;
+                outline: none;
+                border: 2px solid #999999;
+                border-radius: 5px;
+                background-color: #FBFBFB;
+                font-family: Cambria, Cochin, Georgia, serif;
+                font-size: 16px;
+                background-position: 270px -10px;
+                background-image: url('images/search.png');
+                background-repeat: no-repeat;
+            }
+
+            input[type="text"]:focus {
+                background-position: 270px -80px;
+            }
         </style>
     </head>
     <body>
@@ -50,6 +69,10 @@
                 <li class="icon5"></li>
                 <li class="icon6"></li>
             </ul>
+        </div>
+
+        <div>
+            <input type="text" />
         </div>
     </body>
 </html>
