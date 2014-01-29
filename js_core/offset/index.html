@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        *{
+            padding:0;
+            margin:0;
+        }
+
+        .main {
+            position: relative;
+            border: solid 2px #ff00ff;
+            left: 20px;
+            top: 20px;
+            width: 200px;
+            height: 200px;
+            padding:20px;
+            margin-top: 20px;
+            margin-left:10px;
+            overflow: scroll;
+        }
+
+        .content {
+            border: solid 1px #0044ff;
+            position: absolute;
+            left: 50px;
+            top:60px;
+            width: 500px;
+            height: 600px;
+            padding:15px;
+            margin-top:30px;
+            margin-left:25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="content">
+            This is content
+        </div>
+    </div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    var content = document.querySelector(".content");
+    console.log(content.offsetParent, content.offsetLeft, content.offsetTop, content.clientWidth, content.clientHeight);
+    console.log(content.scrollLeft, content.scrollTop, content.scrollWidth, content.scrollHeight);
+</script>
+</body>
+</html>

@@ -30,7 +30,6 @@
     $(".tpl-item").hide();
     $(".tpl-amount").hide();
     var data = {
-        name : "mock",
         items: [
             {id:1, price: 10},
             {id:2, price: 20},
@@ -39,7 +38,7 @@
     }
 
     $("#result").setTemplateElement("tpl-item").processTemplate(data);
-    $("#dynamic").setTemplateElement("tpl-amount").processTemplate(200);
+    $("#dynamic")   .setTemplateElement("tpl-amount").processTemplate(200);
 </script>
 </body>
 </html>
