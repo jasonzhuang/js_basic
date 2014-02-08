@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        * {
+            padding:0;
+            margin: 0;
+        }
+
+       .wrapper {
+           margin: 0px auto;
+           width: 960px;
+       }
+
+       .col-main {
+           width:100%;
+           height:580px;
+           float: left;
+           background-color: #f16529;
+       }
+
+       .col-sub {
+           margin-left: -100%;/** -960px **/
+           width: 350px;
+           height: 580px;
+           background-color: #0044ff;
+           float: left;
+       }
+
+        .main-wrapper {
+            margin-left: 352px;
+            width:500px;
+            height:100%;
+            border: solid 3px #011d2e;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="col-main">
+            <div class="main-wrapper"></div>
+        </div>
+        <div class="col-sub"></div>
+    </div>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    console.log($("div.col-sub").css("margin-left"));
+</script>
+</body>
+</html>
