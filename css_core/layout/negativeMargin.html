@@ -5,23 +5,36 @@
         <meta charset="utf-8"/>
         <style type="text/css">
             /**
-             * case1.negative margins will cause static elements to overlap     
-             *
+             * case1.
+             * apply it to the bottom/right, it doesn¡¯t move the element down/right as you might think.
+             * Instead, it pulls any succeeding element into the main element, overlapping it
+             * Also it will change containing block height
              */
-            div.case1 p {
-                margin:20px 0;
-                height:40px;
-                background:#ffffcc;
-                border:1px solid #000;
+            div.case1 {
+                border: solid 1px #f16529;
+                padding: 20px;
+                position: relative;
             }
-            
-            div.case1 p.bottom {
-                margin:-35px 0 20px 10px;
+
+            div.case1 div{
+               background-color: #ffffcc;
+               border: solid 1px #000;
+               height: 50px;
             }
-            
+
+            div.content1 {
+               margin-bottom: -10px;
+            }
+
+            div.case1 div.content2 {
+                background-color: #82B6EE;
+                border: solid 1px #f16529;
+                margin-left:20px;
+            }
             /**
-             * case2: The space on the inside is bigger than the space on the outside
-             *
+             * case2:
+             * If no width is applied, adding Negative Margins to its left/right pulls the element in both directions
+             * increasing its width
              */
             .outer {
                 margin:50px;
@@ -31,7 +44,6 @@
                 border:1px solid #000;
             }
 
-
             .outer div.inner {
                 margin:0 -20px;
                 background:red;
@@ -40,21 +52,17 @@
                 padding:5px;
             }
             
-            /**fix for IE6**/
-            * html .outer div.inner {height:1px;position:relative;}
-            
             /**
              * case3: negative margin with float     
-             *
+             * div.two treats #div.one as if it were 20px smaller in width than it actually is (thus, overlapping it)
              */
             .float{
                 float:left;
-                padding:10px;
                 width:100px;
                 background:#ffffcc;
                 border:1px solid #000;
                 height:100px;
-                margin-left:20px;
+                padding: 0 10px;
             }
             
             .one {
@@ -71,9 +79,8 @@
     </head>
     <body>
         <div class="case1">
-            <p>This is the paragraph 1</p>
-            <p class="bottom">This is the paragraph 2</p>
-            <p>This is the paragraph 3</p>
+            <div class="content1">Content 1</div>
+            <div class="content2">Content 2</div>
         </div>
 
         <div class="outer">

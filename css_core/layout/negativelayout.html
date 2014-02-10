@@ -11,6 +11,8 @@
        .wrapper {
            margin: 0px auto;
            width: 960px;
+           text-align: center;
+           line-height: 580px;
        }
 
        .col-main {
@@ -18,30 +20,22 @@
            height:580px;
            float: left;
            background-color: #f16529;
+           border: solid 1px #000;
        }
 
        .col-sub {
            margin-left: -100%;/** -960px **/
            width: 350px;
            height: 580px;
-           background-color: #0044ff;
+           background-color: #f0dddd;
            float: left;
        }
-
-        .main-wrapper {
-            margin-left: 352px;
-            width:500px;
-            height:100%;
-            border: solid 3px #011d2e;
-        }
     </style>
 </head>
 <body>
     <div class="wrapper">
-        <div class="col-main">
-            <div class="main-wrapper"></div>
-        </div>
-        <div class="col-sub"></div>
+        <div class="col-main">Main Content</div>
+        <div class="col-sub">Sub Content</div>
     </div>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
