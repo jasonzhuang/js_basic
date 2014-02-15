@@ -2,49 +2,38 @@
 <html>
 <head>
     <title></title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <style>
-        *{
-            padding:0;
-            margin:0;
-        }
-
-        .main {
+        .container {
+            width: 960px;
+            margin: 0 auto;
+            border: 1px solid #00CC33;
             position: relative;
-            border: solid 2px #ff00ff;
-            left: 20px;
-            top: 20px;
-            width: 200px;
-            height: 200px;
-            padding:20px;
-            margin-top: 20px;
-            margin-left:10px;
-            overflow: scroll;
+            top:30px;
         }
 
         .content {
-            border: solid 1px #0044ff;
-            position: absolute;
-            left: 50px;
-            top:60px;
-            width: 500px;
-            height: 600px;
-            padding:15px;
-            margin-top:30px;
-            margin-left:25px;
+            width: 100px;
+            height: 100px;
+            position: relative;
+            padding-top: 10px;
+            padding-left:10px;
+            margin: 10px 0px;
+            top: 10px;
+            border: 5px solid #0196e3;
         }
     </style>
 </head>
 <body>
-    <div class="main">
-        <div class="content">
-            This is content
-        </div>
+<div class="container">
+    <div class="content">
+        <span>This is content</span>
     </div>
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+</div>
 <script>
-    var content = document.querySelector(".content");
-    console.log(content.offsetParent, content.offsetLeft, content.offsetTop, content.clientWidth, content.clientHeight);
-    console.log(content.scrollLeft, content.scrollTop, content.scrollWidth, content.scrollHeight);
+    content = $(".content").get(0);
+    console.log(content.offsetParent);
+    console.log(content.offsetTop);/**20 = 10(margin-top) + 10(top) **/
 </script>
 </body>
 </html>
