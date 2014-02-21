@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <style>
+        #container{
+            width:400px;
+            margin:0px auto;
+            padding:40px 0;
+        }
+        #scrollbox{
+            width:400px;
+            height:300px;
+            overflow:auto; overflow-x:hidden;
+        }
+        #container > p{
+            background:#eee;
+            color:#666;
+            font-family:Arial, sans-serif; font-size:0.75em;
+            padding:5px; margin:0;
+            text-align:right;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="scrollbox" >
+        <div id="content" >
+            <p>Lorem ipsum dolor sit amet</p>
+            <p>Ipsum lorem dolor amet sit</p>
+            <p>Dolor lorem ipsum amet tis</p>
+            <p>Lorem ipsum dolor sit amet</p>
+            <p>Ipsum lorem dolor amet sit</p>
+            <p>Dolor lorem ipsum amet tis</p>
+            <p>Lorem ipsum dolor sit amet</p>
+            <p>Ipsum lorem dolor amet sit</p>
+            <p>Dolor lorem ipsum amet tis</p>
+        </div>
+    </div>
+    <p><span id="status" ></span></p>
+</div>
+<script>
+    $('document').ready(function(){
+        updatestatus();
+        scrollalert();
+    });
+    function updatestatus(){
+        //Show number of loaded items
+        var totalItems=$('#content p').length;
+        $('#status').text('Loaded '+totalItems+' Items');
+    }
+    function scrollalert(){
+        var scrollTop = $('#scrollbox').scrollTop();
+        var scrollHeight = $('#scrollbox').get(0).scrollHeight;
+        var clientHeight = $('#scrollbox').height();
+        var scrollOffset = 20;
+        console.log(scrollTop);
+        if(scrollTop>=(scrollHeight-(clientHeight + scrollOffset)))
+        {
+            //fetch new items
+            $('#status').text('Loading more items...');
+            $.get('new-items.html', '', function(newitems){
+                $('#content').append(newitems);
+                updatestatus();
+            });
+        }
+        setTimeout(scrollalert, 1500);
+    }
+</script>
+</body>
+</html>
