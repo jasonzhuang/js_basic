@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>box-shadow test</title>
+</head>
+<style>
+    .shadow1 {
+        margin: 40px;
+
+        -moz-box-shadow: 3px 3px 5px 6px rgba(68,68,68,0.6);
+        -webkit-box-shadow: 3px 3px 5px 6px rgba(68,68,68,0.6);
+        box-shadow: 3px 3px 5px 6px rgba(68,68,68,0.6);
+    }
+    .shadow1 .content {
+        position: relative; /* This protects the inner element from being blurred */
+        padding: 100px;
+        background-color: #DDD;
+    }
+</style>
+<body>
+<div class="shadow1">
+    <div class="content">
+        Box-shadowed element
+    </div>
+</div>
+</body>
+</html>
