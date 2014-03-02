@@ -9,7 +9,7 @@ function init(){
     document.body.appendChild(table);
 }
 
-/**poor implementatio**/
+/**poor implementation**/
 function case1(){
     init();
     var table = document.getElementsByTagName("table");

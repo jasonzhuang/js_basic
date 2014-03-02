@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+   <script src="class.js"></script>
+   <script>
+       var Person = Class.extend({
+           init: function(isDancing){
+               this.dancing = isDancing;
+           },
+           dance: function(){
+               return this.dancing;
+           }
+       });
+
+       var Ninja = Person.extend({
+           init: function(){
+               this._super( false );
+           },
+           dance: function(){
+               // Call the inherited version of dance()
+               return this._super();
+           },
+           swingSword: function(){
+               return true;
+           }
+       });
+
+       var Yougen = Ninja.extend({
+           stand: function(){
+             console.log("great one");
+           },
+           config: {
+               type: "testfun",
+               list: [1,2,3,4,5]
+           }
+       })
+
+       var p = new Person(true);
+       console.log(p);
+       //console.log(p.dance()); // => true
+       //var n = new Ninja();
+       //n.dance(); // => false
+       ////n.swingSword(); // => true
+       console.log(Yougen);
+       console.log(new Yougen());
+   </script>
+</body>
+</html>
