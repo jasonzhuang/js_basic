@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div><button id="check">Check</button></div>
+    <div><button id="about">Navigate about</button></div>
+    <div><button id="product">Navigate product</button></div>
+
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="router.js"></script>
+    <script>
+        // configuration
+        // mode could also be "history"
+        Router.config({ mode: 'hash'});
+
+        // returning the user to the initial state
+        Router.navigate();
+
+        // adding routes
+        Router
+                .add(/about/, function() {
+                    console.log('about');
+                })
+                .add(/products\/(.*)\/edit\/(.*)/, function() {
+                    console.log('products', arguments);
+                })
+                .add(function() {
+                    console.log('default');
+                });
+
+        $("#check").on("click", function(){
+            Router.check('/products/12/edit/22').listen();
+        });
+
+        $("#about").on("click", function(){
+           Router.navigate('about');
+        });
+
+        $("#product").on("click", function(){
+            Router.navigate("products");
+        });
+
+    </script>
+</body>
+</html>
