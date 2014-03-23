@@ -8,11 +8,20 @@
 </head>
 <body>
 
-    <div class="hook">content A</div>
-    <div class="hook">content B</div>
     <script>
-        $(".hook").each(function(){
-            console.log(this);
+        $.ajax({
+            url: "http://example.org/getdata.php",
+            dataType: 'jsonp',
+            data: {
+                id: 33,
+                name: 'ss'
+            },
+            success: function(data){
+                console.log("ajax sku success ",data);
+            },
+            error: function(err){
+                console.log("ajax sku err ", err);
+            }
         })
     </script>
 </body>
