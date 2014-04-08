@@ -2,38 +2,36 @@
 <html>
 <head>
     <title></title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <meta name="csrf-token" content="secret token" />
     <style>
-        .container {
-            width: 960px;
-            margin: 0 auto;
-            border: 1px solid #00CC33;
-            position: relative;
-            top:30px;
-        }
 
-        .content {
-            width: 100px;
-            height: 100px;
-            position: relative;
-            padding-top: 10px;
-            padding-left:10px;
-            margin: 10px 0px;
-            top: 10px;
-            border: 5px solid #0196e3;
-        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="content">
-        <span>This is content</span>
+<div id="container" style="width: 300px; border-color:blue;
+  border-style:solid; border-width:1;">
+    <div id="nooff">
+        <span>Short span. </span>
+        <span id="long">Long span that wraps withing this div.</span>
     </div>
 </div>
+
+<div id="box" style="position: absolute; border-color: red;border-width: 1; border-style: solid; z-index: 10">
+</div>
+
 <script>
-    content = $(".content").get(0);
-    console.log(content.offsetParent);
-    console.log(content.offsetTop);/**20 = 10(margin-top) + 10(top) **/
+    var box = document.getElementById("box");
+    var long = document.getElementById("long");
+    console.log(long.offsetParent);// body, if add position:relative to div#container, offsetParent will change to div#container
+    console.log(long.offsetLeft, long.offsetTop, long.offsetWidth, long.offsetHeight);
+    box.style.left = long.offsetLeft + document.body.scrollLeft + "px";
+    box.style.top = long.offsetTop + document.body.scrollTop + "px";
+    box.style.width = long.offsetWidth + "px";
+    box.style.height = long.offsetHeight + "px";
+</script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+
 </script>
 </body>
 </html>
