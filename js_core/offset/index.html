@@ -2,24 +2,47 @@
 <html>
 <head>
     <title></title>
-    <meta name="csrf-token" content="secret token" />
     <style>
+       #container2 {
+           margin: 20px;
+           padding:10px;
+           position: relative;
+       }
 
+       #content {
+           border: 5px solid #006000;
+           width: 300px;
+           height: 200px;
+           padding: 10px;
+           overflow: scroll;
+       }
     </style>
 </head>
 <body>
 <div id="container" style="width: 300px; border-color:blue;
-  border-style:solid; border-width:1;">
-    <div id="nooff">
+  border-style:solid; border-width:1px;">
+    <div>
         <span>Short span. </span>
         <span id="long">Long span that wraps withing this div.</span>
     </div>
 </div>
 
-<div id="box" style="position: absolute; border-color: red;border-width: 1; border-style: solid; z-index: 10">
+<div id="box" style="position: absolute; border-color: red;border-width: 1px; border-style: solid; z-index: 10">
 </div>
 
+<div id="container2">
+   <div id="content">
+       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+       Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+       when an unknown printer took a galley of type and scrambled it to make a type specimen book. I
+       t has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+       It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+   </div>
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
+    /**Notice the inline element offsetLeft is not same as block element**/
     var box = document.getElementById("box");
     var long = document.getElementById("long");
     console.log(long.offsetParent);// body, if add position:relative to div#container, offsetParent will change to div#container
@@ -28,10 +51,10 @@
     box.style.top = long.offsetTop + document.body.scrollTop + "px";
     box.style.width = long.offsetWidth + "px";
     box.style.height = long.offsetHeight + "px";
-</script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
 
+    var content = document.getElementById("content");
+    console.log(content.offsetWidth, content.clientWidth);
+    console.log($("#content").width());
 </script>
 </body>
 </html>
