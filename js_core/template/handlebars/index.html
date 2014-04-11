@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title></title>
+    <style>
+        .last-item {
+            background-color: #f06522;
+        }
+    </style>
+</head>
+<body>
+   <div class="container"></div>
+   <script src="lib/handlebars.js"></script>
+   <script src="http://code.jquery.com/jquery-latest.js"></script>
+   <script id="x-template" type="text/x-handlebars-template">
+       <ul class="people_list">
+           {{#foreach people}}
+           <li class="{{#if $last}}last-item{{/if}}">{{this}}</li>
+           {{/foreach}}
+       </ul>
+   </script>
+   <script id="x-template-2" type="text/x-handlebars-template">
+      <h1>By {{fullName author}}</h1>
+   </script>
+   <script id="x-template-3" type="text/x-handlebars-template">
+       {{link "see more..." story.url href=story.url class="story"}}
+   </script>
+   <script>
+       (function(){
+           Handlebars.registerHelper("foreach",function(arr, options) {
+               if (options.inverse && !arr.length) {
+                   return options.inverse(this);
+               }
+
+               return arr.map(function(item,index) {
+                   if (typeof item === 'string') {
+                       var item = new String(item);
+                   }
+                   item.$index = index;
+                   item.$first = index === 0;
+                   item.$last  = index === arr.length-1;
+                   return options.fn(item);
+               }).join('');
+           });
+
+          function run1(){
+              var tpl = Handlebars.compile($("#x-template").html());
+              var data = {
+                  people: [
+                      "Yehuda Katz",
+                      "Alan Johnson",
+                      "Charles Jolley"
+                  ]
+              };
+              var html = tpl(data);
+              $(".container").append($(html));
+          }
+
+          function run2(){
+             var data = {author: {firstName: "Alan", lastName: "Johnson"}};
+             Handlebars.registerHelper('fullName', function(person, options) {
+                  console.log(options);
+                  return person.firstName + " " + person.lastName;
+             });
+             var tpl = Handlebars.compile($("#x-template-2").html());
+             $(".container").append(tpl(data));
+          }
+
+          function run3(){
+             var data = {story:{url: "www.handlerbars.com", text: "helper identifier"}}
+              Handlebars.registerHelper("link", function(text, url, options){
+                 console.log(options);
+                 return new Handlebars.SafeString(
+                     "<div>" +  text + "  " + url + "</div>"
+                 );
+             });
+             var tpl = Handlebars.compile($("#x-template-3").html());
+             $(".container").append(tpl(data));
+          }
+
+          run2();
+       })();
+   </script>
+</body>
+</html>

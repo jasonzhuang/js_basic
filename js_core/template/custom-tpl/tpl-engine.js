@@ -2,7 +2,6 @@
  * Created with JetBrains WebStorm.
  * User: yougen.zhuangyg
  * Date: 14-1-22
- * Time: обнГ1:50
  * To change this template use File | Settings | File Templates.
  */
 // http://krasimirtsonev.com/blog/article/Javascript-template-engine-in-just-20-line
