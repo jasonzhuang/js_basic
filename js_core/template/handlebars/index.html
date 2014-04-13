@@ -58,27 +58,70 @@
 
           function run2(){
              var data = {author: {firstName: "Alan", lastName: "Johnson"}};
-             Handlebars.registerHelper('fullName', function(person, options) {
-                  console.log(options);
-                  return person.firstName + " " + person.lastName;
-             });
              var tpl = Handlebars.compile($("#x-template-2").html());
+             Handlebars.registerHelper('fullName', function(person, options) {
+               return person.firstName + " " + person.lastName;
+             });
+             tpl(data);
              $(".container").append(tpl(data));
           }
 
           function run3(){
              var data = {story:{url: "www.handlerbars.com", text: "helper identifier"}}
-              Handlebars.registerHelper("link", function(text, url, options){
-                 console.log(options);
-                 return new Handlebars.SafeString(
-                     "<div>" +  text + "  " + url + "</div>"
-                 );
-             });
+             Handlebars.registerHelper("link", function(text, url, options){
+                return new Handlebars.SafeString(
+                    "<div>" +  text + "  " + url + "</div>"
+                );
+            });
              var tpl = Handlebars.compile($("#x-template-3").html());
              $(".container").append(tpl(data));
           }
 
-          run2();
+          function run5(){
+              var source = "{{#compare '5' '6' operator='=='}} A and B are equal {{else}} Not equal {{/compare}}";
+              var template = Handlebars.compile(source);
+              Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
+                  if (arguments.length < 3)
+                      throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+
+                  operator = options.hash.operator || "==";
+                  console.log(options.fn);
+                  console.log(options.inverse);
+                  var operators = {
+                      '==':       function(l,r) { return l == r; },
+                      '===':      function(l,r) { return l === r; },
+                      '!=':       function(l,r) { return l != r; },
+                      '<':        function(l,r) { return l < r; },
+                      '>':        function(l,r) { return l > r; },
+                      '<=':       function(l,r) { return l <= r; },
+                      '>=':       function(l,r) { return l >= r; },
+                      'typeof':   function(l,r) { return typeof l == r; }
+                  }
+
+                  if (!operators[operator])
+                      throw new Error("Handlerbars Helper 'compare' doesn't know the operator "+operator);
+
+                  var result = operators[operator](lvalue,rvalue);
+
+                  if( result ) {
+                      return options.fn(this);
+                  } else {
+                   return options.inverse(this);
+                   }
+
+              });
+             console.log(template());
+          }
+
+          function run4(){
+              var source = "<ul>{{#each kids}}<li>{{this.name}} is {{this.age}}</li>{{/each}}</ul>";
+              var template = Handlebars.compile(source);
+              var data = {"kids":[{"name": "Jimmy", "age": "12"}, {"name": "Sally", "age": "4"}]};
+              var result = template(data);
+              console.log(result);
+          }
+
+          run5();
        })();
    </script>
 </body>

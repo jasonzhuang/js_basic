@@ -4,15 +4,17 @@
     <title></title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <style>
-        #container{
-            width:400px;
-            margin:0px auto;
-            padding:40px 0;
+      #container{
+           width:400px;
+           margin:0px auto;
+           padding:40px 0;
         }
         #scrollbox{
             width:400px;
             height:300px;
             overflow:auto; overflow-x:hidden;
+            margin:0;
+            padding: 5px 0;
         }
         #container > p{
             background:#eee;
@@ -55,7 +57,7 @@
         var scrollHeight = $('#scrollbox').get(0).scrollHeight;
         var clientHeight = $('#scrollbox').height();
         var scrollOffset = 20;
-        console.log(scrollTop);
+        console.log(scrollTop,scrollHeight);
         if(scrollTop>=(scrollHeight-(clientHeight + scrollOffset)))
         {
             //fetch new items
