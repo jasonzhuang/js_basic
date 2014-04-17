@@ -16,8 +16,8 @@
             var d = document;
             var t = d.getElementById('request');
             var f = parent;
-            // console.log(f.document);
-            f.location.href = url + "#" + t.value + "=?" + new Date().getTime();
+            // console.log(f.document); will throw error
+            f.location.href = url + "#" + t.value + "?t=" + new Date().getTime();
         }
 
         function setDivHtml(v)

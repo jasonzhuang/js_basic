@@ -16,7 +16,7 @@
         var d = document;
         var t = d.getElementById('request');
         var f = d.getElementById('alienFrame');
-        f.src = url + "#" + t.value + "=?" + new Date().getTime();
+        f.src = url + "#" + t.value + "?t=" + new Date().getTime();
    }
 
    function setDivHtml(v)

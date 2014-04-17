@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <form action="http://localhost:8100" method="post">
+       <label for="username">name</label>
+       <input id="username" name="name">
+       <input type="button" name="btn" value="btn1"><!--will not send to server-->
+       <button type="button" name="btn2">Btn2</button><!--will send to server for IE7 and below -->
+       <input type="hidden" name="secret" value="Big secret!!!">
+       <button type="reset" nam="sub" value="submit">Submit Btn</button><!--not a form field, so will not send to server-->
+    </form>
+    <a id="action" href="javascript:">Submit</a>
+</body>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+   $("a").on("click", function(){
+      $("form").submit();
+   });
+</script>
+</html>
