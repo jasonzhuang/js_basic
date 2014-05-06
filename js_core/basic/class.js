@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: yougen.zhuangyg
  * Date: 14-3-2
- * Time: ÏÂÎç8:10
+ * Time: ï¿½ï¿½ï¿½ï¿½8:10
  * To change this template use File | Settings | File Templates.
  */
 (function(){
@@ -15,14 +15,12 @@
     Class.extend = function(prop) {
         var _super = this.prototype;
 
-        // Instantiate a base class (but only create the instance,
-        // don't run the init constructor)
+        //the initializing variable ensures that init() is not called when doing inheritance,
+        // only when creating instances
         initializing = true;
         var prototype = new this();
         initializing = false;
 
-        console.log("this: ", this);
-        console.log("prototype: ", prototype);
         // Copy the properties over onto the new prototype
         for (var name in prop) {
             // Check if we're overwriting an existing function
@@ -47,22 +45,47 @@
                 prop[name];
         }
 
+        /**explain*/
+        /**
+        var Foo = Class.extend({
+            qux: function() {
+                return "Foo.qux";
+            }
+        });
+
+        var Bar = Foo.extend({
+            qux: function() {
+                return "Bar.qux, " + this._super();
+            }
+        });
+
+        Bar.prototype.qux = function () {
+            var tmp = this._super;
+            this._super = Foo.prototype.qux;
+            var ret = (function() {
+                return "Bar.qux, " + this._super();
+            }).apply(this, arguments);
+            this._super = tmp;
+            return ret;
+        }
+        **/
+
         // The dummy class constructor
-        function Class() {
+        function SubClass() {
             // All construction is actually done in the init method
             if ( !initializing && this.init )
                 this.init.apply(this, arguments);
         }
 
         // Populate our constructed prototype object
-        Class.prototype = prototype;
+        SubClass.prototype = prototype;
 
         // Enforce the constructor to be what we expect
-        Class.prototype.constructor = Class;
+        SubClass.prototype.constructor = Class;
 
         // And make this class extendable
-        Class.extend = arguments.callee;
+        SubClass.extend = arguments.callee;// point to original Class.extend
 
-        return Class;
+        return SubClass;
     };
 })();

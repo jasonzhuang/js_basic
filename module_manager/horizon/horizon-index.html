@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script src="../libs/horizon.js"></script>
+    <!--<script src="foo.js"></script>
+    <script src="bar.js"></script>
+    <script src="baz.js"></script>-->
+    <script>
+        (function(){
+            // case1();
+             case2();
+            // case3();
+        })();
+
+        // 异步加载
+        // 当一个模块依赖于其它模块时，如果该模块第一次被使用时某个被依赖的模块还不可用，该模块的工厂函数会等到所有被依赖的模块都变得可用之后才执行
+        function case1(){
+            AE.define('foo', [ 'bar' ], function (bar) {
+                var ret = bar.x + 101;
+                console.log("foo: ", ret);
+                this.exports.x = ret;
+            });
+
+            var ret = AE.use([ 'foo' ], function(foo){
+                console.log("foo is", foo);
+            });
+
+            console.log("ret before bar define", ret);
+
+            AE.define('bar', function () {
+                this.exports.x = 1;
+            });
+
+            console.log("ret after bar defined",ret);
+
+
+            // output
+            /**
+             * ret before bar define [null]
+             * ret after bar defined [null]
+             * foo:  102
+             * foo is Object {x: 102}
+             */
+        }
+
+        // use返回值
+        // 不存在回调函数时，返回包含使用的模块的导出对象的数组。
+        // 存在回调函数时，因为实际使用的是新定义的匿名模块，所以返回的是包含匿名模块导出对象的数组
+        // 等价于创建了匿名模块并马上使用
+        function case2(){
+            AE.define('foo', function () { return { x:1 }; });
+            //var ret1 =  AE.use([ 'foo' ]);
+            var ret2 = AE.use([ 'foo' ], function (foo) { return { y: 2 }; });
+            //console.log(ret1, ret2);
+        }
+
+        // 依赖检查
+        function case3(){
+            AE.define('foo', [ 'bar' ], function (bar) {
+                var ret = bar.x + 101;
+                console.log("foo: ", ret);
+                this.exports.x = ret;
+            });
+
+            AE.use([ 'foo' ]);
+
+            AE.define('bar', function () {
+                this.exports.y = 1;
+            });
+        }
+    </script>
+</body>
+</html>

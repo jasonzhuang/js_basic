@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Labjs demo</title>
+    <script src="../libs/LAB.src.js"></script>
+    <!--<script src="framework.js"></script>
+    <script src="plugin.framework.js"></script>
+    <script src="init.js"></script>-->
+</head>
+<body>
+<script>
+    (function(){
+       //case1();
+        //case2();
+       case3();
+    })();
+    /**
+     * fail case(IE <=8)
+     * init->plugin->framework
+     */
+    function case1(){
+        $LAB
+        .setGlobalDefaults({CacheBust: true, Debug: true})
+        .script("framework.js")
+        .script("plugin.framework.js")
+        .script("init.js");
+    }
+
+    /**
+     * execute serially in order after load in parallel
+     */
+    function case2(){
+       $LAB
+       .setGlobalDefaults({CacheBust: true, Debug: true})
+       .script("framework.js").wait(function(){console.log("framework.js is complete!!");})
+       .script("plugin.framework.js").wait()
+       .script("init.js");
+    }
+
+    /**
+     * plugin.framework.js and myplugin.framework.js
+     * do not depend on each other, so execute in any order
+     */
+    function case3(){
+        $LAB
+        .setGlobalDefaults({CacheBust: true, Debug: true})
+        .script("framework.js").wait()
+        .script("plugin.framework.js")
+        .script("myplugin.framework.js")
+        .wait(function(){
+            plugin.doSomething();
+            myplugin.doSomething();
+        })
+    }
+</script>
+</body>
+</html>

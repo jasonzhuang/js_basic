@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="script1.js"></script>
+    <script src="script2.js"></script>
+   <!-- <script src="../script3.js" type="text/cache"></script>-->
+</head>
+<body>
+    No module management
+<script>
+    (function(){
+       case1();
+    })();
+
+    function case1(){
+        // IE will download the file, chrome/FF not download
+        var script = document.createElement("script");
+        script.type = "text/cache";
+        script.src = "script3.js";
+        var head = document.getElementsByTagName("head")[0];
+        head.appendChild(script);
+    }
+
+    function case2(){
+        // IE will download the file, chrome/FF not download
+        var script = document.createElement("script");
+        script.src = "script3.js";
+    }
+</script>
+</body>
+</html>

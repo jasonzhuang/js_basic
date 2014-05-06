@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script type="text/javascript" src="../libs/jquery.js"></script>
+<!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+<script>
+    $.ajax({
+        url: "http://127.0.0.1:8080/endpoint",
+        dataType: "jsonp",
+        timeout: 5000,
+        success: function(data){
+            console.log(data);
+            console.log("success...");
+        },
+        error: function(err){
+            console.log(arguments[2].message);
+        },
+        jsonpCallback: "obj.done"
+    });
+
+    var obj = {
+        done: function(good){
+            console.log("!!!====great=====!!!");
+        }
+    };
+</script>
+</body>
+</html>
