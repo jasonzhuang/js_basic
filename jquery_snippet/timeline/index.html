@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+        body {
+            background: url("images/bg.jpg") #1c0c0f center 0 repeat fixed;
+            margin:0;
+            padding:0;
+            padding-top:41px;
+        }
+        .top {
+            width: 100%;
+            height: 41px;
+            position: fixed;
+            top:0;
+            background: #001e3b;
+            z-index:99;
+         }
+
+        .header {
+            width: 960px;
+            height: 200px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .container {
+            width: 960px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .content {
+            min-height: 1000px;
+            background: url("images/spine.png") repeat-y 121px 0;
+            padding: 50px 0 0 165px;
+            position: relative;
+        }
+
+        .content-year,
+        .content-month {
+            height: 30px;
+            line-height: 30px;
+            color:#a5a5a5;
+            font-weight: bold;
+            font-size: 14px;
+            position: relative;
+            left: -90px;
+            clear: both;
+        }
+
+        .content-item {
+            width: 370px;
+            min-height: 300px;
+            background: #fff;
+            border-radius: 4px;
+            margin: 20px 30px 0 0;
+            position: relative;
+            color: #888;
+        }
+
+        .content-item-header {
+             padding: 15px;
+             padding-bottom: 0;
+        }
+
+        .content-item-ico-arrow {
+            position: absolute;
+            top: 10px;
+            left: -10px;
+            width: 0;
+            height: 0;
+            border-right: 10px solid #fff;
+            border-bottom: 10px solid transparent;
+            border-top: 10px solid transparent;
+            font-size: 0;
+            line-height: 0;
+        }
+
+        .content-item-header-title {
+            height: 46px;
+            line-height: 46px;
+            font-size: 28px;
+            padding:0 0 10px 56px;
+            position: relative;
+        }
+
+        .content-item-header-intro {
+            font-size: 14px;
+            line-height: 22px;
+            padding: 0 15px;
+            margin-bottom: 10px;
+        }
+
+        .content-item-media {
+            height: 277px;
+            overflow: hidden;
+            padding-bottom: 10px;
+        }
+
+        .scrubber {
+            width:47px;
+            min-height: 200px;
+            position: absolute;
+            top: 29px;
+            left: 0;
+            z-index: 99;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .scrubber a{
+            display: block;
+            height: 26px;
+            line-height: 26px;
+            font-size: 12px;
+            border-right: 2px solid #c8c8c8;
+            border-right-color: rgba(200,200,200,0.5);
+            padding-right: 5px;
+            color:#a5a5a5;
+            text-decoration: none;
+        }
+
+        .scrubber a:hover,
+        .scrubber a.current{
+           border-right-color: #7ebed0;
+           color:#7ebad0;
+           font-weight: bold;
+        }
+
+        .scrubber a.current:hover {
+           text-decoration: underline;
+        }
+
+        .scrubber a.current {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="top">Tool bar</div>
+    <div class="header">Self information</div>
+    <div class="container">
+        <div class="scrubber">
+            <a href="javascript:;" class="scrubber_year current">2014</a>
+            <a href="javascript:;" class="scrubber_month">3月</a>
+            <a href="javascript:;" class="scrubber_month">2月</a>
+        </div>
+        <div class="content">
+            <div class="content-year">2014</div>
+            <div class="content-month">3月</div>
+            <div class="content-item">
+                <i class="content-item-ico-arrow"></i>
+                <div class="content-item-header">
+                    <div class="content-item-header-title">2014-03-30</div>
+                    <div class="content-item-header-intro">bababbabababbabababbabababbaba</div>
+                </div>
+                <div class="content-item-media">
+                    <img src="images/psb.jpg" width="370" />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
