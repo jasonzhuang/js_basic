@@ -10,6 +10,10 @@
             padding:0;
             padding-top:41px;
         }
+        .hidden {
+            display: none;
+        }
+
         .top {
             width: 100%;
             height: 41px;
@@ -61,6 +65,13 @@
             color: #888;
         }
 
+        .content-item-left {
+           float:left;
+        }
+
+        .content-item-right {
+           float: right;
+        }
         .content-item-header {
              padding: 15px;
              padding-bottom: 0;
@@ -142,12 +153,12 @@
     <div class="top">Tool bar</div>
     <div class="header">Self information</div>
     <div class="container">
-        <div class="scrubber">
+        <div class="scrubber" id="scrubber">
             <a href="javascript:;" class="scrubber_year current">2014</a>
             <a href="javascript:;" class="scrubber_month">3月</a>
             <a href="javascript:;" class="scrubber_month">2月</a>
         </div>
-        <div class="content">
+        <div class="content" id="content">
             <div class="content-year">2014</div>
             <div class="content-month">3月</div>
             <div class="content-item">
@@ -162,5 +173,46 @@
             </div>
         </div>
     </div>
+
+<div class="hidden">
+    <div id="tpl_scrubber_year">
+        <a href="javascript:;" class="scrubber_year current">{year}</a>
+        {list}
+    </div>
+
+    <div id="tpl_scrubber_month">
+        <a href="javascript:;" class="scrubber_year current">{month}月</a>
+    </div>
+
+    <div id="tpl_content_year">
+        <div class="content-year">{year}</div>
+        {list}
+    </div>
+
+    <div id="tpl_content_month">
+        <div class="content-month">{month}月</div>
+        {list}
+    </div>
+
+    <div id="tpl_content_item">
+        <div class="content-item content-item-{position}">
+            <i class="content-item-ico-arrow"></i>
+            <div class="content-item-header">
+                <div class="content-item-header-title">{date}</div>
+                <div class="content-item-header-intro">{intro}</div>
+            </div>
+            <div class="content-item-media">
+                {media}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
+<script src="data.js"></script>
+<script src="../libs/jquery.js"></script>
+<script src="index.js"></script>
 </body>
 </html>
