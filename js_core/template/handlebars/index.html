@@ -121,7 +121,45 @@
               console.log(result);
           }
 
-          run5();
+          function run6(){
+              var source = "<ul>{{#each kids}}<li>{{../message}}{{this.name}} is {{this.age}}</li>{{/each}}</ul>";
+              var template = Handlebars.compile(source);
+              var data = {"kids":[{"name": "Jimmy", "age": "12"}, {"name": "Sally", "age": "4"}],"message":"super message"};
+              var result = template(data);
+              console.log(result);
+          }
+
+          function run7(){
+              Handlebars.registerHelper("stripes", function(array, even, odd, options) {
+                  if (array && array.length > 0) {
+                      var buffer = "";
+                      for (var i = 0, j = array.length; i < j; i++) {
+                          var item = array[i];
+                          // we'll just put the appropriate stripe class name onto the item for now
+                          item.stripeClass = (i % 2 == 0 ? even : odd);
+                          // show the inside of the block
+                          buffer += options.fn(item);
+                      }
+
+                      // return the finished buffer
+                      return buffer;
+                  }
+                  else {
+                      return options.reverse();
+                  }
+              });
+              var source = '{{#stripes myArray "even" "odd"}}'  +
+                      '<div class="{{stripeClass}}">' +
+                      'ROW x' +
+                      '</div>' +
+                     '{{else}}' +
+                     '<em>There aren\'t any people.</em>' +
+                     '{{/stripes}}';
+              var template = Handlebars.compile(source)({myArray:[{"item0":0},{"item1":1},{"item2":2},{"item3":3}]});
+              console.info(template);
+          }
+
+          run7();
        })();
    </script>
 </body>

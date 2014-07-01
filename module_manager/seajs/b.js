@@ -7,7 +7,7 @@ define(function(require,exports, module){
     function B(){}
 
     B.prototype.dance = function() {
-        console.log("dance");
+        console.log("b dance");
     }
 
     //module.exports = B;

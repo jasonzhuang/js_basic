@@ -1,51 +1,28 @@
 <html>
 <head>
-    <script language="javascript" type="text/javascript">
-    var url = "http://domain2.com/frame2.html";
-    var oldHash = null;
-    var timer = null;
-    function getHash() {
-        var hash = window.location.hash;
-        if ((hash.length >= 1) && (hash.charAt(0) == '#')){
-            hash = hash.substring(1);
-         }
-        return hash;
+</head>
+<body>
+<p>frame1</p>
+<div id="info"></div>
+<input id="btn1" type="button" value="Get frame2 url" /> <br/>
+<script>
+    var btn1 = document.getElementById('btn1');
+    var info = document.getElementById('info');
+    var self = this;
+    if(window.attachEvent){
+        btn1.attachEvent("click", function(e){
+           alert("click in IE");
+        });
+    }else {
+        btn1.addEventListener("click", function(e){
+            console.info("self href: ",window.location.href);
+            console.info("top window href: ", top.window.location.href);
+        });
     }
 
-   function sendRequest(){
-        var d = document;
-        var t = d.getElementById('request');
-        var f = d.getElementById('alienFrame');
-        f.src = url + "#" + t.value + "?t=" + new Date().getTime();
-   }
-
-   function setDivHtml(v)
-   {
-       var d = document;
-       var dv = d.getElementById('response');
-       dv.innerHTML = v;
-   }
-
-   function idle()
-   {
-     var newHash = getHash();
-     if (newHash != oldHash)
-     {
-         setDivHtml(newHash);
-         oldHash = newHash;
-      }
-     timer = window.setTimeout(idle, 100);
-   }
-
-    function onload()
-    {
-       timer = window.setTimeout(idle, 100);
+    window.func = function(){
+        alert("this is from iframe1");
     }
 </script>
-</head>
-<body onload="onload();">
-send: <input type="text" id="request"> <input type="button" value="send" onclick="sendRequest();" /> <br/>
-reply: <div id="response"></div>
-<iframe id="alienFrame" src="http://domain2.com/iframe2.html"></iframe>
 </body>
 </html>

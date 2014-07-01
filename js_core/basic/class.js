@@ -13,7 +13,7 @@
 
     // Create a new Class that inherits from this class
     Class.extend = function(prop) {
-        var _super = this.prototype;
+        var _super = this.prototype;// this point to constructor
 
         //the initializing variable ensures that init() is not called when doing inheritance,
         // only when creating instances

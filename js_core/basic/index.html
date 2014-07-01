@@ -6,7 +6,32 @@
 <body>
    <script src="class.js"></script>
    <script>
+       var Person = Class.extend({
+           init: function(isDancing){
+               this.dancing = isDancing;
+           },
+           dance: function(){
+               return this.dancing;
+           }
+       });
 
+       var Ninja = Person.extend({
+           init: function(){
+               console.log("ninja dance");
+               this._super( false );
+           },
+           dance: function(){
+               // Call the inherited version of dance()
+               return this._super();
+           },
+           swingSword: function(){
+               return true;
+           }
+       });
+
+       var n = new Ninja();
+       console.log(Ninja.prototype.constructor);
+       n.dance();
    </script>
 </body>
 </html>

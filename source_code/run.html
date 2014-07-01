@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="todoapp">Todo</div>
+   <script src="jquery.js"></script>
+   <script src="underscore.js"></script>
+   <script src="backbone.js"></script>
+   <script>
+       var Person = Backbone.Model.extend({
+           validate: function(attributes) {
+               if(isNaN(attributes.address.zipCode)) return "Address ZIP code must be a number!";
+           },
+           defaults: {
+               'name': 'John Doe',
+               'address': {
+                   'street': '1st Street',
+                   'city': 'Austin',
+                   'state': 'TX',
+                   'zipCode': 78701
+               }
+           }
+       });
+
+       var person = new Person({
+           'name': 'Phillip W'
+       });
+
+
+   </script>
+</body>
+</html>

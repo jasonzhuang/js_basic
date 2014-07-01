@@ -7,6 +7,8 @@ define(function(require, exports, module){
     if(false){
         var b = require("./b.js"); // download, but never execute module b
     }*/
-
-    var app = require("./app");
+    //var app = require("./app");
+    var A = require("./a.js");
+    var a = new A();
+    a.dance();
 });
